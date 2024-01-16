@@ -4,6 +4,12 @@ const port = process.env.port || 3000
 
 const app = express()
 
+// setting bodyParser
+app.use(express.urlencoded({ extended: true }))
+
+// 解析有json物件的請求
+app.use(express.json())
+
 // 掛載api路由
 app.use('/api', apis)
 
