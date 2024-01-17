@@ -5,12 +5,12 @@ const httpStatusCodes = require('../../httpStatusCodes')
 
 const userController = {
   signUp: (req, res, next) => {
-    if (!req.body.name) {
+    if (!req.body.name || !req.body.email || !req.body.password) {
       return next(
         new APIError(
           'BAD REQUEST',
           httpStatusCodes.BAD_REQUEST,
-          'The name field is empty!'
+          '帳號、密碼、姓名欄位不能為空!'
         )
       )
     }
@@ -20,7 +20,7 @@ const userController = {
         new APIError(
           'BAD REQUEST',
           httpStatusCodes.BAD_REQUEST,
-          'Passwords do not match!'
+          '密碼驗證未通過!'
         )
       )
     }
@@ -32,7 +32,7 @@ const userController = {
             new APIError(
               'CONFLICT',
               httpStatusCodes.CONFLICT,
-              'email already exists!'
+              'eamil已經註冊過!'
             )
           )
         }
@@ -42,7 +42,7 @@ const userController = {
         // 成功建立user
         const userData = { ...req.body, password: hash }
         return User.create(userData).then((newUser) => {
-          res.json({ user: newUser })
+          res.json({ status: 'success', data: newUser })
         })
       })
       .catch((err) => next(err))
