@@ -1,0 +1,118 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "onBuyWay API",
+    "description": "Description",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/signUp": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "使用者登入",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "使用者註冊資訊",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "user_example"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password_example"
+                },
+                "passwordCheck": {
+                  "type": "string",
+                  "example": "password_example"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email_example"
+                },
+                "birthday": {
+                  "type": "string",
+                  "example": "1990/01/01"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "xxxxxxxxxx"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "boy"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "使用者註冊成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 5
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "user_example"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "$2a$10$e9YWLQ0ndHRMvzCMO7kjXOt9t67j.MWxU4Jk3RIenakQFAAVvNBDS"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "email_example"
+                    },
+                    "birthday": {
+                      "type": "string",
+                      "example": "1989-12-31T16:00:00.000Z"
+                    },
+                    "phone": {
+                      "type": "string",
+                      "example": "xxxxxxxxxx"
+                    },
+                    "gender": {
+                      "type": "string",
+                      "example": "boy"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2024-01-17T07:09:13.324Z"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2024-01-17T07:09:13.324Z"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

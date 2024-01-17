@@ -5,6 +5,15 @@ const httpStatusCodes = require('../../httpStatusCodes')
 
 const userController = {
   signUp: (req, res, next) => {
+    if (!req.body.name) {
+      return next(
+        new APIError(
+          'BAD REQUEST',
+          httpStatusCodes.BAD_REQUEST,
+          'The name field is empty!'
+        )
+      )
+    }
     // 密碼驗證錯誤
     if (req.body.password !== req.body.passwordCheck) {
       return next(

@@ -1,8 +1,9 @@
 const express = require('express')
 const { apis } = require('./routes')
 const port = process.env.port || 3000
-
 const app = express()
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger-output.json')
 
 // setting bodyParser
 app.use(express.urlencoded({ extended: true }))
@@ -12,6 +13,9 @@ app.use(express.json())
 
 // 掛載api路由
 app.use('/api', apis)
+
+// setting swagger-ui
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // 啟動伺服器
 app.listen(port, () => {
