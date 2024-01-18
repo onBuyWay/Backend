@@ -16,7 +16,7 @@
         "tags": [
           "User"
         ],
-        "description": "使用者登入",
+        "description": "使用者註冊",
         "parameters": [
           {
             "name": "obj",
@@ -210,6 +210,125 @@
               }
             },
             "description": "密碼驗證未通過"
+          }
+        }
+      }
+    },
+    "/api/signIn": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "使用者登入",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "使用者登入資訊",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "password_example"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email_example"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "使用者登入成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 3
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "user_example"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "$2a$10$IMzB0FRUV.KVw1D458iLNOycwLmPiGfsrPnqxSkBCJrgra2W9cRoG"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "email_example"
+                    },
+                    "birthday": {
+                      "type": "string",
+                      "example": "1990-01-01"
+                    },
+                    "phone": {
+                      "type": "string",
+                      "example": "xxxxxxxxxx"
+                    },
+                    "gender": {
+                      "type": "string",
+                      "example": "boy"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2024-01-17T08:18:28.238Z"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2024-01-17T08:18:28.238Z"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "帳號或是密碼錯誤"
+                    },
+                    "stack": {
+                      "type": "string",
+                      "example": "Unauthorized: 帳號或是密碼錯誤\n at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n at D:\\Project\\onBuyWay\\Backend outes\\apis\\index.js:100:11\n at allFailed (D:\\Project\\onBuyWay\\Backend\\node_modules\\passport\\lib\\middleware\\authenticate.js:110:18)\n at attempt (D:\\Project\\onBuyWay\\Backend\\node_modules\\passport\\lib\\middleware\\authenticate.js:183:28)\n at strategy.fail (D:\\Project\\onBuyWay\\Backend\\node_modules\\passport\\lib\\middleware\\authenticate.js:314:9)\n at verified (D:\\Project\\onBuyWay\\Backend\\node_modules\\passport-local\\lib\\strategy.js:82:30)\n at Strategy._verify (D:\\Project\\onBuyWay\\Backend\\config\\passport.js:22:30)"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "帳號或是密碼錯誤"
           }
         }
       }

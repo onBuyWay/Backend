@@ -46,6 +46,9 @@ const userController = {
         })
       })
       .catch((err) => next(err))
+  },
+  signIn: (req, res, next) => {
+    return res.json({ status: 'success', data: req.user })
   }
 }
 

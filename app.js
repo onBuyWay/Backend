@@ -1,4 +1,6 @@
 const express = require('express')
+const session = require('express-session')
+const passport = require('./config/passport')
 const { apis } = require('./routes')
 const port = process.env.port || 3000
 const app = express()
@@ -10,6 +12,19 @@ app.use(express.urlencoded({ extended: true }))
 
 // 解析有json物件的請求
 app.use(express.json())
+
+// 設定session
+app.use(
+  session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+  })
+)
+
+// passport初始化
+app.use(passport.initialize())
+app.use(passport.session())
 
 // 掛載api路由
 app.use('/api', apis)
