@@ -3,8 +3,7 @@ const passport = require('../../config/passport')
 const router = express.Router()
 const userController = require('../../controllers/apis/user-controller')
 const { apiErrorHandler } = require('../../middleware/error-handler')
-const httpStatusCodes = require('../../httpStatusCodes')
-const APIError = require('../../class/errors/APIError')
+const { localAuthenticate, isAuthenticated } = require('../../middleware/auth')
 
 // 使用者相關路由:
 // 註冊api
@@ -116,30 +115,49 @@ router.post(
     },
       description: "帳號或是密碼錯誤" } */
 
-  (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-      // 資料庫錯誤
-      if (err) return next(err)
-
-      // 驗證錯誤
-      if (!user) {
-        return next(
-          new APIError(
-            'Unauthorized',
-            httpStatusCodes.Unauthorized,
-            info.message
-          )
-        )
-      }
-
-      // 驗證成功手動登入
-      req.logIn(user, (err) => {
-        if (err) return next(err)
-      })
-      next()
-    })(req, res, next)
-  },
+  localAuthenticate,
   userController.signIn
+)
+
+// 使用者資訊api
+router.get(
+  '/users/:id',
+  /* #swagger.tags = ['User']
+     #swagger.description = 'Get單一使用者資訊' */
+  /*	#swagger.parameters['id'] = {
+            in: 'path',
+            description: '使用者id',
+            type: 'integer',
+            required: true
+    } */
+  /* #swagger.responses[200] = { 
+      schema: {
+        "status": "success",
+        "data": {
+            "id": 3,
+            "name": "user_example",
+            "email": "email_example",
+            "password": "$2a$10$IMzB0FRUV.KVw1D458iLNOycwLmPiGfsrPnqxSkBCJrgra2W9cRoG",
+            "phone": "xxxxxxxxxx",
+            "birthday": "1990-01-01",
+            "gender": "boy",
+            "createdAt": "2024-01-17T08:18:28.000Z",
+            "updatedAt": "2024-01-17T08:18:28.000Z"
+        }
+      },
+      description: "成功獲取使用者資訊" } */
+  /* #swagger.responses[401] = { 
+      schema: {
+        "status": "error",
+        "error": {
+          "name": "Unauthorized",
+          "message": "使用者未登入!",
+          "stack": "Unauthorized: 使用者未登入!\n    at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n    at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n    at isAuthenticated (D:\\Project\\onBuyWay\\Backend\\middleware\\auth.js:32:9)\n    at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at Route.dispatch (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\route.js:114:3)\n    at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:284:15\n    at param (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:365:14)\n    at param (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:376:14)"
+        }
+      },
+      description: "使用者未登入" } */
+  isAuthenticated,
+  userController.getUser
 )
 
 // glabal error handler

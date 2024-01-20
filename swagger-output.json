@@ -332,6 +332,81 @@
           }
         }
       }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Get單一使用者資訊",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "使用者id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功獲取使用者資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 3
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "user_example"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "email_example"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "$2a$10$IMzB0FRUV.KVw1D458iLNOycwLmPiGfsrPnqxSkBCJrgra2W9cRoG"
+                    },
+                    "phone": {
+                      "type": "string",
+                      "example": "xxxxxxxxxx"
+                    },
+                    "birthday": {
+                      "type": "string",
+                      "example": "1990-01-01"
+                    },
+                    "gender": {
+                      "type": "string",
+                      "example": "boy"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2024-01-17T08:18:28.000Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2024-01-17T08:18:28.000Z"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -17,12 +17,11 @@ app.use(express.json())
 app.use(
   session({
     secret: 'secret',
-    resave: false,
-    saveUninitialized: false
+    resave: 'false',
+    saveUninitialized: 'false'
   })
 )
 
-// passport初始化
 app.use(passport.initialize())
 app.use(passport.session())
 

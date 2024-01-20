@@ -36,9 +36,9 @@ passport.serializeUser((user, done) => {
   return done(null, user.id)
 })
 
-passport.deserializeUser(async (userId, done) => {
+passport.deserializeUser(async (id, done) => {
   try {
-    const user = await User.findByPk(userId)
+    const user = await User.findByPk(id)
     if (!user) done(null, false, { message: '找不到該用戶' })
     return done(null, user.toJSON())
   } catch (err) {

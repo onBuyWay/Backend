@@ -49,6 +49,20 @@ const userController = {
   },
   signIn: (req, res, next) => {
     return res.json({ status: 'success', data: req.user })
+  },
+  getUser: async (req, res, next) => {
+    try {
+      const user = await User.findByPk(req.params.id)
+      // 資料庫找不到使用者
+      if (!user)
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該使用者')
+        )
+      // 回傳使用者資訊
+      return res.json({ status: 'success', data: user.toJSON() })
+    } catch (err) {
+      next(err)
+    }
   }
 }
 
