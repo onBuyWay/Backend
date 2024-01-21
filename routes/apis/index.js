@@ -29,13 +29,14 @@ router.post(
       schema: {
         "status": "success",
         "data": {
-            "id": 3,
+            "id": 5,
             "name": "user_example",
             "password": "$2a$10$IMzB0FRUV.KVw1D458iLNOycwLmPiGfsrPnqxSkBCJrgra2W9cRoG",
             "email": "email_example",
             "birthday": "1990-01-01",
             "phone": "xxxxxxxxxx",
             "gender": "boy",
+            "isAdmin": false,
             "updatedAt": "2024-01-17T08:18:28.238Z",
             "createdAt": "2024-01-17T08:18:28.238Z"
         }
@@ -92,13 +93,15 @@ router.post(
       schema: {
         "status": "success",
         "data": {
-            "id": 3,
+            "id": 5,
             "name": "user_example",
             "password": "$2a$10$IMzB0FRUV.KVw1D458iLNOycwLmPiGfsrPnqxSkBCJrgra2W9cRoG",
             "email": "email_example",
             "birthday": "1990-01-01",
             "phone": "xxxxxxxxxx",
             "gender": "boy",
+            "address": "null",
+            "isAdmin": false,
             "updatedAt": "2024-01-17T08:18:28.238Z",
             "createdAt": "2024-01-17T08:18:28.238Z"
         }
@@ -141,7 +144,8 @@ router.get(
             "phone": "xxxxxxxxxx",
             "birthday": "1990-01-01",
             "gender": "boy",
-            "address": "974 花蓮縣壽豐鄉中正一邨13號",
+            "address": "null",
+            "isAdmin": false,
             "createdAt": "2024-01-17T08:18:28.000Z",
             "updatedAt": "2024-01-17T08:18:28.000Z"
         }
@@ -190,6 +194,7 @@ router.put(
               "birthday": "1998-04-27",
               "gender": "boy",
               "address": "974 花蓮縣壽豐鄉中正一邨13號",
+              "isAdmin": false,
               "createdAt": "2024-01-17T08:18:28.000Z",
               "updatedAt": "2024-01-20T10:26:25.284Z"
           }

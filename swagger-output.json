@@ -7,11 +7,15 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
     "/api/signUp": {
       "post": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "使用者註冊",
         "parameters": [
           {
@@ -69,7 +73,7 @@
                   "properties": {
                     "id": {
                       "type": "number",
-                      "example": 3
+                      "example": 5
                     },
                     "name": {
                       "type": "string",
@@ -94,6 +98,10 @@
                     "gender": {
                       "type": "string",
                       "example": "boy"
+                    },
+                    "isAdmin": {
+                      "type": "boolean",
+                      "example": false
                     },
                     "updatedAt": {
                       "type": "string",
@@ -212,7 +220,9 @@
     },
     "/api/signIn": {
       "post": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "使用者登入",
         "parameters": [
           {
@@ -250,7 +260,7 @@
                   "properties": {
                     "id": {
                       "type": "number",
-                      "example": 3
+                      "example": 5
                     },
                     "name": {
                       "type": "string",
@@ -275,6 +285,14 @@
                     "gender": {
                       "type": "string",
                       "example": "boy"
+                    },
+                    "address": {
+                      "type": "string",
+                      "example": "null"
+                    },
+                    "isAdmin": {
+                      "type": "boolean",
+                      "example": false
                     },
                     "updatedAt": {
                       "type": "string",
@@ -329,7 +347,9 @@
     },
     "/api/users/{id}": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "Get單一使用者資訊",
         "parameters": [
           {
@@ -383,7 +403,11 @@
                     },
                     "address": {
                       "type": "string",
-                      "example": "974 花蓮縣壽豐鄉中正一邨13號"
+                      "example": "null"
+                    },
+                    "isAdmin": {
+                      "type": "boolean",
+                      "example": false
                     },
                     "createdAt": {
                       "type": "string",
@@ -436,9 +460,17 @@
         }
       },
       "put": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "修改使用者資訊",
         "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "obj",
             "in": "body",
@@ -515,6 +547,10 @@
                     "address": {
                       "type": "string",
                       "example": "974 花蓮縣壽豐鄉中正一邨13號"
+                    },
+                    "isAdmin": {
+                      "type": "boolean",
+                      "example": false
                     },
                     "createdAt": {
                       "type": "string",

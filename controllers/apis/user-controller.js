@@ -39,8 +39,8 @@ const userController = {
         return bcrypt.hash(req.body.password, 10)
       })
       .then((hash) => {
-        // 成功建立user
-        const userData = { ...req.body, password: hash }
+        // 成功建立一般user
+        const userData = { ...req.body, password: hash, isAdmin: false }
         return User.create(userData).then((newUser) => {
           res.json({ status: 'success', data: newUser })
         })
