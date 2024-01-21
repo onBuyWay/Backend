@@ -63,6 +63,37 @@ const userController = {
     } catch (err) {
       next(err)
     }
+  },
+  putUser: async (req, res, next) => {
+    // 更新姓名、電話、性別、地址、生日
+    try {
+      const user = await User.findByPk(req.params.id)
+      // 找不到該使用者
+      if (!user) {
+        return next(
+          new APIError(
+            'NOT FOUND',
+            httpStatusCodes.NOT_FOUND,
+            '找不到該使用者!'
+          )
+        )
+      }
+      // 欄位不能為空
+      if (!req.body.name) {
+        return next(
+          new APIError(
+            'BAD REQUEST',
+            httpStatusCodes.BAD_REQUEST,
+            '姓名欄位不能為空!'
+          )
+        )
+      }
+      // 成功更新使用者資訊
+      const updatedUser = await user.update(req.body)
+      return res.json({ status: 'success', data: updatedUser.toJSON() })
+    } catch (err) {
+      next(err)
+    }
   }
 }
 

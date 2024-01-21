@@ -141,6 +141,7 @@ router.get(
             "phone": "xxxxxxxxxx",
             "birthday": "1990-01-01",
             "gender": "boy",
+            "address": "974 花蓮縣壽豐鄉中正一邨13號",
             "createdAt": "2024-01-17T08:18:28.000Z",
             "updatedAt": "2024-01-17T08:18:28.000Z"
         }
@@ -158,6 +159,54 @@ router.get(
       description: "使用者未登入" } */
   isAuthenticated,
   userController.getUser
+)
+
+// 更新使用者資訊api
+router.put(
+  '/users/:id',
+  /* #swagger.tags = ['User']
+     #swagger.description = '修改使用者資訊' */
+  /*	#swagger.parameters['obj'] = {
+        in: 'body',
+        description: '使用者修改資訊',
+        required: true,
+        schema: {
+          "name": "user_example",
+          "birthday": "1998-04-27",
+          "phone": "0958280647",
+          "gender": "boy",
+          "address": "974 花蓮縣壽豐鄉中正一邨13號",
+        }
+    } */
+  /* #swagger.responses[200] = { 
+      schema: {
+          "status": "success",
+          "data": {
+              "id": 3,
+              "name": "user_example",
+              "email": "email_example",
+              "password": "$2a$10$IMzB0FRUV.KVw1D458iLNOycwLmPiGfsrPnqxSkBCJrgra2W9cRoG",
+              "phone": "0958280647",
+              "birthday": "1998-04-27",
+              "gender": "boy",
+              "address": "974 花蓮縣壽豐鄉中正一邨13號",
+              "createdAt": "2024-01-17T08:18:28.000Z",
+              "updatedAt": "2024-01-20T10:26:25.284Z"
+          }
+      },
+      description: "成功修改使用者資訊" } */
+  /* #swagger.responses[401] = { 
+      schema: {
+        "status": "error",
+        "error": {
+          "name": "Unauthorized",
+          "message": "使用者未登入!",
+          "stack": "Unauthorized: 使用者未登入!\n    at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n    at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n    at isAuthenticated (D:\\Project\\onBuyWay\\Backend\\middleware\\auth.js:32:9)\n    at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at Route.dispatch (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\route.js:114:3)\n    at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:284:15\n    at param (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:365:14)\n    at param (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:376:14)"
+        }
+      },
+      description: "使用者未登入" } */
+  isAuthenticated,
+  userController.putUser
 )
 
 // glabal error handler
