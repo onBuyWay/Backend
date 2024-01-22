@@ -7,9 +7,22 @@ const adminController = {
   getProducts: async (req, res, next) => {
     try {
       // 從資料庫獲得所有商品資訊
-      const products = await Product.findAll()
+      const products = await Product.findAll({ raw: true })
       // 搜尋成功
       return res.json({ status: 'success', data: products })
+    } catch (err) {
+      next(err)
+    }
+  },
+  getProduct: async (req, res, next) => {
+    try {
+      const product = await Product.findByPk(req.params.id)
+      if (!product) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該商品')
+        )
+      }
+      return res.json({ status: 'success', data: product.toJSON() })
     } catch (err) {
       next(err)
     }
