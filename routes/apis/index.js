@@ -275,6 +275,59 @@ router.post(
   adminController.postProduct
 )
 
+// 更新商品API
+router.put(
+  '/admin/products/:id',
+  /* #swagger.tags = ['Product']
+     #swagger.description = '商品資訊更新' */
+  /*	#swagger.parameters['obj'] = {
+            in: 'body',
+            description: '商品更新資訊',
+            required: true,
+            schema: {
+              "name":"可樂",
+              "stockQuantity": "200",
+              "costPrice": "15",
+              "sellPrice": "40",
+              "productStatus": "true",
+              "categoryId": "1",
+              "description": "可樂超好喝!!!",
+              "image": "image_file"
+            }
+    } */
+  /* #swagger.responses[200] = { 
+      schema: {
+        "status": "success",
+        "data": {
+          "id": 3,
+          "name": "可樂",
+          "image": "https://i.imgur.com/IILT3WL.jpg",
+          "description": "可樂超好喝!!!",
+          "stockQuantity": "200",
+          "costPrice": "15",
+          "sellPrice": "40",
+          "productStatus": true,
+          "categoryId": "1",
+          "createdAt": "2024-01-22T06:17:31.000Z",
+          "updatedAt": "2024-01-22T10:44:15.110Z"
+        }
+      },
+      description: "商品資訊更新成功" } */
+  /* #swagger.responses[400] = { 
+      schema: {
+        "status": "error",
+        "error": {
+          "name": "BAD REQUEST",
+          "message": "商品資訊欄位不能為空!",
+          "stack": "BAD REQUEST: 商品資訊欄位不能為空!\n    at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n    at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n    at postProduct (D:\\Project\\onBuyWay\\Backend\\controllers\\apis\\admin-controller.js:29:9)\n    at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at done (D:\\Project\\onBuyWay\\Backend\\node_modules\\multer\\lib\\make-middleware.js:45:7)\n    at indicateDone (D:\\Project\\onBuyWay\\Backend\\node_modules\\multer\\lib\\make-middleware.js:49:68)\n    at D:\\Project\\onBuyWay\\Backend\\node_modules\\multer\\lib\\make-middleware.js:155:11\n    at WriteStream.<anonymous> (D:\\Project\\onBuyWay\\Backend\\node_modules\\multer\\storage\\disk.js:43:9)\n    at WriteStream.emit (node:events:529:35)"
+        }
+     },
+      description: "商品欄位未填寫" } */
+  adminAuthenticated,
+  upload.single('image'),
+  adminController.putProduct
+)
+
 // glabal error handler
 router.use('/', apiErrorHandler)
 

@@ -753,6 +753,163 @@
           }
         }
       }
+    },
+    "/api/admin/products/{id}": {
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "description": "商品資訊更新",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "商品更新資訊",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "可樂"
+                },
+                "stockQuantity": {
+                  "type": "string",
+                  "example": "200"
+                },
+                "costPrice": {
+                  "type": "string",
+                  "example": "15"
+                },
+                "sellPrice": {
+                  "type": "string",
+                  "example": "40"
+                },
+                "productStatus": {
+                  "type": "string",
+                  "example": "true"
+                },
+                "categoryId": {
+                  "type": "string",
+                  "example": "1"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "可樂超好喝!!!"
+                },
+                "image": {
+                  "type": "string",
+                  "example": "image_file"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "商品資訊更新成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 3
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "可樂"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": "https://i.imgur.com/IILT3WL.jpg"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "可樂超好喝!!!"
+                    },
+                    "stockQuantity": {
+                      "type": "string",
+                      "example": "200"
+                    },
+                    "costPrice": {
+                      "type": "string",
+                      "example": "15"
+                    },
+                    "sellPrice": {
+                      "type": "string",
+                      "example": "40"
+                    },
+                    "productStatus": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "categoryId": {
+                      "type": "string",
+                      "example": "1"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2024-01-22T06:17:31.000Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2024-01-22T10:44:15.110Z"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "BAD REQUEST"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "商品資訊欄位不能為空!"
+                    },
+                    "stack": {
+                      "type": "string",
+                      "example": "BAD REQUEST: 商品資訊欄位不能為空!\n at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n at postProduct (D:\\Project\\onBuyWay\\Backend\\controllers\\apis\\admin-controller.js:29:9)\n at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib outer\\layer.js:95:5)\n at next (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib outer oute.js:144:13)\n at done (D:\\Project\\onBuyWay\\Backend\\node_modules\\multer\\lib\\make-middleware.js:45:7)\n at indicateDone (D:\\Project\\onBuyWay\\Backend\\node_modules\\multer\\lib\\make-middleware.js:49:68)\n at D:\\Project\\onBuyWay\\Backend\\node_modules\\multer\\lib\\make-middleware.js:155:11\n at WriteStream.<anonymous> (D:\\Project\\onBuyWay\\Backend\\node_modules\\multer\\storage\\disk.js:43:9)\n at WriteStream.emit (node:events:529:35)"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "商品欄位未填寫"
+          }
+        }
+      }
     }
   }
 }

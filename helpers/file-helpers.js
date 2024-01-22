@@ -14,7 +14,7 @@ const client = new ImgurClient({
 const imgurFileHandler = (file) => {
   return new Promise(async (resolve, reject) => {
     try {
-      // 沒有上傳圖片的無須動作
+      // 沒有上傳圖片無須動作
       if (!file) resolve(null)
       // 上傳圖片至imgur
       const img = await client.upload({
