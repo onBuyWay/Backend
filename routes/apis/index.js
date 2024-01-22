@@ -222,6 +222,45 @@ router.put(
 
 // admin相關APIs:
 // 商品APIs
+// 獲取所有商品資訊API
+router.get(
+  '/admin/products',
+  /* #swagger.tags = ['Product']
+     #swagger.description = 'Get所有商品資訊' */
+  /* #swagger.responses[200] = { 
+      schema: {
+        "status": "success",
+        "data": [
+            {
+                "id": 3,
+                "name": "可樂",
+                "image": "https://i.imgur.com/IILT3WL.jpg",
+                "description": "可樂超好喝!!!",
+                "stockQuantity": 200,
+                "costPrice": 15,
+                "sellPrice": 40,
+                "productStatus": "1",
+                "categoryId": 1,
+                "createdAt": "2024-01-22T06:17:31.000Z",
+                "updatedAt": "2024-01-22T10:44:15.000Z"
+            }
+        ]
+    },
+      description: "成功獲取商品資訊" } */
+  /* #swagger.responses[401] = { 
+      schema: {
+        "status": "error",
+        "error": {
+          "name": "Unauthorized",
+          "message": "使用者未登入!",
+          "stack":"Unauthorized: 使用者未登入!\n    at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n    at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n    at adminAuthenticated (D:\\Project\\onBuyWay\\Backend\\middleware\\auth.js:56:7)\n    at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at Route.dispatch (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\route.js:114:3)\n    at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:284:15\n    at Function.process_params (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:280:10)"
+        }
+      },
+      description: "使用者未登入" } */
+  adminAuthenticated,
+  adminController.getProducts
+)
+
 // 新增商品API
 router.post(
   '/admin/products',
@@ -270,6 +309,16 @@ router.post(
         }
      },
       description: "商品欄位未填寫" } */
+  /* #swagger.responses[401] = { 
+      schema: {
+        "status": "error",
+        "error": {
+          "name": "Unauthorized",
+          "message": "使用者未登入!",
+          "stack":"Unauthorized: 使用者未登入!\n    at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n    at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n    at adminAuthenticated (D:\\Project\\onBuyWay\\Backend\\middleware\\auth.js:56:7)\n    at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at Route.dispatch (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\route.js:114:3)\n    at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:284:15\n    at Function.process_params (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:280:10)"
+        }
+      },
+      description: "使用者未登入" } */
   adminAuthenticated,
   upload.single('image'),
   adminController.postProduct
@@ -323,6 +372,16 @@ router.put(
         }
      },
       description: "商品欄位未填寫" } */
+  /* #swagger.responses[401] = { 
+      schema: {
+        "status": "error",
+        "error": {
+          "name": "Unauthorized",
+          "message": "使用者未登入!",
+          "stack":"Unauthorized: 使用者未登入!\n    at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n    at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n    at adminAuthenticated (D:\\Project\\onBuyWay\\Backend\\middleware\\auth.js:56:7)\n    at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at Route.dispatch (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\route.js:114:3)\n    at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:284:15\n    at Function.process_params (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\index.js:280:10)"
+        }
+      },
+      description: "使用者未登入" } */
   adminAuthenticated,
   upload.single('image'),
   adminController.putProduct

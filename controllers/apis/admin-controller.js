@@ -4,6 +4,16 @@ const httpStatusCodes = require('../../httpStatusCodes')
 const { imgurFileHandler } = require('../../helpers/file-helpers')
 
 const adminController = {
+  getProducts: async (req, res, next) => {
+    try {
+      // 從資料庫獲得所有商品資訊
+      const products = await Product.findAll()
+      // 搜尋成功
+      return res.json({ status: 'success', data: products })
+    } catch (err) {
+      next(err)
+    }
+  },
   postProduct: async (req, res, next) => {
     const {
       name,
