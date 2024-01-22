@@ -3,10 +3,16 @@ const passport = require('../../config/passport')
 const router = express.Router()
 const userController = require('../../controllers/apis/user-controller')
 const { apiErrorHandler } = require('../../middleware/error-handler')
-const { localAuthenticate, isAuthenticated } = require('../../middleware/auth')
+const {
+  localAuthenticate,
+  isAuthenticated,
+  adminAuthenticated
+} = require('../../middleware/auth')
+const upload = require('../../middleware/multer')
+const adminController = require('../../controllers/apis/admin-controller')
 
 // 使用者相關路由:
-// 註冊api
+// 註冊API
 router.post(
   '/signUp',
   /* #swagger.tags = ['User']
@@ -75,7 +81,7 @@ router.post(
   userController.signUp
 )
 
-// 登入api
+// 登入API
 router.post(
   '/signIn',
   /* #swagger.tags = ['User']
@@ -122,7 +128,7 @@ router.post(
   userController.signIn
 )
 
-// 使用者資訊api
+// 使用者資訊API
 router.get(
   '/users/:id',
   /* #swagger.tags = ['User']
@@ -165,7 +171,7 @@ router.get(
   userController.getUser
 )
 
-// 更新使用者資訊api
+// 更新使用者資訊API
 router.put(
   '/users/:id',
   /* #swagger.tags = ['User']
@@ -212,6 +218,61 @@ router.put(
       description: "使用者未登入" } */
   isAuthenticated,
   userController.putUser
+)
+
+// admin相關APIs:
+// 商品APIs
+// 新增商品API
+router.post(
+  '/admin/products',
+  /* #swagger.tags = ['Product']
+     #swagger.description = '商品註冊' */
+  /*	#swagger.parameters['obj'] = {
+            in: 'body',
+            description: '商品註冊資訊',
+            required: true,
+            schema: {
+              "name":"可樂",
+              "stockQuantity": "100",
+              "costPrice": "10",
+              "sellPrice": "35",
+              "productStatus": "true",
+              "categoryId": "1",
+              "description": "可樂超好喝",
+              "image": "image_file"
+            }
+    } */
+  /* #swagger.responses[200] = { 
+      schema: {
+        "status": "success",
+        "data": {
+            "id": 3,
+            "name": "可樂",
+            "image": "https://i.imgur.com/ckn2tzv.jpg",
+            "description": "可樂超好喝",
+            "stockQuantity": "100",
+            "costPrice": "10",
+            "sellPrice": "35",
+            "productStatus": true,
+            "categoryId": "1",
+            "updatedAt": "2024-01-22T06:17:31.482Z",
+            "createdAt": "2024-01-22T06:17:31.482Z"
+        }
+      },
+      description: "商品註冊成功" } */
+  /* #swagger.responses[400] = { 
+      schema: {
+        "status": "error",
+        "error": {
+          "name": "BAD REQUEST",
+          "message": "商品資訊欄位不能為空!",
+          "stack": "BAD REQUEST: 商品資訊欄位不能為空!\n    at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n    at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n    at postProduct (D:\\Project\\onBuyWay\\Backend\\controllers\\apis\\admin-controller.js:29:9)\n    at Layer.handle [as handle_request] (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (D:\\Project\\onBuyWay\\Backend\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at done (D:\\Project\\onBuyWay\\Backend\\node_modules\\multer\\lib\\make-middleware.js:45:7)\n    at indicateDone (D:\\Project\\onBuyWay\\Backend\\node_modules\\multer\\lib\\make-middleware.js:49:68)\n    at D:\\Project\\onBuyWay\\Backend\\node_modules\\multer\\lib\\make-middleware.js:155:11\n    at WriteStream.<anonymous> (D:\\Project\\onBuyWay\\Backend\\node_modules\\multer\\storage\\disk.js:43:9)\n    at WriteStream.emit (node:events:529:35)"
+        }
+     },
+      description: "商品欄位未填寫" } */
+  adminAuthenticated,
+  upload.single('image'),
+  adminController.postProduct
 )
 
 // glabal error handler

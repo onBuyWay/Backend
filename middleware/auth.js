@@ -36,5 +36,28 @@ module.exports = {
         )
       )
     return next()
+  },
+  adminAuthenticated: (req, res, next) => {
+    // 驗證是否為使用者
+    if (ensureAuthenticated(req)) {
+      // 若為admin則開放權限
+      if (req.user.isAdmin) return next()
+      // 反之限制權限
+      return next(
+        new APIError(
+          'Unauthorized',
+          httpStatusCodes.Unauthorized,
+          '未獲得使用權限!'
+        )
+      )
+    }
+    // 尚未登入
+    next(
+      new APIError(
+        'Unauthorized',
+        httpStatusCodes.Unauthorized,
+        '使用者未登入!'
+      )
+    )
   }
 }
