@@ -456,6 +456,38 @@
               }
             },
             "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "NOT FOUND"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "找不到該使用者"
+                    },
+                    "stack": {
+                      "type": "string",
+                      "example": "NOT FOUND: 找不到該使用者\n at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n at getUser (D:\\Project\\onBuyWay\\Backend\\controllers\\apis\\user-controller.js:59:11)\n at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "找不到該使用者"
           }
         }
       },
@@ -599,6 +631,38 @@
               }
             },
             "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "NOT FOUND"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "找不到該使用者"
+                    },
+                    "stack": {
+                      "type": "string",
+                      "example": "NOT FOUND: 找不到該使用者\n at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n at getUser (D:\\Project\\onBuyWay\\Backend\\controllers\\apis\\user-controller.js:59:11)\n at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "找不到該使用者"
           }
         }
       }
@@ -1222,6 +1286,38 @@
               }
             },
             "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "NOT FOUND"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "找不到該商品"
+                    },
+                    "stack": {
+                      "type": "string",
+                      "example": "NOT FOUND: 找不到該商品\n at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n at getProduct (D:\\Project\\onBuyWay\\Backend\\controllers\\apis\\admin-controller.js:22:11)\n at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "找不到該商品"
           }
         }
       }

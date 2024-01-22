@@ -167,6 +167,16 @@ router.get(
         }
       },
       description: "使用者未登入" } */
+  /* #swagger.responses[404] = { 
+      schema: {
+      "status": "error",
+      "error": {
+              "name": "NOT FOUND",
+              "message": "找不到該使用者",
+              "stack": "NOT FOUND: 找不到該使用者\n    at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n    at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n    at getUser (D:\\Project\\onBuyWay\\Backend\\controllers\\apis\\user-controller.js:59:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          }
+      },
+      description: "找不到該使用者" } */
   isAuthenticated,
   userController.getUser
 )
@@ -216,6 +226,16 @@ router.put(
         }
       },
       description: "使用者未登入" } */
+  /* #swagger.responses[404] = { 
+      schema: {
+      "status": "error",
+      "error": {
+              "name": "NOT FOUND",
+              "message": "找不到該使用者",
+              "stack": "NOT FOUND: 找不到該使用者\n    at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n    at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n    at getUser (D:\\Project\\onBuyWay\\Backend\\controllers\\apis\\user-controller.js:59:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          }
+      },
+      description: "找不到該使用者" } */
   isAuthenticated,
   userController.putUser
 )
@@ -261,6 +281,7 @@ router.get(
   adminController.getProducts
 )
 
+// 獲取單一商品資訊API
 router.get(
   '/admin/products/:id',
   /* #swagger.tags = ['Product']
@@ -428,6 +449,16 @@ router.put(
         }
       },
       description: "使用者未登入" } */
+  /* #swagger.responses[404] = { 
+      schema: {
+          "status": "error",
+          "error": {
+              "name": "NOT FOUND",
+              "message": "找不到該商品",
+              "stack": "NOT FOUND: 找不到該商品\n    at new customError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\customError.js:8:11)\n    at new APIError (D:\\Project\\onBuyWay\\Backend\\class\\errors\\APIError.js:6:5)\n    at getProduct (D:\\Project\\onBuyWay\\Backend\\controllers\\apis\\admin-controller.js:22:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          }
+      },
+      description: "找不到該商品" } */
   adminAuthenticated,
   upload.single('image'),
   adminController.putProduct
