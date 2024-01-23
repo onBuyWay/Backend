@@ -305,6 +305,39 @@ const doc = {
         name: 'NOT FOUND',
         message: '找不到該商品!'
       }
+    },
+    AdminPostCategory_Body: {
+      name: '零食'
+    },
+    AdminPostCategory_Success: {
+      status: 'success',
+      data: {
+        id: 1,
+        name: '零食',
+        updatedAt: '2024-01-23T17:03:37.630Z',
+        createdAt: '2024-01-23T17:03:37.630Z'
+      }
+    },
+    AdminPostCategory_BadRequest: {
+      status: 'error',
+      error: {
+        name: 'BAD REQUEST',
+        message: '類別名稱欄位不能為空!'
+      }
+    },
+    AdminPostCategory_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    AdminPostCategory_Conflict: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '類別名稱已經註冊過!'
+      }
     }
   },
   host: 'localhost:3000'

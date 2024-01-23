@@ -1,9 +1,10 @@
-const { Product } = require('../../models')
+const { Product, Category } = require('../../models')
 const APIError = require('../../class/errors/APIError')
 const httpStatusCodes = require('../../httpStatusCodes')
 const { imgurFileHandler } = require('../../helpers/file-helpers')
 
 const adminController = {
+  // =====商品相關controller=====
   getProducts: async (req, res, next) => {
     try {
       // 從資料庫獲得所有商品資訊
@@ -159,6 +160,44 @@ const adminController = {
       return res.json({ status: 'success', data: {} })
     } catch (err) {
       next(err)
+    }
+  },
+  // =====商品類別相關controller=====
+  postCategory: async (req, res, next) => {
+    // 未填寫類別名稱
+    if (!req.body.name) {
+      return next(
+        new APIError(
+          'BAD REQUEST',
+          httpStatusCodes.BAD_REQUEST,
+          '類別名稱欄位不能為空!'
+        )
+      )
+    }
+
+    try {
+      // 檢查類別是否存在
+      const sameCategory = await Category.findOne({
+        where: { name: req.body.name }
+      })
+      if (sameCategory) {
+        return next(
+          new APIError(
+            'CONFLICT',
+            httpStatusCodes.CONFLICT,
+            '類別名稱已經註冊過!'
+          )
+        )
+      }
+
+      // 類別尚未建立則新增至資料庫
+      const formData = { ...req.body }
+      const newCategory = await Category.create(formData)
+
+      // 類別建立成功
+      return res.json({ status: 'success', data: newCategory })
+    } catch (err) {
+      return next(err)
     }
   }
 }

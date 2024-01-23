@@ -350,6 +350,51 @@
           }
         }
       }
+    },
+    "/api/admin/categories": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "description": "新增商品類別",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "商品註冊資訊",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminPostCategory_Body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "商品註冊成功",
+            "schema": {
+              "$ref": "#/definitions/AdminPostCategory_Success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/AdminPostCategory_BadRequest"
+            },
+            "description": "商品欄位未填寫"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/AdminPostCategory_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "409": {
+            "schema": {
+              "$ref": "#/definitions/AdminPostCategory_Conflict"
+            },
+            "description": "類別名稱已經註冊過!"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1370,6 +1415,111 @@
             "message": {
               "type": "string",
               "example": "找不到該商品!"
+            }
+          }
+        }
+      }
+    },
+    "AdminPostCategory_Body": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "零食"
+        }
+      }
+    },
+    "AdminPostCategory_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "零食"
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2024-01-23T17:03:37.630Z"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2024-01-23T17:03:37.630Z"
+            }
+          }
+        }
+      }
+    },
+    "AdminPostCategory_BadRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "BAD REQUEST"
+            },
+            "message": {
+              "type": "string",
+              "example": "類別名稱欄位不能為空!"
+            }
+          }
+        }
+      }
+    },
+    "AdminPostCategory_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "AdminPostCategory_Conflict": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "類別名稱已經註冊過!"
             }
           }
         }
