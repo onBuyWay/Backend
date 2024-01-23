@@ -139,6 +139,27 @@ const adminController = {
     } catch (err) {
       next(err)
     }
+  },
+  deleteProduct: async (req, res, next) => {
+    try {
+      // 從資料庫搜尋欲刪除商品
+      const product = await Product.findByPk(req.params.id)
+
+      // 找不到該商品
+      if (!product) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該商品!')
+        )
+      }
+
+      // 刪除商品
+      await product.destroy()
+
+      // 成功刪除商品
+      return res.json({ status: 'success', data: {} })
+    } catch (err) {
+      next(err)
+    }
   }
 }
 

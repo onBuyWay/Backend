@@ -135,7 +135,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "description": "使用者id"
           },
           {
             "name": "obj",
@@ -239,7 +240,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "description": "商品id"
           }
         ],
         "responses": {
@@ -273,7 +275,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "description": "商品id"
           },
           {
             "name": "obj",
@@ -307,6 +310,41 @@
           "404": {
             "schema": {
               "$ref": "#/definitions/AdminPutProduct_NotFound"
+            },
+            "description": "找不到該商品"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "description": "商品資訊更新",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "商品id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "商品資訊更新成功",
+            "schema": {
+              "$ref": "#/definitions/AdminDeleteProduct_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/AdminDeleteProduct_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/AdminDeleteProduct_NotFound"
             },
             "description": "找不到該商品"
           }
@@ -1275,6 +1313,63 @@
             "message": {
               "type": "string",
               "example": "找不到該商品"
+            }
+          }
+        }
+      }
+    },
+    "AdminDeleteProduct_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    "AdminDeleteProduct_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "AdminDeleteProduct_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "NOT FOUND"
+            },
+            "message": {
+              "type": "string",
+              "example": "找不到該商品!"
             }
           }
         }

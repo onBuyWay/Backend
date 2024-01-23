@@ -109,6 +109,12 @@ router.put(
   '/users/:id',
   /* #swagger.tags = ['User']
      #swagger.description = '修改使用者資訊' */
+  /*	#swagger.parameters['id'] = {
+            in: 'path',
+            description: '使用者id',
+            type: 'integer',
+            required: true
+    } */
   /*	#swagger.parameters['obj'] = {
         in: 'body',
         description: '使用者修改資訊',
@@ -162,6 +168,12 @@ router.get(
   '/admin/products/:id',
   /* #swagger.tags = ['Product']
      #swagger.description = 'Get單一商品資訊' */
+  /*	#swagger.parameters['id'] = {
+            in: 'path',
+            description: '商品id',
+            type: 'integer',
+            required: true
+    } */
   /* #swagger.responses[200] = { 
       schema: {
          $ref: '#/definitions/AdminGetProduct_Success'
@@ -219,6 +231,12 @@ router.put(
   '/admin/products/:id',
   /* #swagger.tags = ['Product']
      #swagger.description = '商品資訊更新' */
+  /*	#swagger.parameters['id'] = {
+            in: 'path',
+            description: '商品id',
+            type: 'integer',
+            required: true
+    } */
   /*	#swagger.parameters['obj'] = {
             in: 'body',
             description: '商品更新資訊',
@@ -250,6 +268,35 @@ router.put(
   adminAuthenticated,
   upload.single('image'),
   adminController.putProduct
+)
+
+router.delete(
+  '/admin/products/:id',
+  /* #swagger.tags = ['Product']
+     #swagger.description = '商品資訊更新' */
+  /*	#swagger.parameters['id'] = {
+            in: 'path',
+            description: '商品id',
+            type: 'integer',
+            required: true
+    } */
+  /* #swagger.responses[200] = { 
+      schema: {
+         $ref: '#definitions/AdminDeleteProduct_Success'
+      },
+      description: "商品資訊更新成功" } */
+  /* #swagger.responses[401] = { 
+      schema: {
+         $ref: '#definitions/AdminDeleteProduct_Unauthorized'
+      },
+      description: "使用者未登入" } */
+  /* #swagger.responses[404] = { 
+      schema: {
+          $ref: '#definitions/AdminDeleteProduct_NotFound'
+      },
+      description: "找不到該商品" } */
+  adminAuthenticated,
+  adminController.deleteProduct
 )
 
 // glabal error handler

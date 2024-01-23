@@ -290,6 +290,21 @@ const doc = {
         name: 'NOT FOUND',
         message: '找不到該商品'
       }
+    },
+    AdminDeleteProduct_Success: {
+      status: 'success',
+      data: {}
+    },
+    AdminDeleteProduct_Unauthorized: {
+      status: 'error',
+      error: { name: 'Unauthorized', message: '使用者未登入!' }
+    },
+    AdminDeleteProduct_NotFound: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '找不到該商品!'
+      }
     }
   },
   host: 'localhost:3000'
