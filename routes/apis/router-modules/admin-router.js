@@ -168,7 +168,7 @@ router.post(
        #swagger.description = '新增商品類別' */
   /*	#swagger.parameters['body'] = {
               in: 'body',
-              description: '商品註冊資訊',
+              description: '商品類別資訊',
               required: true,
               schema: {
                 $ref: '#definitions/AdminPostCategory_Body'
@@ -178,12 +178,12 @@ router.post(
         schema: {
           $ref: '#definitions/AdminPostCategory_Success'
         },
-        description: "商品註冊成功" } */
+        description: "商品類別註冊成功" } */
   /* #swagger.responses[400] = { 
         schema: {
           $ref: '#definitions/AdminPostCategory_BadRequest'
        },
-        description: "商品欄位未填寫" } */
+        description: "類別名稱未填寫" } */
   /* #swagger.responses[401] = { 
         schema: {
           $ref: '#definitions/AdminPostCategory_Unauthorized'
@@ -196,6 +196,48 @@ router.post(
         description: "類別名稱已經註冊過!" } */
   adminAuthenticated,
   adminController.postCategory
+)
+
+// 更新商品類別API
+router.put(
+  '/categories/:id',
+  /* #swagger.tags = ['Category']
+       #swagger.description = '更新商品類別' */
+  /*	#swagger.parameters['body'] = {
+              in: 'body',
+              description: '商品類別資訊',
+              required: true,
+              schema: {
+                $ref: '#definitions/AdminPutCategory_Body'
+              }
+      } */
+  /* #swagger.responses[200] = { 
+        schema: {
+          $ref: '#definitions/AdminPutCategory_Success'
+        },
+        description: "商品類別註冊成功" } */
+  /* #swagger.responses[400] = { 
+        schema: {
+          $ref: '#definitions/AdminPutCategory_BadRequest'
+       },
+        description: "類別名稱未填寫" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+          $ref: '#definitions/AdminPutCategory_Unauthorized'
+        },
+        description: "使用者未登入" } */
+  /* #swagger.responses[404] = { 
+        schema: {
+          $ref: '#definitions/AdminPutCategory_NotFound'
+        },
+        description: "找不到該商品" } */
+  /* #swagger.responses[409] = { 
+        schema: {
+          $ref: '#definitions/AdminPutCategory_Conflict'
+        },
+        description: "類別名稱已經註冊過!" } */
+  adminAuthenticated,
+  adminController.putCategory
 )
 
 module.exports = router

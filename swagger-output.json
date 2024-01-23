@@ -361,7 +361,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "商品註冊資訊",
+            "description": "商品類別資訊",
             "required": true,
             "schema": {
               "$ref": "#/definitions/AdminPostCategory_Body"
@@ -370,7 +370,7 @@
         ],
         "responses": {
           "200": {
-            "description": "商品註冊成功",
+            "description": "商品類別註冊成功",
             "schema": {
               "$ref": "#/definitions/AdminPostCategory_Success"
             }
@@ -379,7 +379,7 @@
             "schema": {
               "$ref": "#/definitions/AdminPostCategory_BadRequest"
             },
-            "description": "商品欄位未填寫"
+            "description": "類別名稱未填寫"
           },
           "401": {
             "schema": {
@@ -390,6 +390,63 @@
           "409": {
             "schema": {
               "$ref": "#/definitions/AdminPostCategory_Conflict"
+            },
+            "description": "類別名稱已經註冊過!"
+          }
+        }
+      }
+    },
+    "/api/admin/categories/{id}": {
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "description": "更新商品類別",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "商品類別資訊",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminPutCategory_Body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "商品類別註冊成功",
+            "schema": {
+              "$ref": "#/definitions/AdminPutCategory_Success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/AdminPutCategory_BadRequest"
+            },
+            "description": "類別名稱未填寫"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/AdminPutCategory_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/AdminPutCategory_NotFound"
+            },
+            "description": "找不到該商品"
+          },
+          "409": {
+            "schema": {
+              "$ref": "#/definitions/AdminPutCategory_Conflict"
             },
             "description": "類別名稱已經註冊過!"
           }
@@ -1516,6 +1573,133 @@
             "name": {
               "type": "string",
               "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "類別名稱已經註冊過!"
+            }
+          }
+        }
+      }
+    },
+    "AdminPutCategory_Body": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "零食"
+        }
+      }
+    },
+    "AdminPutCategory_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "零食"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2024-01-23T17:03:37.000Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2024-01-23T17:03:37.000Z"
+            }
+          }
+        }
+      }
+    },
+    "AdminPutCategory_BadRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "BAD REQUEST"
+            },
+            "message": {
+              "type": "string",
+              "example": "類別名稱欄位不能為空!"
+            }
+          }
+        }
+      }
+    },
+    "AdminPutCategory_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "AdminPutCategory_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "NOT FOUND"
+            },
+            "message": {
+              "type": "string",
+              "example": "找不到該類別!"
+            }
+          }
+        }
+      }
+    },
+    "AdminPutCategory_Conflict": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "CONFLICT"
             },
             "message": {
               "type": "string",

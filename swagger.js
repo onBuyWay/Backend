@@ -338,6 +338,46 @@ const doc = {
         name: 'Unauthorized',
         message: '類別名稱已經註冊過!'
       }
+    },
+    AdminPutCategory_Body: {
+      name: '零食'
+    },
+    AdminPutCategory_Success: {
+      status: 'success',
+      data: {
+        id: 1,
+        name: '零食',
+        createdAt: '2024-01-23T17:03:37.000Z',
+        updatedAt: '2024-01-23T17:03:37.000Z'
+      }
+    },
+    AdminPutCategory_BadRequest: {
+      status: 'error',
+      error: {
+        name: 'BAD REQUEST',
+        message: '類別名稱欄位不能為空!'
+      }
+    },
+    AdminPutCategory_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    AdminPutCategory_NotFound: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '找不到該類別!'
+      }
+    },
+    AdminPutCategory_Conflict: {
+      status: 'error',
+      error: {
+        name: 'CONFLICT',
+        message: '類別名稱已經註冊過!'
+      }
     }
   },
   host: 'localhost:3000'

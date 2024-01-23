@@ -199,6 +199,53 @@ const adminController = {
     } catch (err) {
       return next(err)
     }
+  },
+  putCategory: async (req, res, next) => {
+    // 未填寫類別名稱
+    if (!req.body.name) {
+      return next(
+        new APIError(
+          'BAD REQUEST',
+          httpStatusCodes.BAD_REQUEST,
+          '類別名稱欄位不能為空!'
+        )
+      )
+    }
+
+    try {
+      // 檢查該id類別是否存在及類別名稱是否重複
+      const [selectedCategory, sameCategory] = await Promise.all([
+        Category.findByPk(req.params.id),
+        Category.findOne({ where: { name: req.body.name } })
+      ])
+
+      // 沒有該商品資訊
+      if (!selectedCategory) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該類別!')
+        )
+      }
+
+      // 類別名稱重複
+      if (sameCategory && selectedCategory.id !== sameCategory.id) {
+        return next(
+          new APIError(
+            'CONFLICT',
+            httpStatusCodes.CONFLICT,
+            '類別名稱已經註冊過!'
+          )
+        )
+      }
+
+      // 類別尚未建立則新增至資料庫
+      const formData = { ...req.body }
+      const updatedCategory = await selectedCategory.update(formData)
+
+      // 類別建立成功
+      return res.json({ status: 'success', data: updatedCategory })
+    } catch (err) {
+      return next(err)
+    }
   }
 }
 
