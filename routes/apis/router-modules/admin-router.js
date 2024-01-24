@@ -126,6 +126,11 @@ router.put(
             $ref: '#definitions/AdminPutProduct_NotFound'
         },
         description: "找不到該商品" } */
+  /* #swagger.responses[409] = { 
+        schema: {
+          $ref: '#definitions/AdminPutProduct_Conflict'
+        },
+        description: "商品名稱已經註冊過!" } */
   adminAuthenticated,
   upload.single('image'),
   adminController.putProduct

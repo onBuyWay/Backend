@@ -166,6 +166,12 @@
               "$ref": "#/definitions/PutUser_NotFound"
             },
             "description": "找不到該使用者"
+          },
+          "409": {
+            "schema": {
+              "$ref": "#/definitions/PutUser_Conflict"
+            },
+            "description": "使用者名稱已經註冊過!"
           }
         }
       }
@@ -312,6 +318,12 @@
               "$ref": "#/definitions/AdminPutProduct_NotFound"
             },
             "description": "找不到該商品"
+          },
+          "409": {
+            "schema": {
+              "$ref": "#/definitions/AdminPutProduct_Conflict"
+            },
+            "description": "商品名稱已經註冊過!"
           }
         }
       },
@@ -935,6 +947,28 @@
         }
       }
     },
+    "PutUser_Conflict": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "CONFLICT"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者名稱已經註冊過!"
+            }
+          }
+        }
+      }
+    },
     "AdminGetProducts_Success": {
       "type": "object",
       "properties": {
@@ -1259,6 +1293,28 @@
         }
       }
     },
+    "AdminPostProduct_Conflict": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "CONFLICT"
+            },
+            "message": {
+              "type": "string",
+              "example": "商品名稱已經註冊過!"
+            }
+          }
+        }
+      }
+    },
     "AdminPutProduct_Body": {
       "type": "object",
       "properties": {
@@ -1420,6 +1476,28 @@
         }
       }
     },
+    "AdminPutProduct_Conflict": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "CONFLICT"
+            },
+            "message": {
+              "type": "string",
+              "example": "商品名稱已經註冊過!"
+            }
+          }
+        }
+      }
+    },
     "AdminDeleteProduct_Success": {
       "type": "object",
       "properties": {
@@ -1572,7 +1650,7 @@
           "properties": {
             "name": {
               "type": "string",
-              "example": "Unauthorized"
+              "example": "CONFLICT"
             },
             "message": {
               "type": "string",

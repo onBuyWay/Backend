@@ -68,6 +68,11 @@ router.put(
           $ref: '#/definitions/PutUser_NotFound'
         },
         description: "找不到該使用者" } */
+  /* #swagger.responses[409] = { 
+        schema: {
+          $ref: '#definitions/PutUser_Conflict'
+        },
+        description: "使用者名稱已經註冊過!" } */
   isAuthenticated,
   userController.putUser
 )

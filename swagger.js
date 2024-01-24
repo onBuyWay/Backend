@@ -149,6 +149,13 @@ const doc = {
         message: '找不到該使用者'
       }
     },
+    PutUser_Conflict: {
+      status: 'error',
+      error: {
+        name: 'CONFLICT',
+        message: '使用者名稱已經註冊過!'
+      }
+    },
     AdminGetProducts_Success: {
       status: 'success',
       data: [
@@ -244,6 +251,13 @@ const doc = {
         message: '使用者未登入!'
       }
     },
+    AdminPostProduct_Conflict: {
+      status: 'error',
+      error: {
+        name: 'CONFLICT',
+        message: '商品名稱已經註冊過!'
+      }
+    },
     AdminPutProduct_Body: {
       name: '可樂',
       stockQuantity: '200',
@@ -291,6 +305,13 @@ const doc = {
         message: '找不到該商品'
       }
     },
+    AdminPutProduct_Conflict: {
+      status: 'error',
+      error: {
+        name: 'CONFLICT',
+        message: '商品名稱已經註冊過!'
+      }
+    },
     AdminDeleteProduct_Success: {
       status: 'success',
       data: {}
@@ -335,7 +356,7 @@ const doc = {
     AdminPostCategory_Conflict: {
       status: 'error',
       error: {
-        name: 'Unauthorized',
+        name: 'CONFLICT',
         message: '類別名稱已經註冊過!'
       }
     },

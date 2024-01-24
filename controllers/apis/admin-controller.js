@@ -80,9 +80,35 @@ const adminController = {
     }
   },
   putProduct: async (req, res, next) => {
+    // 獲取表單資料
+    const formData = { ...req.body }
+
+    // 未填寫商品欄位
+    if (
+      !formData.name ||
+      !formData.description ||
+      !formData.stockQuantity ||
+      !formData.costPrice ||
+      !formData.sellPrice ||
+      !formData.productStatus ||
+      !formData.categoryId
+    ) {
+      return next(
+        new APIError(
+          'BAD REQUEST',
+          httpStatusCodes.BAD_REQUEST,
+          '商品資訊欄位不能為空!'
+        )
+      )
+    }
+
     try {
-      // 搜尋該商品資料
-      const selectedProduct = await Product.findByPk(req.params.id)
+      // 檢查該id商品資料是否存在及商品名稱是否重複
+      const [selectedProduct, sameNameProduct] = await Promise.all([
+        Product.findByPk(req.params.id),
+        Product.findOne({ where: { name: req.body.name } })
+      ])
+
       // 沒有該商品資訊
       if (!selectedProduct) {
         return next(
@@ -90,50 +116,25 @@ const adminController = {
         )
       }
 
-      // 更新商品資訊
-      const {
-        name,
-        description,
-        stockQuantity,
-        costPrice,
-        sellPrice,
-        productStatus,
-        categoryId
-      } = req.body
-
-      // 未填寫商品欄位
-      if (
-        !name ||
-        !description ||
-        !stockQuantity ||
-        !costPrice ||
-        !sellPrice ||
-        !productStatus ||
-        !categoryId
-      ) {
+      // 類別名稱重複
+      if (sameNameProduct && selectedProduct.id !== sameNameProduct.id) {
         return next(
           new APIError(
-            'BAD REQUEST',
-            httpStatusCodes.BAD_REQUEST,
-            '商品資訊欄位不能為空!'
+            'CONFLICT',
+            httpStatusCodes.CONFLICT,
+            '商品名稱已經註冊過!'
           )
         )
       }
 
-      // 正確填寫資訊後，圖片上傳至imgur
+      // 正確填寫資訊後，圖片上傳至imgur，保留圖片URL
       const { file } = req
       const filePath = await imgurFileHandler(file)
 
       // 將商品資訊更新至資料庫
       const updatedProduct = await selectedProduct.update({
-        name,
-        image: filePath || selectedProduct.img,
-        description,
-        stockQuantity,
-        costPrice,
-        sellPrice,
-        productStatus,
-        categoryId
+        ...formData,
+        image: filePath || selectedProduct.img
       })
       // 資料庫更新成功
       res.json({ status: 'success', data: updatedProduct.toJSON() })
@@ -201,8 +202,11 @@ const adminController = {
     }
   },
   putCategory: async (req, res, next) => {
+    // 獲取表單資料
+    const formData = { ...req.body }
+
     // 未填寫類別名稱
-    if (!req.body.name) {
+    if (!formData.name) {
       return next(
         new APIError(
           'BAD REQUEST',
@@ -214,9 +218,9 @@ const adminController = {
 
     try {
       // 檢查該id類別是否存在及類別名稱是否重複
-      const [selectedCategory, sameCategory] = await Promise.all([
+      const [selectedCategory, sameNameCategory] = await Promise.all([
         Category.findByPk(req.params.id),
-        Category.findOne({ where: { name: req.body.name } })
+        Category.findOne({ where: { name: formData.name } })
       ])
 
       // 沒有該商品資訊
@@ -227,7 +231,7 @@ const adminController = {
       }
 
       // 類別名稱重複
-      if (sameCategory && selectedCategory.id !== sameCategory.id) {
+      if (sameNameCategory && selectedCategory.id !== sameNameCategory.id) {
         return next(
           new APIError(
             'CONFLICT',
@@ -238,7 +242,6 @@ const adminController = {
       }
 
       // 類別尚未建立則新增至資料庫
-      const formData = { ...req.body }
       const updatedCategory = await selectedCategory.update(formData)
 
       // 類別建立成功
