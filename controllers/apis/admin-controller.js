@@ -165,6 +165,16 @@ const adminController = {
     }
   },
   // =====商品類別相關controller=====
+  getCategories: async (req, res, next) => {
+    try {
+      // 從資料庫獲得所有類別資訊
+      const categories = await Category.findAll()
+      // 搜尋成功
+      res.json({ status: 'success', data: categories })
+    } catch (err) {
+      next(err)
+    }
+  },
   postCategory: async (req, res, next) => {
     // 取得表單資訊
     const formData = { ...req.body }

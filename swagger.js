@@ -399,6 +399,24 @@ const doc = {
         name: 'CONFLICT',
         message: '類別名稱已經註冊過!'
       }
+    },
+    AdminGetCategories_Success: {
+      status: 'success',
+      data: [
+        {
+          id: 1,
+          name: '零食',
+          createdAt: '2024-01-23T17:03:37.000Z',
+          updatedAt: '2024-01-23T17:03:37.000Z'
+        }
+      ]
+    },
+    AdminGetCategories_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
     }
   },
   host: 'localhost:3000'

@@ -370,6 +370,26 @@
       }
     },
     "/api/admin/categories": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Get所有類別資訊",
+        "responses": {
+          "200": {
+            "description": "成功獲取類別資訊",
+            "schema": {
+              "$ref": "#/definitions/AdminGetCategories_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/AdminGetCategories_Unauthorized"
+            },
+            "description": "使用者未登入"
+          }
+        }
+      },
       "post": {
         "tags": [
           "Category"
@@ -1788,6 +1808,61 @@
             "message": {
               "type": "string",
               "example": "類別名稱已經註冊過!"
+            }
+          }
+        }
+      }
+    },
+    "AdminGetCategories_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "零食"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2024-01-23T17:03:37.000Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2024-01-23T17:03:37.000Z"
+              }
+            }
+          }
+        }
+      }
+    },
+    "AdminGetCategories_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
             }
           }
         }

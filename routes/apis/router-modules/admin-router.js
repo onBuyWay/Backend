@@ -171,6 +171,25 @@ router.delete(
 )
 
 // =====管理類別APIs=====
+// 取得所有商品類別API
+router.get(
+  '/categories',
+  /* #swagger.tags = ['Category']
+       #swagger.description = 'Get所有類別資訊' */
+  /* #swagger.responses[200] = { 
+        schema: {
+          $ref: '#/definitions/AdminGetCategories_Success'
+      },
+        description: "成功獲取類別資訊" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+          $ref: '#/definitions/AdminGetCategories_Unauthorized'
+        },
+        description: "使用者未登入" } */
+  adminAuthenticated,
+  adminController.getCategories
+)
+
 // 新增商品類別API
 router.post(
   '/categories',
