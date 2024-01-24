@@ -175,6 +175,24 @@ const adminController = {
       next(err)
     }
   },
+  getCategory: async (req, res, next) => {
+    try {
+      // 搜尋該id類別
+      const category = await Category.findByPk(req.params.id)
+
+      // 檢查該id類別是否存在
+      if (!category) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該類別')
+        )
+      }
+
+      // 搜尋成功
+      res.json({ status: 'success', data: category })
+    } catch (err) {
+      next(err)
+    }
+  },
   postCategory: async (req, res, next) => {
     // 取得表單資訊
     const formData = { ...req.body }

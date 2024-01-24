@@ -417,6 +417,29 @@ const doc = {
         name: 'Unauthorized',
         message: '使用者未登入!'
       }
+    },
+    AdminGetCategory_Success: {
+      status: 'success',
+      data: {
+        id: 1,
+        name: '零食',
+        createdAt: '2024-01-23T17:03:37.000Z',
+        updatedAt: '2024-01-23T17:03:37.000Z'
+      }
+    },
+    AdminGetCategory_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    AdminGetCategory_NotFound: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '找不到該類別'
+      }
     }
   },
   host: 'localhost:3000'

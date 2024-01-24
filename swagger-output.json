@@ -435,6 +435,41 @@
       }
     },
     "/api/admin/categories/{id}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Get單一類別資訊",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "類別id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功獲取類別資訊",
+            "schema": {
+              "$ref": "#/definitions/AdminGetCategory_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/AdminGetCategory_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/AdminGetCategory_NotFound"
+            },
+            "description": "找不到該類別"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Category"
@@ -1863,6 +1898,80 @@
             "message": {
               "type": "string",
               "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "AdminGetCategory_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "零食"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2024-01-23T17:03:37.000Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2024-01-23T17:03:37.000Z"
+            }
+          }
+        }
+      }
+    },
+    "AdminGetCategory_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "AdminGetCategory_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "NOT FOUND"
+            },
+            "message": {
+              "type": "string",
+              "example": "找不到該類別"
             }
           }
         }

@@ -190,6 +190,36 @@ router.get(
   adminController.getCategories
 )
 
+// 取得單一類別API
+router.get(
+  '/categories/:id',
+  /* #swagger.tags = ['Category']
+       #swagger.description = 'Get單一類別資訊' */
+  /*	#swagger.parameters['id'] = {
+              in: 'path',
+              description: '類別id',
+              type: 'integer',
+              required: true
+      } */
+  /* #swagger.responses[200] = { 
+        schema: {
+           $ref: '#/definitions/AdminGetCategory_Success'
+      },
+        description: "成功獲取類別資訊" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+          $ref: '#/definitions/AdminGetCategory_Unauthorized'
+        },
+        description: "使用者未登入" } */
+  /* #swagger.responses[404] = { 
+        schema: {
+            $ref: '#/definitions/AdminGetCategory_NotFound'
+        },
+        description: "找不到該類別" } */
+  adminAuthenticated,
+  adminController.getCategory
+)
+
 // 新增商品類別API
 router.post(
   '/categories',
