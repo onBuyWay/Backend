@@ -29,25 +29,18 @@ const adminController = {
     }
   },
   postProduct: async (req, res, next) => {
-    const {
-      name,
-      description,
-      stockQuantity,
-      costPrice,
-      sellPrice,
-      productStatus,
-      categoryId
-    } = req.body
+    // 取得表單資訊
+    const formData = { ...req.body }
 
     // 未填寫商品欄位
     if (
-      !name ||
-      !description ||
-      !stockQuantity ||
-      !costPrice ||
-      !sellPrice ||
-      !productStatus ||
-      !categoryId
+      !formData.name ||
+      !formData.description ||
+      !formData.stockQuantity ||
+      !formData.costPrice ||
+      !formData.sellPrice ||
+      !formData.productStatus ||
+      !formData.categoryId
     ) {
       next(
         new APIError(
@@ -59,21 +52,29 @@ const adminController = {
     }
 
     try {
-      // 圖片上傳至imgur
+      // 檢查商品是否已存在
+      const sameNameProduct = await Product.findOne({
+        where: { name: formData.name }
+      })
+      if (sameNameProduct) {
+        return next(
+          new APIError(
+            'CONFLICT',
+            httpStatusCodes.CONFLICT,
+            '商品名稱已經註冊過!'
+          )
+        )
+      }
+
+      // 正確填寫資訊後，圖片上傳至imgur，保留圖片URL
       const { file } = req
       const filePath = await imgurFileHandler(file)
       // 新增商品資訊
       const newProduct = await Product.create({
-        name,
-        image: filePath || null,
-        description,
-        stockQuantity,
-        costPrice,
-        sellPrice,
-        productStatus,
-        categoryId
+        ...formData,
+        image: filePath || null
       })
-      // 將商品資訊新增成功
+      // 成功新增商品資訊
       res.json({ status: 'success', data: newProduct })
     } catch (err) {
       next(err)
@@ -165,8 +166,11 @@ const adminController = {
   },
   // =====商品類別相關controller=====
   postCategory: async (req, res, next) => {
+    // 取得表單資訊
+    const formData = { ...req.body }
+
     // 未填寫類別名稱
-    if (!req.body.name) {
+    if (!formData.name) {
       return next(
         new APIError(
           'BAD REQUEST',
@@ -178,10 +182,10 @@ const adminController = {
 
     try {
       // 檢查類別是否存在
-      const sameCategory = await Category.findOne({
-        where: { name: req.body.name }
+      const sameNameCategory = await Category.findOne({
+        where: { name: formData.name }
       })
-      if (sameCategory) {
+      if (sameNameCategory) {
         return next(
           new APIError(
             'CONFLICT',
@@ -192,7 +196,6 @@ const adminController = {
       }
 
       // 類別尚未建立則新增至資料庫
-      const formData = { ...req.body }
       const newCategory = await Category.create(formData)
 
       // 類別建立成功

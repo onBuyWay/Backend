@@ -231,6 +231,12 @@
               "$ref": "#/definitions/AdminPostProduct_Unauthorized"
             },
             "description": "使用者未登入"
+          },
+          "409": {
+            "schema": {
+              "$ref": "#/definitions/AdminPostProduct_Conflict"
+            },
+            "description": "商品名稱已經註冊過!"
           }
         }
       }
@@ -331,7 +337,7 @@
         "tags": [
           "Product"
         ],
-        "description": "商品資訊更新",
+        "description": "刪除商品資訊",
         "parameters": [
           {
             "name": "id",
@@ -343,7 +349,7 @@
         ],
         "responses": {
           "200": {
-            "description": "商品資訊更新成功",
+            "description": "成功刪除商品資訊",
             "schema": {
               "$ref": "#/definitions/AdminDeleteProduct_Success"
             }
@@ -433,7 +439,7 @@
         ],
         "responses": {
           "200": {
-            "description": "商品類別註冊成功",
+            "description": "商品類別更新成功",
             "schema": {
               "$ref": "#/definitions/AdminPutCategory_Success"
             }

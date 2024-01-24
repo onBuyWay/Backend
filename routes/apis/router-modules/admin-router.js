@@ -82,6 +82,11 @@ router.post(
           $ref: '#definitions/AdminPostProduct_Unauthorized'
         },
         description: "使用者未登入" } */
+  /* #swagger.responses[409] = { 
+        schema: {
+          $ref: '#definitions/AdminPostProduct_Conflict'
+        },
+        description: "商品名稱已經註冊過!" } */
   adminAuthenticated,
   upload.single('image'),
   adminController.postProduct
@@ -139,7 +144,7 @@ router.put(
 router.delete(
   '/products/:id',
   /* #swagger.tags = ['Product']
-       #swagger.description = '商品資訊更新' */
+       #swagger.description = '刪除商品資訊' */
   /*	#swagger.parameters['id'] = {
               in: 'path',
               description: '商品id',
@@ -150,7 +155,7 @@ router.delete(
         schema: {
            $ref: '#definitions/AdminDeleteProduct_Success'
         },
-        description: "商品資訊更新成功" } */
+        description: "成功刪除商品資訊" } */
   /* #swagger.responses[401] = { 
         schema: {
            $ref: '#definitions/AdminDeleteProduct_Unauthorized'
@@ -220,7 +225,7 @@ router.put(
         schema: {
           $ref: '#definitions/AdminPutCategory_Success'
         },
-        description: "商品類別註冊成功" } */
+        description: "商品類別更新成功" } */
   /* #swagger.responses[400] = { 
         schema: {
           $ref: '#definitions/AdminPutCategory_BadRequest'
