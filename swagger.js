@@ -475,6 +475,36 @@ const doc = {
         name: 'NOT FOUND',
         message: '找不到該類別!'
       }
+    },
+    PostFavorite_Success: {
+      status: 'success',
+      data: {
+        productId: '66',
+        userId: 32,
+        updatedAt: '2024-01-25T13:45:27.307Z',
+        createdAt: '2024-01-25T13:45:27.307Z'
+      }
+    },
+    PostFavorite_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    PostFavorite_NotFound: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '找不到該商品'
+      }
+    },
+    PostFavorite_Conflict: {
+      status: 'error',
+      error: {
+        name: 'CONFLICT',
+        message: '已加入最愛名單中!'
+      }
     }
   },
   host: 'localhost:3000'

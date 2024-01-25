@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs')
-const { User } = require('../../models')
+const { User, Favorite, Product } = require('../../models')
 const APIError = require('../../class/errors/APIError')
 const httpStatusCodes = require('../../httpStatusCodes')
 
@@ -111,6 +111,47 @@ const userController = {
       // 成功更新使用者資訊
       const updatedUser = await user.update(formData)
       return res.json({ status: 'success', data: updatedUser.toJSON() })
+    } catch (err) {
+      next(err)
+    }
+  },
+  postFavorite: async (req, res, next) => {
+    try {
+      // 獲取商品id
+      const productId = req.params.productId
+
+      // 檢驗商品是否存在及是否加入最愛名單中
+      const [favoritedProduct, isFavorited] = await Promise.all([
+        Product.findByPk(productId),
+        Favorite.findOne({ where: { productId } })
+      ])
+
+      // 商品不存在
+      if (!favoritedProduct) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該商品')
+        )
+      }
+
+      // 商品已在最愛名單中
+      if (isFavorited) {
+        return next(
+          new APIError(
+            'CONFLICT',
+            httpStatusCodes.CONFLICT,
+            '已加入最愛名單中!'
+          )
+        )
+      }
+
+      // 將商品加入最愛名單
+      const newFavorite = await Favorite.create({
+        productId,
+        userId: req.user.id
+      })
+
+      // 成功將商品加入最愛名單
+      return res.json({ status: 'success', data: newFavorite })
     } catch (err) {
       next(err)
     }

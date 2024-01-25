@@ -89,6 +89,49 @@
         }
       }
     },
+    "/api/favorites/{productId}": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "商品加入最愛",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "商品id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "商品成功加入最愛",
+            "schema": {
+              "$ref": "#/definitions/PostFavorite_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/PostFavorite_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/PostFavorite_NotFound"
+            },
+            "description": "找不到該商品"
+          },
+          "409": {
+            "schema": {
+              "$ref": "#/definitions/PostFavorite_Conflict"
+            },
+            "description": "商品已加入最愛!"
+          }
+        }
+      }
+    },
     "/api/users/{id}": {
       "get": {
         "tags": [
@@ -2114,6 +2157,102 @@
             "message": {
               "type": "string",
               "example": "找不到該類別!"
+            }
+          }
+        }
+      }
+    },
+    "PostFavorite_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "productId": {
+              "type": "string",
+              "example": "66"
+            },
+            "userId": {
+              "type": "number",
+              "example": 32
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2024-01-25T13:45:27.307Z"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2024-01-25T13:45:27.307Z"
+            }
+          }
+        }
+      }
+    },
+    "PostFavorite_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "PostFavorite_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "NOT FOUND"
+            },
+            "message": {
+              "type": "string",
+              "example": "找不到該商品"
+            }
+          }
+        }
+      }
+    },
+    "PostFavorite_Conflict": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "CONFLICT"
+            },
+            "message": {
+              "type": "string",
+              "example": "已加入最愛名單中!"
             }
           }
         }

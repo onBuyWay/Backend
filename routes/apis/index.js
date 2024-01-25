@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../../controllers/apis/user-controller')
 const { apiErrorHandler } = require('../../middleware/error-handler')
-const { localAuthenticate } = require('../../middleware/auth')
+const { localAuthenticate, isAuthenticated } = require('../../middleware/auth')
 const adminRouter = require('./router-modules/admin-router')
 const userRouter = require('./router-modules/users-router')
 
-// 使用者相關路由:
+// 使用者相關APIs:
 // 註冊API
 router.post(
   '/signUp',
@@ -67,6 +67,41 @@ router.post(
 
   localAuthenticate,
   userController.signIn
+)
+
+// 商品加入最愛API
+router.post(
+  '/favorites/:productId',
+  /* #swagger.tags = ['User']
+       #swagger.description = '商品加入最愛' */
+  /*	#swagger.parameters['productId'] = {
+              in: 'path',
+              description: '商品id',
+              type: 'integer',
+              required: true
+      } */
+  /* #swagger.responses[200] = { 
+        schema: {
+           $ref: '#definitions/PostFavorite_Success'
+        },
+        description: "商品成功加入最愛" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+           $ref: '#definitions/PostFavorite_Unauthorized'
+        },
+        description: "使用者未登入" } */
+  /* #swagger.responses[404] = { 
+        schema: {
+            $ref: '#definitions/PostFavorite_NotFound'
+        },
+        description: "找不到該商品" } */
+  /* #swagger.responses[409] = { 
+        schema: {
+          $ref: '#definitions/PostFavorite_Conflict'
+        },
+        description: "商品已加入最愛!" } */
+  isAuthenticated,
+  userController.postFavorite
 )
 
 // user路由模組:
