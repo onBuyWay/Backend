@@ -524,6 +524,41 @@
             "description": "類別名稱已經註冊過!"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "description": "刪除類別資訊",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "類別id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功刪除商品資訊",
+            "schema": {
+              "$ref": "#/definitions/AdminDeleteCategory_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/AdminDeleteCategory_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/AdminDeleteCategory_NotFound"
+            },
+            "description": "找不到該類別"
+          }
+        }
       }
     }
   },
@@ -1972,6 +2007,63 @@
             "message": {
               "type": "string",
               "example": "找不到該類別"
+            }
+          }
+        }
+      }
+    },
+    "AdminDeleteCategory_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    "AdminDeleteCategory_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "AdminDeleteCategory_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "NOT FOUND"
+            },
+            "message": {
+              "type": "string",
+              "example": "找不到該類別!"
             }
           }
         }

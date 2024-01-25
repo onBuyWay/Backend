@@ -280,6 +280,27 @@ const adminController = {
     } catch (err) {
       return next(err)
     }
+  },
+  deleteCategory: async (req, res, next) => {
+    try {
+      // 從資料庫搜尋欲刪除類別
+      const category = await Category.findByPk(req.params.id)
+
+      // 找不到該商品
+      if (!category) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該類別!')
+        )
+      }
+
+      // 刪除類別
+      await category.destroy()
+
+      // 成功刪除類別
+      return res.json({ status: 'success', data: {} })
+    } catch (err) {
+      next(err)
+    }
   }
 }
 

@@ -440,6 +440,24 @@ const doc = {
         name: 'NOT FOUND',
         message: '找不到該類別'
       }
+    },
+    AdminDeleteCategory_Success: {
+      status: 'success',
+      data: {}
+    },
+    AdminDeleteCategory_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    AdminDeleteCategory_NotFound: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '找不到該類別!'
+      }
     }
   },
   host: 'localhost:3000'
