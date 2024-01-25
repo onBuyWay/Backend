@@ -155,6 +155,39 @@ const userController = {
     } catch (err) {
       next(err)
     }
+  },
+  deleteFavorite: async (req, res, next) => {
+    try {
+      // 獲取商品id
+      const productId = req.params.productId
+
+      // 獲取使用者id
+      const userId = req.user.id
+
+      // 檢驗最愛商品是否存在
+      const favoritedProduct = await Favorite.findOne({
+        where: { productId, userId }
+      })
+
+      // 最愛商品不存在
+      if (!favoritedProduct) {
+        return next(
+          new APIError(
+            'NOT FOUND',
+            httpStatusCodes.NOT_FOUND,
+            '該商品不在最愛名單中'
+          )
+        )
+      }
+
+      // 將商品從最愛名單中刪除
+      await favoritedProduct.destroy()
+
+      //成功自最愛名單中刪除商品
+      return res.json({ status: 'success', data: {} })
+    } catch (err) {
+      next(err)
+    }
   }
 }
 

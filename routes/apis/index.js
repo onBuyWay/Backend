@@ -104,6 +104,36 @@ router.post(
   userController.postFavorite
 )
 
+// 商品從最愛中移除
+router.delete(
+  '/favorites/:productId',
+  /* #swagger.tags = ['User']
+       #swagger.description = '商品從最愛移除' */
+  /*	#swagger.parameters['productId'] = {
+              in: 'path',
+              description: '商品id',
+              type: 'integer',
+              required: true
+      } */
+  /* #swagger.responses[200] = { 
+        schema: {
+           $ref: '#definitions/DeleteFavorite_Success'
+        },
+        description: "商品成功加入最愛" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+           $ref: '#definitions/DeleteFavorite_Unauthorized'
+        },
+        description: "使用者未登入" } */
+  /* #swagger.responses[404] = { 
+        schema: {
+            $ref: '#definitions/DeleteFavorite_NotFound'
+        },
+        description: "最愛名單中找不到該商品" } */
+  isAuthenticated,
+  userController.deleteFavorite
+)
+
 // user路由模組:
 router.use('/users', userRouter)
 

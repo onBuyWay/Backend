@@ -130,6 +130,41 @@
             "description": "商品已加入最愛!"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "description": "商品從最愛移除",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "商品id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "商品成功加入最愛",
+            "schema": {
+              "$ref": "#/definitions/DeleteFavorite_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/DeleteFavorite_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/DeleteFavorite_NotFound"
+            },
+            "description": "最愛名單中找不到該商品"
+          }
+        }
       }
     },
     "/api/users/{id}": {
@@ -2253,6 +2288,63 @@
             "message": {
               "type": "string",
               "example": "已加入最愛名單中!"
+            }
+          }
+        }
+      }
+    },
+    "DeleteFavorite_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    "DeleteFavorite_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "DeleteFavorite_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "NOT FOUND"
+            },
+            "message": {
+              "type": "string",
+              "example": "該商品不在最愛名單中"
             }
           }
         }

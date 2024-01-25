@@ -505,6 +505,24 @@ const doc = {
         name: 'CONFLICT',
         message: '已加入最愛名單中!'
       }
+    },
+    DeleteFavorite_Success: {
+      status: 'success',
+      data: {}
+    },
+    DeleteFavorite_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    DeleteFavorite_NotFound: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '該商品不在最愛名單中'
+      }
     }
   },
   host: 'localhost:3000'
