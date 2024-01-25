@@ -1079,31 +1079,31 @@
             "properties": {
               "id": {
                 "type": "number",
-                "example": 3
+                "example": 65
               },
               "name": {
                 "type": "string",
-                "example": "可樂"
+                "example": "Gorgeous Fresh Fish"
               },
               "image": {
                 "type": "string",
-                "example": "https://i.imgur.com/IILT3WL.jpg"
+                "example": "https://loremflickr.com/640/480/product?lock=3148228558061568"
               },
               "description": {
                 "type": "string",
-                "example": "可樂超好喝!!!"
+                "example": "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit"
               },
               "stockQuantity": {
                 "type": "number",
-                "example": 200
+                "example": 133
               },
               "costPrice": {
                 "type": "number",
-                "example": 15
+                "example": 197
               },
               "sellPrice": {
                 "type": "number",
-                "example": 40
+                "example": 595
               },
               "productStatus": {
                 "type": "string",
@@ -1111,15 +1111,40 @@
               },
               "categoryId": {
                 "type": "number",
-                "example": 1
+                "example": 40
               },
               "createdAt": {
                 "type": "string",
-                "example": "2024-01-22T06:17:31.000Z"
+                "example": "2024-01-25T08:29:27.000Z"
               },
               "updatedAt": {
                 "type": "string",
-                "example": "2024-01-22T10:44:15.000Z"
+                "example": "2024-01-25T08:29:27.000Z"
+              },
+              "CategoryId": {
+                "type": "number",
+                "example": 40
+              },
+              "Category": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 40
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "女裝"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2024-01-25T08:29:27.000Z"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2024-01-25T08:29:27.000Z"
+                  }
+                }
               }
             }
           }
@@ -1160,31 +1185,31 @@
           "properties": {
             "id": {
               "type": "number",
-              "example": 3
+              "example": 65
             },
             "name": {
               "type": "string",
-              "example": "可樂"
+              "example": "Gorgeous Fresh Fish"
             },
             "image": {
               "type": "string",
-              "example": "https://i.imgur.com/IILT3WL.jpg"
+              "example": "https://loremflickr.com/640/480/product?lock=3148228558061568"
             },
             "description": {
               "type": "string",
-              "example": "可樂超好喝!!!"
+              "example": "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit"
             },
             "stockQuantity": {
               "type": "number",
-              "example": 200
+              "example": 133
             },
             "costPrice": {
               "type": "number",
-              "example": 15
+              "example": 197
             },
             "sellPrice": {
               "type": "number",
-              "example": 40
+              "example": 595
             },
             "productStatus": {
               "type": "string",
@@ -1192,15 +1217,40 @@
             },
             "categoryId": {
               "type": "number",
-              "example": 1
+              "example": 40
             },
             "createdAt": {
               "type": "string",
-              "example": "2024-01-22T06:17:31.000Z"
+              "example": "2024-01-25T08:29:27.000Z"
             },
             "updatedAt": {
               "type": "string",
-              "example": "2024-01-22T10:44:15.000Z"
+              "example": "2024-01-25T08:29:27.000Z"
+            },
+            "CategoryId": {
+              "type": "number",
+              "example": 40
+            },
+            "Category": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 40
+                },
+                "name": {
+                  "type": "string",
+                  "example": "女裝"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-25T08:29:27.000Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-25T08:29:27.000Z"
+                }
+              }
             }
           }
         }

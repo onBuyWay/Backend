@@ -160,17 +160,26 @@ const doc = {
       status: 'success',
       data: [
         {
-          id: 3,
-          name: '可樂',
-          image: 'https://i.imgur.com/IILT3WL.jpg',
-          description: '可樂超好喝!!!',
-          stockQuantity: 200,
-          costPrice: 15,
-          sellPrice: 40,
+          id: 65,
+          name: 'Gorgeous Fresh Fish',
+          image:
+            'https://loremflickr.com/640/480/product?lock=3148228558061568',
+          description:
+            'Carbonite web goalkeeper gloves are ergonomically designed to give easy fit',
+          stockQuantity: 133,
+          costPrice: 197,
+          sellPrice: 595,
           productStatus: '1',
-          categoryId: 1,
-          createdAt: '2024-01-22T06:17:31.000Z',
-          updatedAt: '2024-01-22T10:44:15.000Z'
+          categoryId: 40,
+          createdAt: '2024-01-25T08:29:27.000Z',
+          updatedAt: '2024-01-25T08:29:27.000Z',
+          CategoryId: 40,
+          Category: {
+            id: 40,
+            name: '女裝',
+            createdAt: '2024-01-25T08:29:27.000Z',
+            updatedAt: '2024-01-25T08:29:27.000Z'
+          }
         }
       ]
     },
@@ -184,17 +193,25 @@ const doc = {
     AdminGetProduct_Success: {
       status: 'success',
       data: {
-        id: 3,
-        name: '可樂',
-        image: 'https://i.imgur.com/IILT3WL.jpg',
-        description: '可樂超好喝!!!',
-        stockQuantity: 200,
-        costPrice: 15,
-        sellPrice: 40,
+        id: 65,
+        name: 'Gorgeous Fresh Fish',
+        image: 'https://loremflickr.com/640/480/product?lock=3148228558061568',
+        description:
+          'Carbonite web goalkeeper gloves are ergonomically designed to give easy fit',
+        stockQuantity: 133,
+        costPrice: 197,
+        sellPrice: 595,
         productStatus: '1',
-        categoryId: 1,
-        createdAt: '2024-01-22T06:17:31.000Z',
-        updatedAt: '2024-01-22T10:44:15.000Z'
+        categoryId: 40,
+        createdAt: '2024-01-25T08:29:27.000Z',
+        updatedAt: '2024-01-25T08:29:27.000Z',
+        CategoryId: 40,
+        Category: {
+          id: 40,
+          name: '女裝',
+          createdAt: '2024-01-25T08:29:27.000Z',
+          updatedAt: '2024-01-25T08:29:27.000Z'
+        }
       }
     },
     AdminGetProduct_Unauthorized: {
