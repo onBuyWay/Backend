@@ -167,6 +167,22 @@
         }
       }
     },
+    "/api/products": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Get所有商品資訊",
+        "responses": {
+          "200": {
+            "description": "成功獲取商品資訊",
+            "schema": {
+              "$ref": "#/definitions/GetProducts_Success"
+            }
+          }
+        }
+      }
+    },
     "/api/users/{id}": {
       "get": {
         "tags": [
@@ -2345,6 +2361,100 @@
             "message": {
               "type": "string",
               "example": "該商品不在最愛名單中"
+            }
+          }
+        }
+      }
+    },
+    "GetProducts_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 65
+              },
+              "name": {
+                "type": "string",
+                "example": "Gorgeous Fresh Fish"
+              },
+              "image": {
+                "type": "string",
+                "example": "https://loremflickr.com/640/480/product?lock=3148228558061568"
+              },
+              "description": {
+                "type": "string",
+                "example": "designed to give easy fit...."
+              },
+              "stockQuantity": {
+                "type": "number",
+                "example": 133
+              },
+              "costPrice": {
+                "type": "number",
+                "example": 197
+              },
+              "sellPrice": {
+                "type": "number",
+                "example": 595
+              },
+              "productStatus": {
+                "type": "string",
+                "example": "1"
+              },
+              "categoryId": {
+                "type": "number",
+                "example": 40
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2024-01-25T08:29:27.000Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2024-01-25T08:29:27.000Z"
+              },
+              "CategoryId": {
+                "type": "number",
+                "example": 40
+              },
+              "Category": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 40
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "女裝"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2024-01-25T08:29:27.000Z"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2024-01-25T08:29:27.000Z"
+                  }
+                }
+              },
+              "numOfFavorite": {
+                "type": "number",
+                "example": 1
+              },
+              "isFavorited": {
+                "type": "boolean",
+                "example": false
+              }
             }
           }
         }

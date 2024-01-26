@@ -523,6 +523,34 @@ const doc = {
         name: 'NOT FOUND',
         message: '該商品不在最愛名單中'
       }
+    },
+    GetProducts_Success: {
+      status: 'success',
+      data: [
+        {
+          id: 65,
+          name: 'Gorgeous Fresh Fish',
+          image:
+            'https://loremflickr.com/640/480/product?lock=3148228558061568',
+          description: 'designed to give easy fit....',
+          stockQuantity: 133,
+          costPrice: 197,
+          sellPrice: 595,
+          productStatus: '1',
+          categoryId: 40,
+          createdAt: '2024-01-25T08:29:27.000Z',
+          updatedAt: '2024-01-25T08:29:27.000Z',
+          CategoryId: 40,
+          Category: {
+            id: 40,
+            name: '女裝',
+            createdAt: '2024-01-25T08:29:27.000Z',
+            updatedAt: '2024-01-25T08:29:27.000Z'
+          },
+          numOfFavorite: 1,
+          isFavorited: false
+        }
+      ]
     }
   },
   host: 'localhost:3000'

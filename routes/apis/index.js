@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const userController = require('../../controllers/apis/user-controller')
+const productController = require('../../controllers/apis/product-controller')
 const { apiErrorHandler } = require('../../middleware/error-handler')
 const { localAuthenticate, isAuthenticated } = require('../../middleware/auth')
 const adminRouter = require('./router-modules/admin-router')
@@ -132,6 +133,19 @@ router.delete(
         description: "最愛名單中找不到該商品" } */
   isAuthenticated,
   userController.deleteFavorite
+)
+
+// 獲取所有餐廳資訊
+router.get(
+  '/products',
+  /* #swagger.tags = ['Product']
+       #swagger.description = 'Get所有商品資訊' */
+  /* #swagger.responses[200] = { 
+        schema: {
+          $ref: '#/definitions/GetProducts_Success'
+      },
+        description: "成功獲取商品資訊" } */
+  productController.getProducts
 )
 
 // user路由模組:
