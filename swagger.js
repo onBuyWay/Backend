@@ -551,6 +551,38 @@ const doc = {
           isFavorited: false
         }
       ]
+    },
+    GetProduct_Success: {
+      status: 'success',
+      data: {
+        id: 65,
+        name: 'Gorgeous Fresh Fish',
+        image: 'https://loremflickr.com/640/480/product?lock=3148228558061568',
+        description:
+          'Carbonite web goalkeeper gloves are ergonomically designed to give easy fit',
+        stockQuantity: 133,
+        costPrice: 197,
+        sellPrice: 595,
+        productStatus: '1',
+        categoryId: 40,
+        createdAt: '2024-01-25T08:29:27.000Z',
+        updatedAt: '2024-01-25T08:29:27.000Z',
+        CategoryId: 40,
+        Category: {
+          id: 40,
+          name: '女裝',
+          createdAt: '2024-01-25T08:29:27.000Z',
+          updatedAt: '2024-01-25T08:29:27.000Z'
+        },
+        isFavorited: false
+      }
+    },
+    GetProduct_NotFound: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '找不到該商品'
+      }
     }
   },
   host: 'localhost:3000'

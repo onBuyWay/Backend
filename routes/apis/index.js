@@ -148,6 +148,24 @@ router.get(
   productController.getProducts
 )
 
+// 獲取單一商品資訊
+router.get(
+  '/products/:id',
+  /* #swagger.tags = ['Product']
+       #swagger.description = 'Get單一商品資訊' */
+  /* #swagger.responses[200] = { 
+        schema: {
+          $ref: '#/definitions/GetProduct_Success'
+      },
+        description: "成功獲取商品資訊" } */
+  /* #swagger.responses[404] = { 
+        schema: {
+          $ref: '#/definitions/GetProduct_NotFound'
+      },
+        description: "找不該商品" } */
+  productController.getProduct
+)
+
 // user路由模組:
 router.use('/users', userRouter)
 

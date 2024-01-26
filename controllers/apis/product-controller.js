@@ -1,6 +1,7 @@
 const { Favorite, Product, Category } = require('../../models')
 const APIError = require('../../class/errors/APIError')
 const httpStatusCodes = require('../../httpStatusCodes')
+const { apiErrorHandler } = require('../../middleware/error-handler')
 
 const productController = {
   getProducts: async (req, res, next) => {
@@ -43,6 +44,40 @@ const productController = {
 
       // 成功搜尋所有餐廳資訊
       return res.json({ status: 'success', data: responseData })
+    } catch (err) {
+      next(err)
+    }
+  },
+  getProduct: async (req, res, next) => {
+    try {
+      // 獲取商品id
+      const productId = req.params.id
+      const userId = req.user ? req.user.id : null
+
+      // 獲取商品資訊以及使用者最愛名單
+      const [product, favoritedProducts] = await Promise.all([
+        Product.findByPk(productId, {
+          raw: true,
+          nest: true,
+          include: Category
+        }),
+        Favorite.findAll({ where: { userId } })
+      ])
+
+      // 檢查該id商品是否存在
+      if (!product) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該商品')
+        )
+      }
+
+      // 檢查是否為最愛商品
+      const isFavorited = favoritedProducts.some(
+        (favorite) => favorite.productId === productId
+      )
+
+      // 回傳商品資訊
+      res.json({ status: 'success', data: { ...product, isFavorited } })
     } catch (err) {
       next(err)
     }

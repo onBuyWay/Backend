@@ -183,6 +183,36 @@
         }
       }
     },
+    "/api/products/{id}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Get單一商品資訊",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功獲取商品資訊",
+            "schema": {
+              "$ref": "#/definitions/GetProduct_Success"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/GetProduct_NotFound"
+            },
+            "description": "找不該商品"
+          }
+        }
+      }
+    },
     "/api/users/{id}": {
       "get": {
         "tags": [
@@ -2455,6 +2485,115 @@
                 "type": "boolean",
                 "example": false
               }
+            }
+          }
+        }
+      }
+    },
+    "GetProduct_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 65
+            },
+            "name": {
+              "type": "string",
+              "example": "Gorgeous Fresh Fish"
+            },
+            "image": {
+              "type": "string",
+              "example": "https://loremflickr.com/640/480/product?lock=3148228558061568"
+            },
+            "description": {
+              "type": "string",
+              "example": "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit"
+            },
+            "stockQuantity": {
+              "type": "number",
+              "example": 133
+            },
+            "costPrice": {
+              "type": "number",
+              "example": 197
+            },
+            "sellPrice": {
+              "type": "number",
+              "example": 595
+            },
+            "productStatus": {
+              "type": "string",
+              "example": "1"
+            },
+            "categoryId": {
+              "type": "number",
+              "example": 40
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2024-01-25T08:29:27.000Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2024-01-25T08:29:27.000Z"
+            },
+            "CategoryId": {
+              "type": "number",
+              "example": 40
+            },
+            "Category": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 40
+                },
+                "name": {
+                  "type": "string",
+                  "example": "女裝"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-25T08:29:27.000Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-25T08:29:27.000Z"
+                }
+              }
+            },
+            "isFavorited": {
+              "type": "boolean",
+              "example": false
+            }
+          }
+        }
+      }
+    },
+    "GetProduct_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "NOT FOUND"
+            },
+            "message": {
+              "type": "string",
+              "example": "找不到該商品"
             }
           }
         }
