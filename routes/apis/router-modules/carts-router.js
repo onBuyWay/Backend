@@ -2,6 +2,28 @@ const express = require('express')
 const router = express.Router()
 const cartController = require('../../../controllers/apis/cart-controller')
 
+router.get(
+  '/',
+  /* #swagger.tags = ['Cart']
+       #swagger.description = '查看購物車商品' */
+  /* #swagger.responses[200] = { 
+        schema: {
+          $ref: '#definitions/GetCart_Success'
+        },
+        description: "成功獲取購物車資訊" } */
+  /* #swagger.responses[200_CartIsEmpty] = { 
+        schema: {
+          $ref: '#definitions/GetCart_Success_Empty'
+        },
+        description: "成功獲取購物車資訊(無商品)" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+          $ref: '#definitions/GetCart_Unauthorized'
+        },
+        description: "使用者未登入" } */
+  cartController.getCart
+)
+
 router.post(
   '/:productId',
   /* #swagger.tags = ['Cart']

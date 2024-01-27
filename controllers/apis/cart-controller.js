@@ -3,6 +3,34 @@ const APIError = require('../../class/errors/APIError')
 const httpStatusCodes = require('../../httpStatusCodes')
 
 const cartController = {
+  getCart: async (req, res, next) => {
+    try {
+      // 獲取使用者id
+      const userId = req.user.id
+
+      // 獲取使用者購物車及購物商品
+      const userCart = await Cart.findOne({
+        where: { userId },
+        include: 'cartProducts'
+      })
+
+      // 檢驗購物車是否為空
+      const cartProducts = userCart.cartProducts
+      if (!cartProducts.length) {
+        return res.json({ stauts: 'success', message: '目前購物車中沒有商品~' })
+      }
+
+      // 計算購物車所有商品總價總價
+      const totalPrice = cartProducts
+        .map((product) => product.sellPrice * product.CartItem.quantity)
+        .reduce((accumulator, priceSum) => accumulator + priceSum)
+
+      // 成功獲取購物車商品資訊
+      return res.json({ stauts: 'success', data: { cartProducts, totalPrice } })
+    } catch (err) {
+      next(err)
+    }
+  },
   postCart: async (req, res, next) => {
     try {
       // 獲取商品id

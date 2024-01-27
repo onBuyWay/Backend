@@ -624,6 +624,48 @@ const doc = {
         name: 'Not Found',
         message: '商品庫存不足'
       }
+    },
+    GetCart_Success: {
+      stauts: 'success',
+      data: {
+        cartProducts: [
+          {
+            id: 66,
+            name: 'Tasty Steel Soap',
+            image:
+              'https://loremflickr.com/640/480/product?lock=8423580974972928',
+            description:
+              'The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive',
+            stockQuantity: 194,
+            costPrice: 111,
+            sellPrice: 691,
+            productStatus: '1',
+            categoryId: 39,
+            createdAt: '2024-01-25T08:29:27.000Z',
+            updatedAt: '2024-01-25T08:29:27.000Z',
+            CategoryId: 39,
+            CartItem: {
+              quantity: 3,
+              cartId: 1,
+              productId: 66,
+              createdAt: '2024-01-27T12:48:22.000Z',
+              updatedAt: '2024-01-27T12:48:26.000Z'
+            }
+          }
+        ],
+        totalPrice: 2073
+      }
+    },
+    GetCart_Success_Empty: {
+      stauts: 'success',
+      message: '目前購物車中沒有商品~'
+    },
+    GetCart_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
     }
   },
   host: 'localhost:3000'

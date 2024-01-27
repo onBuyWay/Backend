@@ -213,6 +213,34 @@
         }
       }
     },
+    "/api/cart/": {
+      "get": {
+        "tags": [
+          "Cart"
+        ],
+        "description": "查看購物車商品",
+        "responses": {
+          "200": {
+            "description": "成功獲取購物車資訊",
+            "schema": {
+              "$ref": "#/definitions/GetCart_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/GetCart_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "200_CartIsEmpty": {
+            "schema": {
+              "$ref": "#/definitions/GetCart_Success_Empty"
+            },
+            "description": "成功獲取購物車資訊(無商品)"
+          }
+        }
+      }
+    },
     "/api/cart/{productId}": {
       "post": {
         "tags": [
@@ -2763,6 +2791,140 @@
             "message": {
               "type": "string",
               "example": "商品庫存不足"
+            }
+          }
+        }
+      }
+    },
+    "GetCart_Success": {
+      "type": "object",
+      "properties": {
+        "stauts": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "cartProducts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 66
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Tasty Steel Soap"
+                  },
+                  "image": {
+                    "type": "string",
+                    "example": "https://loremflickr.com/640/480/product?lock=8423580974972928"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive"
+                  },
+                  "stockQuantity": {
+                    "type": "number",
+                    "example": 194
+                  },
+                  "costPrice": {
+                    "type": "number",
+                    "example": 111
+                  },
+                  "sellPrice": {
+                    "type": "number",
+                    "example": 691
+                  },
+                  "productStatus": {
+                    "type": "string",
+                    "example": "1"
+                  },
+                  "categoryId": {
+                    "type": "number",
+                    "example": 39
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2024-01-25T08:29:27.000Z"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2024-01-25T08:29:27.000Z"
+                  },
+                  "CategoryId": {
+                    "type": "number",
+                    "example": 39
+                  },
+                  "CartItem": {
+                    "type": "object",
+                    "properties": {
+                      "quantity": {
+                        "type": "number",
+                        "example": 3
+                      },
+                      "cartId": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "productId": {
+                        "type": "number",
+                        "example": 66
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2024-01-27T12:48:22.000Z"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "2024-01-27T12:48:26.000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "totalPrice": {
+              "type": "number",
+              "example": 2073
+            }
+          }
+        }
+      }
+    },
+    "GetCart_Success_Empty": {
+      "type": "object",
+      "properties": {
+        "stauts": {
+          "type": "string",
+          "example": "success"
+        },
+        "message": {
+          "type": "string",
+          "example": "目前購物車中沒有商品~"
+        }
+      }
+    },
+    "GetCart_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
             }
           }
         }
