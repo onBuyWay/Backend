@@ -6,6 +6,7 @@ const { apiErrorHandler } = require('../../middleware/error-handler')
 const { localAuthenticate, isAuthenticated } = require('../../middleware/auth')
 const adminRouter = require('./router-modules/admin-router')
 const userRouter = require('./router-modules/users-router')
+const cartRouter = require('./router-modules/carts-router')
 
 // 使用者相關APIs:
 // 註冊API
@@ -165,6 +166,9 @@ router.get(
         description: "找不該商品" } */
   productController.getProduct
 )
+
+// cart路由模組:
+router.use('/cart', isAuthenticated, cartRouter)
 
 // user路由模組:
 router.use('/users', userRouter)

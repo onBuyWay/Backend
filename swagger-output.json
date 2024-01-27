@@ -213,6 +213,43 @@
         }
       }
     },
+    "/api/cart/{productId}": {
+      "post": {
+        "tags": [
+          "Cart"
+        ],
+        "description": "新增商品至購物車",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "商品id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "商品類別註冊成功",
+            "schema": {
+              "$ref": "#/definitions/PostCart_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/PostCart_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/PostCart_NotFound"
+            },
+            "description": "商品庫存不足"
+          }
+        }
+      }
+    },
     "/api/users/{id}": {
       "get": {
         "tags": [
@@ -2594,6 +2631,138 @@
             "message": {
               "type": "string",
               "example": "找不到該商品"
+            }
+          }
+        }
+      }
+    },
+    "PostCart_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "cartItem": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "type": "number",
+                  "example": 1
+                },
+                "cartId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "productId": {
+                  "type": "string",
+                  "example": "66"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-27T08:31:03.096Z"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-27T08:31:03.096Z"
+                }
+              }
+            },
+            "addProduct": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 66
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Tasty Steel Soap"
+                },
+                "image": {
+                  "type": "string",
+                  "example": "https://loremflickr.com/640/480/product?lock=8423580974972928"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive"
+                },
+                "stockQuantity": {
+                  "type": "number",
+                  "example": 194
+                },
+                "costPrice": {
+                  "type": "number",
+                  "example": 111
+                },
+                "sellPrice": {
+                  "type": "number",
+                  "example": 691
+                },
+                "productStatus": {
+                  "type": "string",
+                  "example": "1"
+                },
+                "categoryId": {
+                  "type": "number",
+                  "example": 39
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-25T08:29:27.000Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-25T08:29:27.000Z"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "PostCart_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "PostCart_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Not Found"
+            },
+            "message": {
+              "type": "string",
+              "example": "商品庫存不足"
             }
           }
         }

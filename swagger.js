@@ -583,6 +583,47 @@ const doc = {
         name: 'NOT FOUND',
         message: '找不到該商品'
       }
+    },
+    PostCart_Success: {
+      status: 'success',
+      data: {
+        cartItem: {
+          quantity: 1,
+          cartId: 1,
+          productId: '66',
+          updatedAt: '2024-01-27T08:31:03.096Z',
+          createdAt: '2024-01-27T08:31:03.096Z'
+        },
+        addProduct: {
+          id: 66,
+          name: 'Tasty Steel Soap',
+          image:
+            'https://loremflickr.com/640/480/product?lock=8423580974972928',
+          description:
+            'The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive',
+          stockQuantity: 194,
+          costPrice: 111,
+          sellPrice: 691,
+          productStatus: '1',
+          categoryId: 39,
+          createdAt: '2024-01-25T08:29:27.000Z',
+          updatedAt: '2024-01-25T08:29:27.000Z'
+        }
+      }
+    },
+    PostCart_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    PostCart_NotFound: {
+      status: 'error',
+      error: {
+        name: 'Not Found',
+        message: '商品庫存不足'
+      }
     }
   },
   host: 'localhost:3000'
