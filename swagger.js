@@ -666,6 +666,24 @@ const doc = {
         name: 'Unauthorized',
         message: '使用者未登入!'
       }
+    },
+    DeleteCartItem_Success: {
+      status: 'success',
+      data: {}
+    },
+    DeleteCartItem_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    DeleteCartItem_NotFound: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '找不到該商品'
+      }
     }
   },
   host: 'localhost:3000'

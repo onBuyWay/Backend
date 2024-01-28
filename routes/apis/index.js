@@ -7,6 +7,7 @@ const { localAuthenticate, isAuthenticated } = require('../../middleware/auth')
 const adminRouter = require('./router-modules/admin-router')
 const userRouter = require('./router-modules/users-router')
 const cartRouter = require('./router-modules/carts-router')
+const cartItemsRouter = require('./router-modules/cartItemsRouter')
 
 // 使用者相關APIs:
 // 註冊API
@@ -169,6 +170,9 @@ router.get(
 
 // cart路由模組:
 router.use('/cart', isAuthenticated, cartRouter)
+
+// cartItem路由模組
+router.use('/cartItems', isAuthenticated, cartItemsRouter)
 
 // user路由模組:
 router.use('/users', userRouter)

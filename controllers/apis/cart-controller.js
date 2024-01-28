@@ -81,6 +81,32 @@ const cartController = {
     } catch (err) {
       next(err)
     }
+  },
+  deleteCartItem: async (req, res, next) => {
+    try {
+      // 獲取購物車中物件id
+      const cartItemId = req.params.cartItemId
+
+      // 獲取該物件資訊
+      const cartItem = await CartItem.findByPk(cartItemId)
+
+      console.log(CartItem)
+
+      // 找不到該物件
+      if (!cartItem) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該商品')
+        )
+      }
+
+      // 刪除該物件
+      await cartItem.destroy()
+
+      // 成功刪除物件
+      return res.json({ status: 'success', data: {} })
+    } catch (err) {
+      next(err)
+    }
   }
 }
 

@@ -278,6 +278,43 @@
         }
       }
     },
+    "/api/cartItems/{cartItemId}": {
+      "delete": {
+        "tags": [
+          "Cart"
+        ],
+        "description": "刪除購物車商品",
+        "parameters": [
+          {
+            "name": "cartItemId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "購物車物件id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功刪除購物車商品",
+            "schema": {
+              "$ref": "#/definitions/DeleteCartItem_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/DeleteCartItem_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/DeleteCartItem_NotFound"
+            },
+            "description": "找不到該物件"
+          }
+        }
+      }
+    },
     "/api/users/{id}": {
       "get": {
         "tags": [
@@ -2925,6 +2962,63 @@
             "message": {
               "type": "string",
               "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "DeleteCartItem_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    "DeleteCartItem_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "DeleteCartItem_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "NOT FOUND"
+            },
+            "message": {
+              "type": "string",
+              "example": "找不到該商品"
             }
           }
         }
