@@ -315,6 +315,43 @@
         }
       }
     },
+    "/api/cartItems/{cartItemId}/add": {
+      "post": {
+        "tags": [
+          "Cart"
+        ],
+        "description": "增加購物車商品數量(+1)",
+        "parameters": [
+          {
+            "name": "cartItemId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "購物車物件id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功刪除購物車商品",
+            "schema": {
+              "$ref": "#/definitions/AddCartItem_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/AddCartItem_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/AddCartItem_NotFound"
+            },
+            "description": "商品庫存不足"
+          }
+        }
+      }
+    },
     "/api/users/{id}": {
       "get": {
         "tags": [
@@ -3019,6 +3056,93 @@
             "message": {
               "type": "string",
               "example": "找不到該商品"
+            }
+          }
+        }
+      }
+    },
+    "AddCartItem_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "cartItem": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 5
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 3
+                },
+                "cartId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "productId": {
+                  "type": "number",
+                  "example": 66
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-28T15:28:58.000Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-28T15:36:00.000Z"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "AddCartItem_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "AddCartItem_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Not Found"
+            },
+            "message": {
+              "type": "string",
+              "example": "商品庫存不足"
             }
           }
         }

@@ -141,6 +141,7 @@ router.put(
   adminController.putProduct
 )
 
+// 刪除商品API
 router.delete(
   '/products/:id',
   /* #swagger.tags = ['Product']
@@ -299,6 +300,7 @@ router.put(
   adminController.putCategory
 )
 
+// 刪除類別API
 router.delete(
   '/categories/:id',
   /* #swagger.tags = ['Category']

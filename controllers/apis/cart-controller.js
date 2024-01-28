@@ -3,6 +3,7 @@ const APIError = require('../../class/errors/APIError')
 const httpStatusCodes = require('../../httpStatusCodes')
 
 const cartController = {
+  // 購物車相關controller
   getCart: async (req, res, next) => {
     try {
       // 獲取使用者id
@@ -74,10 +75,46 @@ const cartController = {
       }
 
       // 更新購物商品數量+1
-      cartItem.increment('quantity')
+      await cartItem.increment('quantity')
 
       // 成功將商品新增至購物車
       return res.json({ status: 'success', data: { cartItem, addProduct } })
+    } catch (err) {
+      next(err)
+    }
+  },
+  // 購物車商品相關controller
+  addCartItem: async (req, res, next) => {
+    try {
+      // 獲取購物車中物件id
+      const cartItemId = req.params.cartItemId
+
+      // 獲取該物件資訊
+      const cartItem = await CartItem.findByPk(cartItemId)
+
+      // 找不到該物件
+      if (!cartItem) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該商品')
+        )
+      }
+
+      // 獲取商品資訊
+      const productId = cartItem.productId
+      const addProduct = await Product.findByPk(productId)
+
+      // 增加數量後如果超過庫存，生成 APIError
+      if (cartItem.quantity + 1 > addProduct.stockQuantity) {
+        return next(
+          new APIError('Not Found', httpStatusCodes.NOT_FOUND, '商品庫存不足')
+        )
+      }
+
+      // 更新購物商品數量+1
+      await cartItem.increment('quantity')
+
+      // 成功增加購物車商品數量
+      return res.json({ status: 'success', data: { cartItem } })
     } catch (err) {
       next(err)
     }

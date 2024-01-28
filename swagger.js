@@ -684,6 +684,33 @@ const doc = {
         name: 'NOT FOUND',
         message: '找不到該商品'
       }
+    },
+    AddCartItem_Success: {
+      status: 'success',
+      data: {
+        cartItem: {
+          id: 5,
+          quantity: 3,
+          cartId: 1,
+          productId: 66,
+          createdAt: '2024-01-28T15:28:58.000Z',
+          updatedAt: '2024-01-28T15:36:00.000Z'
+        }
+      }
+    },
+    AddCartItem_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    AddCartItem_NotFound: {
+      status: 'error',
+      error: {
+        name: 'Not Found',
+        message: '商品庫存不足'
+      }
     }
   },
   host: 'localhost:3000'
