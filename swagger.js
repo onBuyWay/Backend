@@ -711,6 +711,26 @@ const doc = {
         name: 'Not Found',
         message: '商品庫存不足'
       }
+    },
+    SubCartItem_Success: {
+      status: 'success',
+      data: {
+        cartItem: {
+          id: 5,
+          quantity: 2,
+          cartId: 1,
+          productId: 66,
+          createdAt: '2024-01-28T15:28:58.000Z',
+          updatedAt: '2024-01-28T15:52:50.633Z'
+        }
+      }
+    },
+    SubCartItem_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
     }
   },
   host: 'localhost:3000'

@@ -119,6 +119,32 @@ const cartController = {
       next(err)
     }
   },
+  subCartItem: async (req, res, next) => {
+    try {
+      // 獲取購物車中物件id
+      const cartItemId = req.params.cartItemId
+
+      // 獲取該物件資訊
+      const cartItem = await CartItem.findByPk(cartItemId)
+
+      // 找不到該物件
+      if (!cartItem) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該商品')
+        )
+      }
+
+      // 扣除數量，數量下限為1
+      cartItem.update({
+        quantity: cartItem.quantity - 1 > 0 ? cartItem.quantity - 1 : 1
+      })
+
+      // 成功增加購物車商品數量
+      return res.json({ status: 'success', data: { cartItem } })
+    } catch (err) {
+      next(err)
+    }
+  },
   deleteCartItem: async (req, res, next) => {
     try {
       // 獲取購物車中物件id

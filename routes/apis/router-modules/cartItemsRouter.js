@@ -46,7 +46,7 @@ router.post(
         schema: {
            $ref: '#definitions/AddCartItem_Success'
         },
-        description: "成功刪除購物車商品" } */
+        description: "成功增加購物車商品數量" } */
   /* #swagger.responses[401] = { 
         schema: {
            $ref: '#definitions/AddCartItem_Unauthorized'
@@ -58,6 +58,30 @@ router.post(
         },
         description: "商品庫存不足" } */
   cartController.addCartItem
+)
+
+// 扣除購物車商品數量API
+router.post(
+  '/:cartItemId/sub',
+  /* #swagger.tags = ['Cart']
+       #swagger.description = '扣除購物車商品數量(-1)' */
+  /*	#swagger.parameters['cartItemId'] = {
+              in: 'path',
+              description: '購物車物件id',
+              type: 'integer',
+              required: true
+      } */
+  /* #swagger.responses[200] = { 
+        schema: {
+           $ref: '#definitions/SubCartItem_Success'
+        },
+        description: "成功扣除購物車商品數量" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+           $ref: '#definitions/SubCartItem_Unauthorized'
+        },
+        description: "使用者未登入" } */
+  cartController.subCartItem
 )
 
 module.exports = router

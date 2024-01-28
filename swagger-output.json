@@ -332,7 +332,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功刪除購物車商品",
+            "description": "成功增加購物車商品數量",
             "schema": {
               "$ref": "#/definitions/AddCartItem_Success"
             }
@@ -348,6 +348,37 @@
               "$ref": "#/definitions/AddCartItem_NotFound"
             },
             "description": "商品庫存不足"
+          }
+        }
+      }
+    },
+    "/api/cartItems/{cartItemId}/sub": {
+      "post": {
+        "tags": [
+          "Cart"
+        ],
+        "description": "扣除購物車商品數量(-1)",
+        "parameters": [
+          {
+            "name": "cartItemId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "購物車物件id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功扣除購物車商品數量",
+            "schema": {
+              "$ref": "#/definitions/SubCartItem_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/SubCartItem_Unauthorized"
+            },
+            "description": "使用者未登入"
           }
         }
       }
@@ -3143,6 +3174,71 @@
             "message": {
               "type": "string",
               "example": "商品庫存不足"
+            }
+          }
+        }
+      }
+    },
+    "SubCartItem_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "cartItem": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 5
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 2
+                },
+                "cartId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "productId": {
+                  "type": "number",
+                  "example": 66
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-28T15:28:58.000Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-28T15:52:50.633Z"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "SubCartItem_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
             }
           }
         }
