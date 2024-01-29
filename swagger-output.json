@@ -241,6 +241,34 @@
         }
       }
     },
+    "/api/cart/check": {
+      "get": {
+        "tags": [
+          "Cart"
+        ],
+        "description": "查看購物車商品",
+        "responses": {
+          "200": {
+            "description": "成功獲取購物車資訊",
+            "schema": {
+              "$ref": "#/definitions/CheckCart_Success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/CheckCart_BadRequest"
+            },
+            "description": "成功獲取購物車資訊(無商品)"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/CheckCart_Unauthorized"
+            },
+            "description": "使用者未登入"
+          }
+        }
+      }
+    },
     "/api/cart/{productId}": {
       "post": {
         "tags": [
@@ -3223,6 +3251,153 @@
       }
     },
     "SubCartItem_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "CheckCart_Success": {
+      "type": "object",
+      "properties": {
+        "stauts": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "cartProducts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 66
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Tasty Steel Soap"
+                  },
+                  "image": {
+                    "type": "string",
+                    "example": "https://loremflickr.com/640/480/product?lock=8423580974972928"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive"
+                  },
+                  "stockQuantity": {
+                    "type": "number",
+                    "example": 100
+                  },
+                  "costPrice": {
+                    "type": "number",
+                    "example": 111
+                  },
+                  "sellPrice": {
+                    "type": "number",
+                    "example": 691
+                  },
+                  "productStatus": {
+                    "type": "string",
+                    "example": "1"
+                  },
+                  "categoryId": {
+                    "type": "number",
+                    "example": 39
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2024-01-25T08:29:27.000Z"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2024-01-25T08:29:27.000Z"
+                  },
+                  "CategoryId": {
+                    "type": "number",
+                    "example": 39
+                  },
+                  "CartItem": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 5
+                      },
+                      "quantity": {
+                        "type": "number",
+                        "example": 2
+                      },
+                      "cartId": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "productId": {
+                        "type": "number",
+                        "example": 66
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2024-01-28T15:28:58.000Z"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "2024-01-28T15:52:50.000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "totalPrice": {
+              "type": "number",
+              "example": 1382
+            }
+          }
+        }
+      }
+    },
+    "CheckCart_BadRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "BAD REQUEST"
+            },
+            "message": {
+              "type": "string",
+              "example": "購物車中沒有商品，無法送出訂單。"
+            }
+          }
+        }
+      }
+    },
+    "CheckCart_Unauthorized": {
       "type": "object",
       "properties": {
         "status": {
