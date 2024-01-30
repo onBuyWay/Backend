@@ -258,7 +258,7 @@
             "schema": {
               "$ref": "#/definitions/CheckCart_BadRequest"
             },
-            "description": "成功獲取購物車資訊(無商品)"
+            "description": "購物車內無商品"
           },
           "401": {
             "schema": {
@@ -407,6 +407,51 @@
               "$ref": "#/definitions/SubCartItem_Unauthorized"
             },
             "description": "使用者未登入"
+          }
+        }
+      }
+    },
+    "/api/orders/": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "description": "新增訂單",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "新增訂單資訊",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostOrder_Body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "訂單新增成功",
+            "schema": {
+              "$ref": "#/definitions/PostOrder_Success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/PostOrder_BadRequest"
+            },
+            "description": "訂單資訊未填寫"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/PostOrder_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/PostOrder_NotFound"
+            },
+            "description": "訂單商品庫存不足"
           }
         }
       }
@@ -3414,6 +3459,159 @@
             "message": {
               "type": "string",
               "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "PostOrder_Body": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "example": "33"
+        },
+        "name": {
+          "type": "string",
+          "example": "Hong"
+        },
+        "amount": {
+          "type": "string",
+          "example": "4146"
+        },
+        "phone": {
+          "type": "string",
+          "example": "0958280906"
+        },
+        "address": {
+          "type": "string",
+          "example": "興亥路一段19巷47號"
+        },
+        "paymentStatus": {
+          "type": "string",
+          "example": "未付款"
+        },
+        "shippingStatus": {
+          "type": "string",
+          "example": "待出貨"
+        }
+      }
+    },
+    "PostOrder_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 6
+            },
+            "userId": {
+              "type": "string",
+              "example": "33"
+            },
+            "name": {
+              "type": "string",
+              "example": "Hong"
+            },
+            "amount": {
+              "type": "string",
+              "example": "4146"
+            },
+            "phone": {
+              "type": "string",
+              "example": "0958280906"
+            },
+            "address": {
+              "type": "string",
+              "example": "興亥路一段19巷47號"
+            },
+            "paymentStatus": {
+              "type": "string",
+              "example": "未付款"
+            },
+            "shippingStatus": {
+              "type": "string",
+              "example": "待出貨"
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2024-01-30T18:33:21.223Z"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2024-01-30T18:33:21.223Z"
+            }
+          }
+        }
+      }
+    },
+    "PostOrder_BadRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "BAD REQUEST"
+            },
+            "message": {
+              "type": "string",
+              "example": "請填寫訂單取貨資訊"
+            }
+          }
+        }
+      }
+    },
+    "PostOrder_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "PostOrder_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "NOT FOUND"
+            },
+            "message": {
+              "type": "string",
+              "example": "以下商品庫存不足: Tasty Steel Soap"
             }
           }
         }

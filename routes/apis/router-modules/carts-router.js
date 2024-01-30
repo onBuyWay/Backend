@@ -39,7 +39,7 @@ router.get(
         schema: {
           $ref: '#definitions/CheckCart_BadRequest'
         },
-        description: "成功獲取購物車資訊(無商品)" } */
+        description: "購物車內無商品" } */
   /* #swagger.responses[401] = { 
         schema: {
           $ref: '#definitions/CheckCart_Unauthorized'

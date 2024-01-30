@@ -8,6 +8,7 @@ const adminRouter = require('./router-modules/admin-router')
 const userRouter = require('./router-modules/users-router')
 const cartRouter = require('./router-modules/carts-router')
 const cartItemsRouter = require('./router-modules/cartItemsRouter')
+const orderRouter = require('./router-modules/order-router')
 
 // 使用者相關APIs:
 // 註冊API
@@ -173,6 +174,9 @@ router.use('/cart', isAuthenticated, cartRouter)
 
 // cartItem路由模組
 router.use('/cartItems', isAuthenticated, cartItemsRouter)
+
+// order路由模組
+router.use('/orders', isAuthenticated, orderRouter)
 
 // user路由模組:
 router.use('/users', userRouter)

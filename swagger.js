@@ -777,6 +777,51 @@ const doc = {
         name: 'Unauthorized',
         message: '使用者未登入!'
       }
+    },
+    PostOrder_Body: {
+      userId: '33',
+      name: 'Hong',
+      amount: '4146',
+      phone: '0958280906',
+      address: '興亥路一段19巷47號',
+      paymentStatus: '未付款',
+      shippingStatus: '待出貨'
+    },
+    PostOrder_Success: {
+      status: 'success',
+      data: {
+        id: 6,
+        userId: '33',
+        name: 'Hong',
+        amount: '4146',
+        phone: '0958280906',
+        address: '興亥路一段19巷47號',
+        paymentStatus: '未付款',
+        shippingStatus: '待出貨',
+        updatedAt: '2024-01-30T18:33:21.223Z',
+        createdAt: '2024-01-30T18:33:21.223Z'
+      }
+    },
+    PostOrder_BadRequest: {
+      status: 'error',
+      error: {
+        name: 'BAD REQUEST',
+        message: '請填寫訂單取貨資訊'
+      }
+    },
+    PostOrder_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    PostOrder_NotFound: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '以下商品庫存不足: Tasty Steel Soap'
+      }
     }
   },
   host: 'localhost:3000'
