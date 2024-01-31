@@ -4,6 +4,32 @@ const httpStatusCodes = require('../../httpStatusCodes')
 const APIError = require('../../class/errors/APIError')
 
 const orderController = {
+  getOrders: async (req, res, next) => {
+    try {
+      // 獲取使用者id
+      const userId = req.user.id
+
+      // 取得使用者所有訂單
+      const orders = await Order.findAll({
+        where: { userId },
+        include: 'orderProducts'
+      })
+
+      // 無任何訂單
+      if (!orders.length) {
+        return res.json({
+          stauts: 'success',
+          data: [],
+          message: '目前還未訂購任何商品喔~'
+        })
+      }
+
+      // 成功取得訂單資訊
+      res.json({ status: 'success', data: orders })
+    } catch (err) {
+      next(err)
+    }
+  },
   postOrder: async (req, res, next) => {
     try {
       // 獲取表單

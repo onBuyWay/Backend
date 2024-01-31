@@ -822,6 +822,61 @@ const doc = {
         name: 'NOT FOUND',
         message: '以下商品庫存不足: Tasty Steel Soap'
       }
+    },
+    GetOrders_Success: {
+      status: 'success',
+      data: [
+        {
+          id: 1,
+          userId: 33,
+          sn: null,
+          amount: 3455,
+          name: 'Hong',
+          phone: '0958280906',
+          address: '興亥路一段19巷47號',
+          paymentStatus: '未付款',
+          shippingStatus: '待出貨',
+          createdAt: '2024-01-30T18:21:40.000Z',
+          updatedAt: '2024-01-30T18:21:40.000Z',
+          orderProducts: [
+            {
+              id: 66,
+              name: 'Tasty Steel Soap',
+              image:
+                'https://loremflickr.com/640/480/product?lock=8423580974972928',
+              description:
+                'The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive',
+              stockQuantity: 0,
+              costPrice: 111,
+              sellPrice: 691,
+              productStatus: '1',
+              categoryId: 39,
+              createdAt: '2024-01-25T08:29:27.000Z',
+              updatedAt: '2024-01-30T18:28:11.000Z',
+              CategoryId: 39,
+              OrderItem: {
+                productId: 66,
+                orderId: 2,
+                quantity: 5,
+                createdAt: '2024-01-30T18:22:30.000Z',
+                updatedAt: '2024-01-30T18:22:30.000Z'
+              }
+            }
+          ]
+        }
+      ]
+    },
+    GetOrders_NoOrder: {
+      stauts: 'success',
+      data: [],
+      message: '目前還未訂購任何商品喔~'
+    },
+    GetOrders_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
     }
   },
   host: 'localhost:3000'

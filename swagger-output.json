@@ -412,6 +412,32 @@
       }
     },
     "/api/orders/": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "獲取所有訂單資訊",
+        "responses": {
+          "200": {
+            "description": "成功獲取訂單資訊",
+            "schema": {
+              "$ref": "#/definitions/GetOrders_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/GetOrders_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "200_no Order": {
+            "schema": {
+              "$ref": "#/definitions/GetOrders_NoOrder"
+            },
+            "description": "無任何訂單"
+          }
+        }
+      },
       "post": {
         "tags": [
           "Order"
@@ -3612,6 +3638,185 @@
             "message": {
               "type": "string",
               "example": "以下商品庫存不足: Tasty Steel Soap"
+            }
+          }
+        }
+      }
+    },
+    "GetOrders_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "userId": {
+                "type": "number",
+                "example": 33
+              },
+              "sn": {},
+              "amount": {
+                "type": "number",
+                "example": 3455
+              },
+              "name": {
+                "type": "string",
+                "example": "Hong"
+              },
+              "phone": {
+                "type": "string",
+                "example": "0958280906"
+              },
+              "address": {
+                "type": "string",
+                "example": "興亥路一段19巷47號"
+              },
+              "paymentStatus": {
+                "type": "string",
+                "example": "未付款"
+              },
+              "shippingStatus": {
+                "type": "string",
+                "example": "待出貨"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2024-01-30T18:21:40.000Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2024-01-30T18:21:40.000Z"
+              },
+              "orderProducts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 66
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Tasty Steel Soap"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": "https://loremflickr.com/640/480/product?lock=8423580974972928"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive"
+                    },
+                    "stockQuantity": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "costPrice": {
+                      "type": "number",
+                      "example": 111
+                    },
+                    "sellPrice": {
+                      "type": "number",
+                      "example": 691
+                    },
+                    "productStatus": {
+                      "type": "string",
+                      "example": "1"
+                    },
+                    "categoryId": {
+                      "type": "number",
+                      "example": 39
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2024-01-25T08:29:27.000Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2024-01-30T18:28:11.000Z"
+                    },
+                    "CategoryId": {
+                      "type": "number",
+                      "example": 39
+                    },
+                    "OrderItem": {
+                      "type": "object",
+                      "properties": {
+                        "productId": {
+                          "type": "number",
+                          "example": 66
+                        },
+                        "orderId": {
+                          "type": "number",
+                          "example": 2
+                        },
+                        "quantity": {
+                          "type": "number",
+                          "example": 5
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-01-30T18:22:30.000Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-01-30T18:22:30.000Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "GetOrders_NoOrder": {
+      "type": "object",
+      "properties": {
+        "stauts": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "array",
+          "example": [],
+          "items": {}
+        },
+        "message": {
+          "type": "string",
+          "example": "目前還未訂購任何商品喔~"
+        }
+      }
+    },
+    "GetOrders_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
             }
           }
         }

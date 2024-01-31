@@ -2,6 +2,30 @@ const express = require('express')
 const router = express.Router()
 const orderController = require('../../../controllers/apis/order-controller')
 
+// 獲取所有訂單API
+router.get(
+  '/',
+  /* #swagger.tags = ['Order']
+       #swagger.description = '獲取所有訂單資訊' */
+  /* #swagger.responses[200] = { 
+        schema: {
+          $ref: '#/definitions/GetOrders_Success'
+      },
+        description: "成功獲取訂單資訊" } */
+  /* #swagger.responses[200_no Order] = { 
+        schema: {
+          $ref: '#/definitions/GetOrders_NoOrder'
+      },
+        description: "無任何訂單" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+          $ref: '#/definitions/GetOrders_Unauthorized'
+        },
+        description: "使用者未登入" } */
+  orderController.getOrders
+)
+
+// 新增訂單API
 router.post(
   '/',
   /* #swagger.tags = ['Order']
