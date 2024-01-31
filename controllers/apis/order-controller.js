@@ -118,6 +118,41 @@ const orderController = {
     } catch (err) {
       next(err)
     }
+  },
+  cancelOrder: async (req, res, next) => {
+    try {
+      // 獲取訂單id
+      const { orderId } = req.params
+
+      // 獲取訂單資訊
+      const order = await Order.findByPk(orderId)
+
+      // 訂單不存在
+      if (
+        !order ||
+        order.shippingStatus === '已取消' ||
+        order.userId !== req.user.id
+      ) {
+        return next(
+          new APIError(
+            'NOT FOUND',
+            httpStatusCodes.NOT_FOUND,
+            '訂單不存在或是已經取消'
+          )
+        )
+      }
+
+      // 更新訂單資訊
+      await order.update({ shippingStatus: '已取消', paymentStatus: '已取消' })
+
+      // 成功取消訂單
+      return res.json({
+        status: 'success',
+        message: `編號id:${order.id}的訂單已取消`
+      })
+    } catch (err) {
+      next(err)
+    }
   }
 }
 

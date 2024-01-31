@@ -877,6 +877,24 @@ const doc = {
         name: 'Unauthorized',
         message: '使用者未登入!'
       }
+    },
+    CancelOrder_Success: {
+      status: 'success',
+      message: '編號id:1的訂單已取消'
+    },
+    CancelOrder_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    CancelOrder_NotFound: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '訂單不存在或是已經取消'
+      }
     }
   },
   host: 'localhost:3000'

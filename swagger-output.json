@@ -482,6 +482,43 @@
         }
       }
     },
+    "/api/orders/{orderId}": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "description": "取消訂單",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "訂單id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "訂單新增成功",
+            "schema": {
+              "$ref": "#/definitions/CancelOrder_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/CancelOrder_Unauthorized"
+            },
+            "description": "使用者未登入"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/CancelOrder_NotFound"
+            },
+            "description": "訂單已取消或是不存在"
+          }
+        }
+      }
+    },
     "/api/users/{id}": {
       "get": {
         "tags": [
@@ -3817,6 +3854,63 @@
             "message": {
               "type": "string",
               "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "CancelOrder_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "message": {
+          "type": "string",
+          "example": "編號id:1的訂單已取消"
+        }
+      }
+    },
+    "CancelOrder_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "CancelOrder_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "NOT FOUND"
+            },
+            "message": {
+              "type": "string",
+              "example": "訂單不存在或是已經取消"
             }
           }
         }

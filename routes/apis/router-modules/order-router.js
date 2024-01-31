@@ -61,4 +61,32 @@ router.post(
   orderController.postOrder
 )
 
+// 取消訂單API
+router.post(
+  '/:orderId',
+  /* #swagger.tags = ['Order']
+       #swagger.description = '取消訂單' */
+  /*	#swagger.parameters['orderId'] = {
+              in: 'path',
+              description: '訂單id',
+              required: true
+      } */
+  /* #swagger.responses[200] = { 
+        schema: {
+          $ref: '#definitions/CancelOrder_Success'
+        },
+        description: "訂單新增成功" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+          $ref: '#definitions/CancelOrder_Unauthorized'
+        },
+        description: "使用者未登入" } */
+  /* #swagger.responses[404] = { 
+        schema: {
+          $ref: '#definitions/CancelOrder_NotFound'
+        },
+        description: "訂單已取消或是不存在" } */
+  orderController.cancelOrder
+)
+
 module.exports = router
