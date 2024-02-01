@@ -25,6 +25,34 @@ router.get(
   orderController.getOrders
 )
 
+// 獲取訂單付款資訊(第三方金流)
+router.get(
+  '/:orderId/payment',
+  /* #swagger.tags = ['Order']
+       #swagger.description = '獲取訂單及金流資訊' */
+  /*	#swagger.parameters['orderId'] = {
+              in: 'path',
+              description: '訂單id',
+              required: true
+      } */
+  /* #swagger.responses[200] = { 
+        schema: {
+          $ref: '#/definitions/GetPayment_Success'
+      },
+        description: "成功獲取訂單及金流資訊" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+          $ref: '#/definitions/GetPayment_Unauthorized'
+        },
+        description: "使用者未登入" } */
+  /* #swagger.responses[404] = { 
+        schema: {
+          $ref: '#/definitions/GetPayment_NotFound'
+      },
+        description: "訂單不存在或是已經取消" } */
+  orderController.getPayment
+)
+
 // 新增訂單API
 router.post(
   '/',

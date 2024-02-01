@@ -1,5 +1,6 @@
 const { Order, Cart, Product, OrderItem, CartItem } = require('../../models')
 const { generateOrderMailContent, sendMail } = require('../../utils/mail')
+const { getParamsForMpg } = require('../../utils/payment')
 const httpStatusCodes = require('../../httpStatusCodes')
 const APIError = require('../../class/errors/APIError')
 
@@ -150,6 +151,45 @@ const orderController = {
         status: 'success',
         message: `編號id:${order.id}的訂單已取消`
       })
+    } catch (err) {
+      next(err)
+    }
+  },
+  getPayment: async (req, res, next) => {
+    try {
+      // 獲取訂單id
+      const { orderId } = req.params
+
+      // 獲取訂單資訊
+      const order = await Order.findByPk(orderId)
+
+      // 訂單不存在
+      if (
+        !order ||
+        order.shippingStatus === '已取消' ||
+        order.userId !== req.user.id
+      ) {
+        return next(
+          new APIError(
+            'NOT FOUND',
+            httpStatusCodes.NOT_FOUND,
+            '訂單不存在或是已經取消'
+          )
+        )
+      }
+
+      // 產生第三方金流資訊
+      const { mpgParams, MerchantOrderNo } = getParamsForMpg(
+        order.amount,
+        'Product Name',
+        req.user.email
+      )
+
+      // 更新訂單編號
+      await order.update({ sn: MerchantOrderNo })
+
+      // 成功獲取訂單資訊及金流參數
+      return res.json({ status: 'success', data: { order, mpgParams } })
     } catch (err) {
       next(err)
     }
