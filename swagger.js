@@ -929,11 +929,18 @@ const doc = {
         message: '使用者未登入!'
       }
     },
-    GetPayment_NotFound: {
+    GetPayment_NotFound_1: {
       status: 'error',
       error: {
         name: 'NOT FOUND',
         message: '訂單不存在或是已經取消'
+      }
+    },
+    GetPayment_NotFound_2: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '訂單已付款'
       }
     }
   },

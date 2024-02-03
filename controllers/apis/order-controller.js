@@ -1,6 +1,18 @@
-const { Order, Cart, Product, OrderItem, CartItem } = require('../../models')
-const { generateOrderMailContent, sendMail } = require('../../utils/mail')
-const { getParamsForMpg } = require('../../utils/payment')
+const {
+  Order,
+  Cart,
+  Product,
+  OrderItem,
+  CartItem,
+  Payment,
+  User
+} = require('../../models')
+const {
+  generateOrderMailContent,
+  generatePaymentMailContent,
+  sendMail
+} = require('../../utils/mail')
+const { getParamsForMpg, decryptTradeInfo } = require('../../utils/payment')
 const httpStatusCodes = require('../../httpStatusCodes')
 const APIError = require('../../class/errors/APIError')
 
@@ -178,6 +190,13 @@ const orderController = {
         )
       }
 
+      // 訂單已付款
+      if (order.paymentStatus === '已付款') {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '訂單已付款')
+        )
+      }
+
       // 產生第三方金流資訊
       const { mpgParams, MerchantOrderNo } = getParamsForMpg(
         order.amount,
@@ -190,6 +209,60 @@ const orderController = {
 
       // 成功獲取訂單資訊及金流參數
       return res.json({ status: 'success', data: { order, mpgParams } })
+    } catch (err) {
+      next(err)
+    }
+  },
+  newebpayCallback: async (req, res, next) => {
+    try {
+      // 解密tradeInfo資訊
+      const tradeInfo = decryptTradeInfo(req.body.TradeInfo)
+
+      // 獲取商店訂單編號
+      const sn = tradeInfo.Result.MerchantOrderNo
+
+      // 獲取訂單資訊
+      let order = await Order.findOne({ where: { sn }, include: User })
+
+      // 訂單不存在
+      if (!order) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '該訂單不存在')
+        )
+      }
+
+      // 新增付款資訊
+      await Payment.findOrCreate({
+        where: { params: sn },
+        defaults: {
+          orderId: order.id,
+          paymentMethod: tradeInfo.Result.PaymentType,
+          paidAt: tradeInfo.Status === 'SUCCESS' ? Date.now() : null,
+          params: sn
+        }
+      })
+
+      if (tradeInfo.Status === 'SUCCESS') {
+        // 付款成功，更新訂單付款資訊
+        await order.update({ paymentStatus: '已付款' })
+
+        // 生成付款email內容並送出
+        const mailContent = generatePaymentMailContent(
+          order,
+          tradeInfo.Result.PaymentType
+        )
+        await sendMail(order.User.email, mailContent)
+
+        // 成功新增付款資訊
+        return res.json({
+          status: 'success',
+          message: `訂單id:${order.id}已完成付款`
+        })
+      } else {
+        // 付款失敗
+        await order.update({ paymentStatus: '付款失敗' })
+        return next(new Error(`訂單id:${order.id}付款失敗, ${data.Message}`))
+      }
     } catch (err) {
       next(err)
     }

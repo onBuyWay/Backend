@@ -11,6 +11,16 @@
     "http"
   ],
   "paths": {
+    "/api/paymentView": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/signUp": {
       "post": {
         "tags": [
@@ -209,6 +219,30 @@
               "$ref": "#/definitions/GetProduct_NotFound"
             },
             "description": "找不該商品"
+          }
+        }
+      }
+    },
+    "/api/newebpay_notify": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "TradeInfo": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -510,11 +544,17 @@
             },
             "description": "使用者未登入"
           },
-          "404": {
+          "404_Order is not exist or be canceled": {
             "schema": {
-              "$ref": "#/definitions/GetPayment_NotFound"
+              "$ref": "#/definitions/GetPayment_NotFound_1"
             },
             "description": "訂單不存在或是已經取消"
+          },
+          "404_Order is paid": {
+            "schema": {
+              "$ref": "#/definitions/GetPayment_NotFound_2"
+            },
+            "description": "訂單已付款"
           }
         }
       }
@@ -4059,7 +4099,7 @@
         }
       }
     },
-    "GetPayment_NotFound": {
+    "GetPayment_NotFound_1": {
       "type": "object",
       "properties": {
         "status": {
@@ -4076,6 +4116,28 @@
             "message": {
               "type": "string",
               "example": "訂單不存在或是已經取消"
+            }
+          }
+        }
+      }
+    },
+    "GetPayment_NotFound_2": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "NOT FOUND"
+            },
+            "message": {
+              "type": "string",
+              "example": "訂單已付款"
             }
           }
         }

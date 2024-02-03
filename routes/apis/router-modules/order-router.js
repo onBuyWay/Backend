@@ -45,11 +45,16 @@ router.get(
           $ref: '#/definitions/GetPayment_Unauthorized'
         },
         description: "使用者未登入" } */
-  /* #swagger.responses[404] = { 
+  /* #swagger.responses[404_Order is not exist or be canceled] = { 
         schema: {
-          $ref: '#/definitions/GetPayment_NotFound'
+          $ref: '#/definitions/GetPayment_NotFound_1'
       },
         description: "訂單不存在或是已經取消" } */
+  /* #swagger.responses[404_Order is paid] = { 
+        schema: {
+          $ref: '#/definitions/GetPayment_NotFound_2'
+      },
+        description: "訂單已付款" } */
   orderController.getPayment
 )
 

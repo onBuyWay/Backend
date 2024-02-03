@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../../controllers/apis/user-controller')
 const productController = require('../../controllers/apis/product-controller')
+const orderController = require('../../controllers/apis/order-controller')
 const { apiErrorHandler } = require('../../middleware/error-handler')
 const { localAuthenticate, isAuthenticated } = require('../../middleware/auth')
 const adminRouter = require('./router-modules/admin-router')
@@ -9,6 +10,26 @@ const userRouter = require('./router-modules/users-router')
 const cartRouter = require('./router-modules/carts-router')
 const cartItemsRouter = require('./router-modules/cartItemsRouter')
 const orderRouter = require('./router-modules/order-router')
+
+/* 測試金流畫面
+router.get('/paymentView', (req, res) => {
+  res.send(`
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <form action="https://ccore.newebpay.com/MPG/mpg_gateway" method="post">
+      <input type="text" name="MerchantID">
+      <input type="text" name="TradeSha" >
+      <input type="text" name="TradeInfo" >
+      <input type="text" name="Version" value="2.0">
+      <button type="submit">送出</button>
+    </form>
+  </body>
+  `)
+})
+*/
 
 // 使用者相關APIs:
 // 註冊API
@@ -168,6 +189,9 @@ router.get(
         description: "找不該商品" } */
   productController.getProduct
 )
+
+// 確認交易API
+router.post('/newebpay_notify', orderController.newebpayCallback)
 
 // cart路由模組:
 router.use('/cart', isAuthenticated, cartRouter)

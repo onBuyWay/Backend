@@ -1,4 +1,5 @@
-const crypto = require('node:crypto')
+const { decrypt } = require('dotenv')
+const crypto = require('crypto')
 require('dotenv').config()
 const URL = process.env.URL
 // 藍新金流商店資訊
@@ -7,11 +8,11 @@ const hashIV = process.env.HASH_IV
 const MerchantID = process.env.MERCHANT_ID
 
 // 交易成功返回商店URL
-const ReturnURL = URL + ''
+const ReturnURL = URL + '/api/newebpay_notify'
 // 交易成功通知商店server URL
-const NotifyURL = URL + ''
+const NotifyURL = URL + '/api/newebpay_notify'
 // 返回URL
-const ClientBackURL = URL + ''
+const ClientBackURL = URL
 
 // 生成URL字串
 function generateQuery(tradeInfo) {
@@ -26,7 +27,7 @@ function generateQuery(tradeInfo) {
 function createEncryptByAES(tradeInfo) {
   const cipher = crypto.createCipheriv('aes-256-cbc', hashKey, hashIV)
   let encrypted = cipher.update(generateQuery(tradeInfo), 'utf8', 'hex')
-  return (encrypted += cipher.final('hex'))
+  return encrypted + cipher.final('hex')
 }
 
 // 以SHA256加密 aes密碼
@@ -55,7 +56,7 @@ module.exports = {
       LoginType: 0
     }
 
-    const aesEncrypt = createEncryptByAES(generateQuery(data))
+    const aesEncrypt = createEncryptByAES(data)
     const shaEncrypt = createEncryptBySHA256(aesEncrypt)
 
     const mpgParams = {
@@ -66,5 +67,13 @@ module.exports = {
     }
 
     return { mpgParams, MerchantOrderNo: data.MerchantOrderNo }
+  },
+  decryptTradeInfo: (TradeInfo) => {
+    const decrypt = crypto.createDecipheriv('aes256', hashKey, hashIV)
+    decrypt.setAutoPadding(false)
+    const text = decrypt.update(TradeInfo, 'hex', 'utf8')
+    const plainText = text + decrypt.final('utf8')
+    const result = plainText.replace(/[\x00-\x20]+/g, '')
+    return JSON.parse(result)
   }
 }
