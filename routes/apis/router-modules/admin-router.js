@@ -330,4 +330,23 @@ router.delete(
   adminController.deleteCategory
 )
 
+// =====管理訂單APIs=====
+router.get(
+  '/orders',
+  /* #swagger.tags = ['Order']
+       #swagger.description = '獲取所有訂單資訊' */
+  /* #swagger.responses[200] = { 
+        schema: {
+          $ref: '#/definitions/AdminGetOrders_Success'
+      },
+        description: "成功獲取類別資訊" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+          $ref: '#/definitions/AdminGetOrders_Unauthorized'
+        },
+        description: "使用者沒有該權限" } */
+  adminAuthenticated,
+  adminController.getOrders
+)
+
 module.exports = router

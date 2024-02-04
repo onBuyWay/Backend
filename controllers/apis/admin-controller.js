@@ -1,4 +1,4 @@
-const { Product, Category } = require('../../models')
+const { Product, Category, Order } = require('../../models')
 const APIError = require('../../class/errors/APIError')
 const httpStatusCodes = require('../../httpStatusCodes')
 const { imgurFileHandler } = require('../../helpers/file-helpers')
@@ -300,6 +300,20 @@ const adminController = {
 
       // 成功刪除類別
       return res.json({ status: 'success', data: {} })
+    } catch (err) {
+      next(err)
+    }
+  },
+  getOrders: async (req, res, next) => {
+    try {
+      // 從資料庫獲得所有訂單資訊
+      const orders = await Order.findAll({
+        raw: true,
+        nest: true
+      })
+
+      // 搜尋成功
+      return res.json({ status: 'success', data: orders })
     } catch (err) {
       next(err)
     }

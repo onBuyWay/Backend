@@ -942,6 +942,31 @@ const doc = {
         name: 'NOT FOUND',
         message: '訂單已付款'
       }
+    },
+    AdminGetOrders_Success: {
+      status: 'success',
+      data: [
+        {
+          id: 1,
+          userId: 3,
+          sn: null,
+          amount: 1884,
+          name: 'admin1',
+          phone: '926.241.2106 x485',
+          address: '221 Monroe Street',
+          paymentStatus: '未付款',
+          shippingStatus: '待出貨',
+          createdAt: '2024-02-04T09:02:25.000Z',
+          updatedAt: '2024-02-04T09:02:25.000Z'
+        }
+      ]
+    },
+    AdminGetOrders_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '未獲得使用權限!'
+      }
     }
   },
   host: 'localhost:3000'

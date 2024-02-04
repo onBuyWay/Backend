@@ -11,16 +11,6 @@
     "http"
   ],
   "paths": {
-    "/api/paymentView": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/signUp": {
       "post": {
         "tags": [
@@ -1064,6 +1054,28 @@
               "$ref": "#/definitions/AdminDeleteCategory_NotFound"
             },
             "description": "找不到該類別"
+          }
+        }
+      }
+    },
+    "/api/admin/orders": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "獲取所有訂單資訊",
+        "responses": {
+          "200": {
+            "description": "成功獲取類別資訊",
+            "schema": {
+              "$ref": "#/definitions/AdminGetOrders_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/AdminGetOrders_Unauthorized"
+            },
+            "description": "使用者沒有該權限"
           }
         }
       }
@@ -4138,6 +4150,86 @@
             "message": {
               "type": "string",
               "example": "訂單已付款"
+            }
+          }
+        }
+      }
+    },
+    "AdminGetOrders_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "userId": {
+                "type": "number",
+                "example": 3
+              },
+              "sn": {},
+              "amount": {
+                "type": "number",
+                "example": 1884
+              },
+              "name": {
+                "type": "string",
+                "example": "admin1"
+              },
+              "phone": {
+                "type": "string",
+                "example": "926.241.2106 x485"
+              },
+              "address": {
+                "type": "string",
+                "example": "221 Monroe Street"
+              },
+              "paymentStatus": {
+                "type": "string",
+                "example": "未付款"
+              },
+              "shippingStatus": {
+                "type": "string",
+                "example": "待出貨"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2024-02-04T09:02:25.000Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2024-02-04T09:02:25.000Z"
+              }
+            }
+          }
+        }
+      }
+    },
+    "AdminGetOrders_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "未獲得使用權限!"
             }
           }
         }
