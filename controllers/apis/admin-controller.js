@@ -317,6 +317,32 @@ const adminController = {
     } catch (err) {
       next(err)
     }
+  },
+  getOrder: async (req, res, next) => {
+    try {
+      // 獲取訂單id
+      const { orderId } = req.params
+
+      // 從資料庫查詢該訂單
+      const order = await Order.findOne({
+        where: { id: orderId },
+        include: 'orderProducts',
+        nest: true,
+        raw: true
+      })
+
+      // 訂單不存在
+      if (!order) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該訂單')
+        )
+      }
+
+      // 成功獲取訂單資訊
+      return res.json({ status: 'success', data: order })
+    } catch (err) {
+      next(err)
+    }
   }
 }
 

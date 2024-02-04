@@ -967,6 +967,60 @@ const doc = {
         name: 'Unauthorized',
         message: '未獲得使用權限!'
       }
+    },
+    AdminGetOrder_Success: {
+      status: 'success',
+      data: {
+        id: 1,
+        userId: 3,
+        sn: null,
+        amount: 1884,
+        name: 'admin1',
+        phone: '926.241.2106 x485',
+        address: '221 Monroe Street',
+        paymentStatus: '未付款',
+        shippingStatus: '待出貨',
+        createdAt: '2024-02-04T09:02:25.000Z',
+        updatedAt: '2024-02-04T09:02:25.000Z',
+        orderProducts: [
+          {
+            id: 1,
+            name: 'Fantastic Wooden Cheese',
+            image:
+              'https://loremflickr.com/640/480/product?lock=2832501751939072',
+            description:
+              "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
+            stockQuantity: 139,
+            costPrice: 420,
+            sellPrice: 628,
+            productStatus: '1',
+            categoryId: 4,
+            createdAt: '2024-02-04T08:59:41.000Z',
+            updatedAt: '2024-02-04T09:02:25.000Z',
+            OrderItem: {
+              productId: 1,
+              orderId: 1,
+              quantity: 3,
+              createdAt: '2024-02-04T09:02:25.000Z',
+              updatedAt: '2024-02-04T09:02:25.000Z'
+            }
+          }
+        ]
+      }
+    },
+    AdminGetOrdery_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    AdminGetOrder_NotFound: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '找不到該訂單'
+      }
     }
   },
   host: 'localhost:3000'

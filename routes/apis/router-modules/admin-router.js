@@ -331,6 +331,7 @@ router.delete(
 )
 
 // =====管理訂單APIs=====
+// 取得所有訂單資訊API
 router.get(
   '/orders',
   /* #swagger.tags = ['Order']
@@ -339,7 +340,7 @@ router.get(
         schema: {
           $ref: '#/definitions/AdminGetOrders_Success'
       },
-        description: "成功獲取類別資訊" } */
+        description: "成功獲取訂單資訊" } */
   /* #swagger.responses[401] = { 
         schema: {
           $ref: '#/definitions/AdminGetOrders_Unauthorized'
@@ -347,6 +348,36 @@ router.get(
         description: "使用者沒有該權限" } */
   adminAuthenticated,
   adminController.getOrders
+)
+
+// 取得單一訂單資訊API
+router.get(
+  '/orders/:orderId',
+  /* #swagger.tags = ['Order']
+       #swagger.description = '獲取單一訂單資訊' */
+  /*	#swagger.parameters['orderId'] = {
+              in: 'path',
+              description: '訂單id',
+              type: 'integer',
+              required: true
+      } */
+  /* #swagger.responses[200] = { 
+        schema: {
+           $ref: '#/definitions/AdminGetOrder_Success'
+      },
+        description: "成功獲取訂單資訊" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+          $ref: '#/definitions/AdminGetOrdery_Unauthorized'
+        },
+        description: "使用者沒有該權限" } */
+  /* #swagger.responses[404] = { 
+        schema: {
+            $ref: '#/definitions/AdminGetOrder_NotFound'
+        },
+        description: "找不到該訂單" } */
+  adminAuthenticated,
+  adminController.getOrder
 )
 
 module.exports = router
