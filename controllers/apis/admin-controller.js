@@ -305,6 +305,7 @@ const adminController = {
       next(err)
     }
   },
+  // =====訂單相關controller=====
   getOrders: async (req, res, next) => {
     try {
       // 從資料庫獲得所有訂單資訊
@@ -386,6 +387,33 @@ const adminController = {
 
       // 成功修改訂單狀態
       return res.json({ status: 'success', message: '成功修改訂單資訊' })
+    } catch (err) {
+      next(err)
+    }
+  },
+  cancelOrder: async (req, res, next) => {
+    try {
+      // 獲取訂單id
+      const { orderId } = req.params
+
+      // 獲取訂單資訊
+      const order = await Order.findByPk(orderId)
+
+      // 找不到訂單
+      if (!order) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該訂單')
+        )
+      }
+
+      // 取消該訂單
+      await order.update({ paymentStatus: '已取消', shippingStatus: '已取消' })
+
+      // 成功取消訂單
+      return res.json({
+        status: 'success',
+        message: `成功取消#${order.id}的訂單`
+      })
     } catch (err) {
       next(err)
     }

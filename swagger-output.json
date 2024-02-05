@@ -1120,18 +1120,19 @@
         "tags": [
           "Order"
         ],
-        "description": "更新商品資訊(出貨、付款)",
+        "description": "更新訂單資訊(出貨、付款)",
         "parameters": [
           {
             "name": "orderId",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "description": "訂單id"
           },
           {
             "name": "body",
             "in": "body",
-            "description": "商品出貨、付款資訊",
+            "description": "訂單出貨、付款資訊",
             "required": true,
             "schema": {
               "$ref": "#/definitions/AdminPutOrder_Body"
@@ -1140,7 +1141,7 @@
         ],
         "responses": {
           "200": {
-            "description": "商品資訊更新成功",
+            "description": "訂單資訊更新成功",
             "schema": {
               "$ref": "#/definitions/AdminPutOrder_Success"
             }
@@ -1161,7 +1162,44 @@
             "schema": {
               "$ref": "#/definitions/AdminPutOrder_NotFound"
             },
-            "description": "找不到該商品"
+            "description": "找不到該訂單"
+          }
+        }
+      }
+    },
+    "/api/admin/orders/{orderId}/cancel": {
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "description": "取消商品資訊(出貨、付款)",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "訂單id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "訂單取消成功",
+            "schema": {
+              "$ref": "#/definitions/AdminCancelOrder_Success"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/AdminCancelOrder_Unauthorized"
+            },
+            "description": "使用者沒有該權限"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/AdminCancelOrder_NotFound"
+            },
+            "description": "找不到該訂單"
           }
         }
       }
@@ -4584,6 +4622,63 @@
             "message": {
               "type": "string",
               "example": "找不到該訂單"
+            }
+          }
+        }
+      }
+    },
+    "AdminCancelOrder_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "message": {
+          "type": "string",
+          "example": "成功取消#1的訂單"
+        }
+      }
+    },
+    "AdminCancelOrder_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "使用者未登入!"
+            }
+          }
+        }
+      }
+    },
+    "AdminCancelOrder_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "未獲得使用權限!"
             }
           }
         }

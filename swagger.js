@@ -1050,6 +1050,24 @@ const doc = {
         name: 'NOT FOUND',
         message: '找不到該訂單'
       }
+    },
+    AdminCancelOrder_Success: {
+      status: 'success',
+      message: '成功取消#1的訂單'
+    },
+    AdminCancelOrder_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '使用者未登入!'
+      }
+    },
+    AdminCancelOrder_NotFound: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '未獲得使用權限!'
+      }
     }
   },
   host: 'localhost:3000'

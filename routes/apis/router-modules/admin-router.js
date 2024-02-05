@@ -380,13 +380,20 @@ router.get(
   adminController.getOrder
 )
 
+// 修改訂單API
 router.put(
   '/orders/:orderId',
   /* #swagger.tags = ['Order']
-       #swagger.description = '更新商品資訊(出貨、付款)' */
+       #swagger.description = '更新訂單資訊(出貨、付款)' */
+  /*	#swagger.parameters['orderId'] = {
+              in: 'path',
+              description: '訂單id',
+              type: 'integer',
+              required: true
+      } */
   /*	#swagger.parameters['body'] = {
               in: 'body',
-              description: '商品出貨、付款資訊',
+              description: '訂單出貨、付款資訊',
               required: true,
               schema: {
                 $ref: '#definitions/AdminPutOrder_Body'
@@ -396,7 +403,7 @@ router.put(
         schema: {
           $ref: '#definitions/AdminPutOrder_Success'
         },
-        description: "商品資訊更新成功" } */
+        description: "訂單資訊更新成功" } */
   /* #swagger.responses[400] = { 
         schema: {
           $ref: '#definitions/AdminPutOrder_BadRequest'
@@ -411,9 +418,39 @@ router.put(
         schema: {
           $ref: '#definitions/AdminPutOrder_NotFound'
         },
-        description: "找不到該商品" } */
+        description: "找不到該訂單" } */
   adminAuthenticated,
   adminController.putOrder
+)
+
+// 取消訂單API
+router.put(
+  '/orders/:orderId/cancel',
+  /* #swagger.tags = ['Order']
+       #swagger.description = '取消商品資訊(出貨、付款)' */
+  /*	#swagger.parameters['orderId'] = {
+              in: 'path',
+              description: '訂單id',
+              type: 'integer',
+              required: true
+      } */
+  /* #swagger.responses[200] = { 
+        schema: {
+          $ref: '#definitions/AdminCancelOrder_Success'
+        },
+        description: "訂單取消成功" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+          $ref: '#definitions/AdminCancelOrder_Unauthorized'
+        },
+        description: "使用者沒有該權限" } */
+  /* #swagger.responses[404] = { 
+        schema: {
+          $ref: '#definitions/AdminCancelOrder_NotFound'
+        },
+        description: "找不到該訂單" } */
+  adminAuthenticated,
+  adminController.cancelOrder
 )
 
 module.exports = router
