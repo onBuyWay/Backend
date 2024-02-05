@@ -380,4 +380,40 @@ router.get(
   adminController.getOrder
 )
 
+router.put(
+  '/orders/:orderId',
+  /* #swagger.tags = ['Order']
+       #swagger.description = '更新商品資訊(出貨、付款)' */
+  /*	#swagger.parameters['body'] = {
+              in: 'body',
+              description: '商品出貨、付款資訊',
+              required: true,
+              schema: {
+                $ref: '#definitions/AdminPutOrder_Body'
+              }
+      } */
+  /* #swagger.responses[200] = { 
+        schema: {
+          $ref: '#definitions/AdminPutOrder_Success'
+        },
+        description: "商品資訊更新成功" } */
+  /* #swagger.responses[400] = { 
+        schema: {
+          $ref: '#definitions/AdminPutOrder_BadRequest'
+       },
+        description: "出貨或付款資訊未填寫" } */
+  /* #swagger.responses[401] = { 
+        schema: {
+          $ref: '#definitions/AdminPutOrder_Unauthorized'
+        },
+        description: "使用者沒有該權限" } */
+  /* #swagger.responses[404] = { 
+        schema: {
+          $ref: '#definitions/AdminPutOrder_NotFound'
+        },
+        description: "找不到該商品" } */
+  adminAuthenticated,
+  adminController.putOrder
+)
+
 module.exports = router

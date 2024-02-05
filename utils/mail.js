@@ -1,7 +1,8 @@
 const nodemailer = require('nodemailer')
 const {
   orderCofirmEmail,
-  paymentConfirmEmail
+  paymentConfirmEmail,
+  shippingConfirmEmail
 } = require('../helpers/generateMailHTML')
 require('dotenv').config()
 
@@ -44,6 +45,12 @@ module.exports = {
     return {
       subject: `onBuyWay 成功付款! 訂單編號:${order.id}`,
       html: paymentConfirmEmail({ order, paymentType })
+    }
+  },
+  generateShippingMailContent: (order) => {
+    return {
+      subject: `onBuyWay 訂單編號:${order.id}, 商品已寄出!`,
+      html: shippingConfirmEmail({ order })
     }
   }
 }

@@ -1012,10 +1012,39 @@ const doc = {
       status: 'error',
       error: {
         name: 'Unauthorized',
-        message: '使用者未登入!'
+        message: '未獲得使用權限!'
       }
     },
     AdminGetOrder_NotFound: {
+      status: 'error',
+      error: {
+        name: 'NOT FOUND',
+        message: '找不到該訂單'
+      }
+    },
+    AdminPutOrder_Body: {
+      paymentStatus: '已付款',
+      shippingStatus: '已出貨'
+    },
+    AdminPutOrder_Success: {
+      status: 'success',
+      message: '成功修改訂單資訊'
+    },
+    AdminPutOrder_BadRequest: {
+      status: 'error',
+      error: {
+        name: 'BAD REQUEST',
+        message: '請選擇欲修改狀態'
+      }
+    },
+    AdminPutOrder_Unauthorized: {
+      status: 'error',
+      error: {
+        name: 'Unauthorized',
+        message: '未獲得使用權限!'
+      }
+    },
+    AdminPutOrder_NotFound: {
       status: 'error',
       error: {
         name: 'NOT FOUND',

@@ -1115,6 +1115,55 @@
             "description": "找不到該訂單"
           }
         }
+      },
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "description": "更新商品資訊(出貨、付款)",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "商品出貨、付款資訊",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminPutOrder_Body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "商品資訊更新成功",
+            "schema": {
+              "$ref": "#/definitions/AdminPutOrder_Success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/AdminPutOrder_BadRequest"
+            },
+            "description": "出貨或付款資訊未填寫"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/AdminPutOrder_Unauthorized"
+            },
+            "description": "使用者沒有該權限"
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/AdminPutOrder_NotFound"
+            },
+            "description": "找不到該商品"
+          }
+        }
       }
     }
   },
@@ -4420,13 +4469,105 @@
             },
             "message": {
               "type": "string",
-              "example": "使用者未登入!"
+              "example": "未獲得使用權限!"
             }
           }
         }
       }
     },
     "AdminGetOrder_NotFound": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "NOT FOUND"
+            },
+            "message": {
+              "type": "string",
+              "example": "找不到該訂單"
+            }
+          }
+        }
+      }
+    },
+    "AdminPutOrder_Body": {
+      "type": "object",
+      "properties": {
+        "paymentStatus": {
+          "type": "string",
+          "example": "已付款"
+        },
+        "shippingStatus": {
+          "type": "string",
+          "example": "已出貨"
+        }
+      }
+    },
+    "AdminPutOrder_Success": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "message": {
+          "type": "string",
+          "example": "成功修改訂單資訊"
+        }
+      }
+    },
+    "AdminPutOrder_BadRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "BAD REQUEST"
+            },
+            "message": {
+              "type": "string",
+              "example": "請選擇欲修改狀態"
+            }
+          }
+        }
+      }
+    },
+    "AdminPutOrder_Unauthorized": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Unauthorized"
+            },
+            "message": {
+              "type": "string",
+              "example": "未獲得使用權限!"
+            }
+          }
+        }
+      }
+    },
+    "AdminPutOrder_NotFound": {
       "type": "object",
       "properties": {
         "status": {

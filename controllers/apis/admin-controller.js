@@ -1,7 +1,8 @@
-const { Product, Category, Order } = require('../../models')
+const { Product, Category, Order, User } = require('../../models')
 const APIError = require('../../class/errors/APIError')
 const httpStatusCodes = require('../../httpStatusCodes')
 const { imgurFileHandler } = require('../../helpers/file-helpers')
+const { sendMail, generateShippingMailContent } = require('../../utils/mail')
 
 const adminController = {
   // =====商品相關controller=====
@@ -340,6 +341,51 @@ const adminController = {
 
       // 成功獲取訂單資訊
       return res.json({ status: 'success', data: order })
+    } catch (err) {
+      next(err)
+    }
+  },
+  putOrder: async (req, res, next) => {
+    try {
+      // 獲取訂單id
+      const { orderId } = req.params
+
+      // 獲取該訂單資訊
+      const order = await Order.findByPk(orderId, { include: User })
+
+      // 訂單不存在
+      if (!order) {
+        return next(
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '找不到該訂單')
+        )
+      }
+
+      // 獲取表單資訊
+      const { paymentStatus, shippingStatus } = req.body
+
+      // 表單未填寫修改資訊
+      if (!paymentStatus || !shippingStatus) {
+        return next(
+          new APIError(
+            'BAD REQUEST',
+            httpStatusCodes.BAD_REQUEST,
+            '請選擇欲修改狀態'
+          )
+        )
+      }
+
+      // 訂單已寄出商品，寄信通知用戶
+      if (shippingStatus === '已出貨') {
+        // 生成email內容並送出
+        const mailContent = generateShippingMailContent(order)
+        await sendMail(order.User.email, mailContent)
+      }
+
+      // 修改訂單狀態
+      await order.update({ paymentStatus, shippingStatus })
+
+      // 成功修改訂單狀態
+      return res.json({ status: 'success', message: '成功修改訂單資訊' })
     } catch (err) {
       next(err)
     }

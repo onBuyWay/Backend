@@ -171,5 +171,37 @@ module.exports = {
         </table>
     </div>
     `
+  },
+  shippingConfirmEmail: ({ order }) => {
+    return `
+    <div style="font-family: 'Arial', sans-serif;">
+        <table width="100%" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+                <td style="padding: 20px 0;" valign="top">
+                <table width="600" cellspacing="0" cellpadding="0" align="center" style="border-collapse: collapse;">
+                    <tbody>
+                    <tr>
+                        <td style="background-color: #f8f8f8; padding: 20px; border: 1px solid #e5e5e5;" align="center">
+                        <table width="100%" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr>
+                                <td align="center">
+                                <h1 style="color: #333; margin: 0; font-size: 24px;">訂單 #${order.id} 的商品正在路上！</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" style="color: #666; padding: 10px 0; font-size: 16px;">
+                                <div>我們已寄送您的商品，預計兩天內到達指定地址。</div                            
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>              
+    </div>
+    `
   }
 }
