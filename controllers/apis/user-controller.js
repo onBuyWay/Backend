@@ -109,8 +109,8 @@ const userController = {
       }
 
       // 成功更新使用者資訊
-      const updatedUser = await user.update(formData)
-      return res.json({ status: 'success', data: updatedUser.toJSON() })
+      const updatedUser = await selectedUser.update(formData)
+      return res.json({ status: 'success', data: updatedUser })
     } catch (err) {
       next(err)
     }
@@ -146,7 +146,7 @@ const userController = {
 
       // 將商品加入最愛名單
       const newFavorite = await Favorite.create({
-        productId,
+        productId: Number(productId),
         userId: req.user.id
       })
 

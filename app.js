@@ -2,7 +2,6 @@ const express = require('express')
 const session = require('express-session')
 const passport = require('./config/passport')
 const { apis } = require('./routes')
-const port = process.env.port || 3000
 const app = express()
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger-output.json')
@@ -31,7 +30,4 @@ app.use('/api', apis)
 // setting swagger-ui
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-// 啟動伺服器
-app.listen(port, () => {
-  console.log(`The server is listening on localhost:${port}`)
-})
+module.exports = app

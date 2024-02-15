@@ -383,10 +383,14 @@ const adminController = {
       }
 
       // 修改訂單狀態
-      await order.update({ paymentStatus, shippingStatus })
+      const updatedOrder = await order.update({ paymentStatus, shippingStatus })
 
       // 成功修改訂單狀態
-      return res.json({ status: 'success', message: '成功修改訂單資訊' })
+      return res.json({
+        status: 'success',
+        data: updatedOrder,
+        message: '成功修改訂單資訊'
+      })
     } catch (err) {
       next(err)
     }
@@ -407,11 +411,15 @@ const adminController = {
       }
 
       // 取消該訂單
-      await order.update({ paymentStatus: '已取消', shippingStatus: '已取消' })
+      const cancelOrder = await order.update({
+        paymentStatus: '已取消',
+        shippingStatus: '已取消'
+      })
 
       // 成功取消訂單
       return res.json({
         status: 'success',
+        data: cancelOrder,
         message: `成功取消#${order.id}的訂單`
       })
     } catch (err) {
