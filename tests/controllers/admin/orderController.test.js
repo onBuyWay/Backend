@@ -372,7 +372,7 @@ describe('Admin Order API Tests', () => {
     // 成功透過API取消訂單資訊
     it('should return status success if API is successful', async () => {
       const response = await request(app)
-        .put(`/api/admin//orders/${testOrders[1].id}/cancel`)
+        .put(`/api/admin/orders/${testOrders[1].id}/cancel`)
         .set('Cookie', adminCookies)
         .expect('Content-Type', /json/)
         .expect(200)
@@ -386,7 +386,7 @@ describe('Admin Order API Tests', () => {
     // 尚未登入
     it('should return 401 Unauthorized if user not signIn', async () => {
       const response = await request(app)
-        .put(`/api/admin//orders/${testOrders[1].id}/cancel`)
+        .put(`/api/admin/orders/${testOrders[1].id}/cancel`)
         .expect('Content-Type', /json/)
         .expect(401)
 
@@ -397,7 +397,7 @@ describe('Admin Order API Tests', () => {
     // 不符合權限
     it('should return 401 Unauthorized if user is not admin', async () => {
       const response = await request(app)
-        .put(`/api/admin//orders/${testOrders[1].id}/cancel`)
+        .put(`/api/admin/orders/${testOrders[1].id}/cancel`)
         .set('Cookie', userCookies)
         .expect('Content-Type', /json/)
         .expect(401)
@@ -410,7 +410,7 @@ describe('Admin Order API Tests', () => {
     it('should return 404 NOT FOUND if product does not exist', async () => {
       const notExistedId = 100
       const response = await request(app)
-        .put(`/api/admin//orders/${notExistedId}/cancel`)
+        .put(`/api/admin/orders/${notExistedId}/cancel`)
         .set('Cookie', adminCookies)
         .expect('Content-Type', /json/)
         .expect(404)

@@ -14,7 +14,7 @@ const productController = {
         Product.findAll({
           raw: true,
           nest: true,
-          include: [Category, 'favoritedUsers']
+          include: [Category]
         }),
         Favorite.findAll({ where: { userId } })
       ])
@@ -25,8 +25,10 @@ const productController = {
 
       // 生成response data 商品資訊包含喜愛的人數及是否為最愛
       const responseData = products.map((product) => {
-        const { favoritedUsers, description } = product
-        delete product.favoritedUsers
+        const { description } = product
+        const numOfFavorite = favorites.filter(
+          (favorite) => favorite.userId === userId
+        ).length
 
         // 商品描述過長則省略後段文字
         return {
@@ -35,9 +37,7 @@ const productController = {
             description.length > 50
               ? description.slice(50) + '....'
               : description,
-          numOfFavorite: Array.isArray(favoritedUsers)
-            ? favoritedUsers.length
-            : 1,
+          numOfFavorite,
           isFavorited: favoritedProductsId.includes(product.id)
         }
       })
@@ -51,8 +51,8 @@ const productController = {
   getProduct: async (req, res, next) => {
     try {
       // 獲取商品id
-      const productId = req.params.id
-      const userId = req.user ? req.user.id : null
+      const productId = Number(req.params.id)
+      const userId = req.user ? Number(req.user.id) : null
 
       // 獲取商品資訊以及使用者最愛名單
       const [product, favoritedProducts] = await Promise.all([
@@ -71,9 +71,13 @@ const productController = {
         )
       }
 
+      console.log(favoritedProducts)
+
       // 檢查是否為最愛商品
       const isFavorited = favoritedProducts.some(
-        (favorite) => favorite.productId === productId
+        (favorite) =>
+          favorite.dataValues.productId === productId &&
+          favorite.dataValues.userId === userId
       )
 
       // 回傳商品資訊
