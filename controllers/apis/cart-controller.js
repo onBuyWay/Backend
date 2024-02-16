@@ -15,10 +15,11 @@ const cartController = {
         include: 'cartProducts'
       })
 
+      console.log(userCart)
       // 檢驗購物車是否為空
       const cartProducts = userCart.cartProducts
       if (!cartProducts.length) {
-        return res.json({ stauts: 'success', message: '目前購物車中沒有商品~' })
+        return res.json({ status: 'success', message: '目前購物車中沒有商品~' })
       }
 
       // 計算購物車所有商品總價總價
@@ -27,7 +28,7 @@ const cartController = {
         .reduce((accumulator, priceSum) => accumulator + priceSum)
 
       // 成功獲取購物車商品資訊
-      return res.json({ stauts: 'success', data: { cartProducts, totalPrice } })
+      return res.json({ status: 'success', data: { cartProducts, totalPrice } })
     } catch (err) {
       next(err)
     }
@@ -35,8 +36,8 @@ const cartController = {
   postCart: async (req, res, next) => {
     try {
       // 獲取商品id
-      const productId = req.params.productId
-      const userId = req.user.id
+      const productId = Number(req.params.productId)
+      const userId = Number(req.user.id)
 
       // 獲取欲加入的商品資訊
       const addProduct = await Product.findByPk(productId)
@@ -72,10 +73,9 @@ const cartController = {
             new APIError('Not Found', httpStatusCodes.NOT_FOUND, '商品庫存不足')
           )
         }
+        // 更新購物商品數量+1
+        await cartItem.update({ quantity: cartItem.quantity + 1 })
       }
-
-      // 更新購物商品數量+1
-      await cartItem.increment('quantity')
 
       // 成功將商品新增至購物車
       return res.json({ status: 'success', data: { cartItem, addProduct } })
@@ -106,12 +106,12 @@ const cartController = {
       // 增加數量後如果超過庫存，生成 APIError
       if (cartItem.quantity + 1 > addProduct.stockQuantity) {
         return next(
-          new APIError('Not Found', httpStatusCodes.NOT_FOUND, '商品庫存不足')
+          new APIError('NOT FOUND', httpStatusCodes.NOT_FOUND, '商品庫存不足')
         )
       }
 
       // 更新購物商品數量+1
-      await cartItem.increment('quantity')
+      await cartItem.update({ quantity: cartItem.quantity + 1 })
 
       // 成功增加購物車商品數量
       return res.json({ status: 'success', data: { cartItem } })
@@ -152,8 +152,6 @@ const cartController = {
 
       // 獲取該物件資訊
       const cartItem = await CartItem.findByPk(cartItemId)
-
-      console.log(CartItem)
 
       // 找不到該物件
       if (!cartItem) {
@@ -200,7 +198,7 @@ const cartController = {
         .reduce((accumulator, priceSum) => accumulator + priceSum)
 
       // 成功獲取購物車商品資訊
-      return res.json({ stauts: 'success', data: { cartProducts, totalPrice } })
+      return res.json({ status: 'success', data: { cartProducts, totalPrice } })
     } catch (err) {
       next(err)
     }
