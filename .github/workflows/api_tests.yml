@@ -36,7 +36,7 @@ jobs:
           MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
           MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_PASSWORD }}
         ports:
-          - 3306/tcp
+          - 3306:3306
         options: >-
           --health-cmd="mysqladmin ping"
           --health-interval=10s
@@ -52,5 +52,10 @@ jobs:
         run: npm install
       - name: Database migrate
         run: npx sequelize db:migrate --env test
+      - name: Debug
+        run: |
+          mysql --host=127.0.0.1 --user=${{ env.MYSQL_USER }} --password=${{ env.MYSQL_PASSWORD }} ${{ env.MYSQL_DB }} <<MY_QUERY
+          SHOW GRANTS;
+          MY_QUERY
       - name: Jest API tests
         run: npm run test
