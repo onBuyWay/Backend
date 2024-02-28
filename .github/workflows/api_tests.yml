@@ -31,11 +31,12 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
           MYSQL_DATABASE: ${{ env.MYSQL_DB }}
+          MYSQL_USER: ${{env.MYSQL_USER}}
           MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_PASSWORD }}
         ports:
-          - 3306:3306
+          - 3306:/tcp
         options: >-
           --health-cmd="mysqladmin ping"
           --health-interval=10s
