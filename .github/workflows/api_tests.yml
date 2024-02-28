@@ -36,7 +36,7 @@ jobs:
           MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
           MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_PASSWORD }}
         ports:
-          - 3306:tcp
+          - 3306/tcp
         options: >-
           --health-cmd="mysqladmin ping"
           --health-interval=10s
