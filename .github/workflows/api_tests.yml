@@ -24,15 +24,15 @@ jobs:
         mysql-version: ['8.0']
     runs-on: ubuntu-latest
     steps:
-      uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - name: Use Node.js version ${{matrix.node-version}}
-      uses: actions/setup-node@v4
+        uses: actions/setup-node@v4
         with:
           node-version: ${{matrix.node-version}}
       - name: Shutdown the Default MySQL
-      run: sudo service mysql stop
+        run: sudo service mysql stop
       - name: Use MySQL version ${{matrix.mysql-version}} in Docker
-      uses: mirromutth/mysql-action@v1.1
+        uses: mirromutth/mysql-action@v1.1
         with:
           host port: 3306
           container port: 3306
@@ -43,8 +43,8 @@ jobs:
           mysql user: 'root'
           mysql password: ${{ secrets.DatabasePassword }}
       - name: Install node modules
-      run: npm install
+        run: npm install
       - name: Database migrate
-      run: npx sequelize db:migrate
+        run: npx sequelize db:migrate
       - name: Jest API tests
-      run: npm run test
+        run: npm run test
