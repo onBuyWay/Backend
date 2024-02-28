@@ -41,7 +41,7 @@
             },
             "description": "eamil已經註冊過!"
           },
-          "400_FiledNotEmpty": {
+          "400_FieldsEmpty": {
             "schema": {
               "$ref": "#/definitions/SignUpUser_Error_FiledNotEmpty"
             },

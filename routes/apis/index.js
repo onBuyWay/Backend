@@ -48,7 +48,7 @@ router.post(
         $ref: '#/definitions/SignUpUser_Success'
     },
       description: "使用者註冊成功" } */
-  /* #swagger.responses[400_FiledNotEmpty] = { 
+  /* #swagger.responses[400_FieldsEmpty] = { 
       schema: {
         $ref: '#/definitions/SignUpUser_Error_FiledNotEmpty'
     },

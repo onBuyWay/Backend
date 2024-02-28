@@ -1,0 +1,50 @@
+name: onBuyWay Project CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    env:
+      IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
+      IMGUR_CLIENT_SECRET: ${{ secrets.IMGUR_CLIENT_SECRET }}
+      IMGUR_REFRESH_TOKEN: ${{ secrets.IMGUR_REFRESH_TOKEN }}
+      IMGUR_ALBUM_ID: ${{ secrets.IMGUR_ALBUM_ID }}
+      GMAIL_USER: ${{ secrets.GMAIL_USER }}
+      GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
+      URL: ${{ secrets.URL }}
+      HASH_KEY: ${{ secrets.HASH_KEY }}
+      HASH_IV: ${{ secrets.HASH_IV }}
+      MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
+
+    strategy:
+      matrix:
+        node-version: ['18.19.0']
+        mysql-version: ['8.0']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js version ${{matrix.node-version}}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{matrix.node-version}}
+      - name: Shutdown the Default MySQL
+      - run: sudo service mysql stop
+      - name: Use MySQL version ${{matrix.mysql-version}} in Docker
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: 3306
+          container port: 3306
+          character set server: 'utf8'
+          collation server: 'utf8_general_ci'
+          mysql version: ${{matrix.mysql-version}}
+          mysql database: 'onbuyway_test'
+          mysql user: 'root'
+          mysql password: ${{ secrets.DatabasePassword }}
+      - name: Install node modules
+      - run: npm install
+      - name: Database migrate
+      - run: npx sequelize db:migrate
+      - name: Jest API tests
+      - run: npm run test
