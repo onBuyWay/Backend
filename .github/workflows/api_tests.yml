@@ -17,12 +17,31 @@ jobs:
       HASH_KEY: ${{ secrets.HASH_KEY }}
       HASH_IV: ${{ secrets.HASH_IV }}
       MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
+      MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_ROOT_PASSWORD}}
+      MYSQL_DB: ${{secrets.MYSQL_DB}}
+      MYSQL_USER: ${{secrets.MYSQL_USER}}
+      MYSQL_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
 
     strategy:
       matrix:
         node-version: ['18.19.0']
         mysql-version: ['8.0']
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DB }}
+          MYSQL_USER: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js version ${{matrix.node-version}}
@@ -31,17 +50,6 @@ jobs:
           node-version: ${{matrix.node-version}}
       - name: Shutdown the Default MySQL
         run: sudo service mysql stop
-      - name: Use MySQL version ${{matrix.mysql-version}} with Docker
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          host port: 3306
-          container port: 3306
-          character set server: 'utf8'
-          collation server: 'utf8_general_ci'
-          mysql version: ${{matrix.mysql-version}}
-          mysql database: 'onbuyway_test'
-          mysql user: 'root'
-          mysql password: 'password'
       - name: Install node modules
         run: npm install
       - name: Database migrate
