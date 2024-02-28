@@ -31,7 +31,7 @@ jobs:
           node-version: ${{matrix.node-version}}
       - name: Shutdown the Default MySQL
         run: sudo service mysql stop
-      - name: Use MySQL version ${{matrix.mysql-version}} in Docker
+      - name: Use MySQL version ${{matrix.mysql-version}} with Docker
         uses: mirromutth/mysql-action@v1.1
         with:
           host port: 3306
@@ -41,7 +41,7 @@ jobs:
           mysql version: ${{matrix.mysql-version}}
           mysql database: 'onbuyway_test'
           mysql user: 'root'
-          mysql password: ${{ secrets.DatabasePassword }}
+          mysql password: 'password'
       - name: Install node modules
         run: npm install
       - name: Database migrate
