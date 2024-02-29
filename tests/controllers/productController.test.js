@@ -87,9 +87,6 @@ describe('product API tests', () => {
       }
     ]
 
-    // 確保模型與資料庫的同步
-    await db.sequelize.sync({ force: true })
-
     // 從測試資料庫建立臨時user
     await db.User.bulkCreate(users)
 

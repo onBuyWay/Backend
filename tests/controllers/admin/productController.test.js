@@ -70,9 +70,6 @@ describe('Admin Product API Tests', () => {
       }
     ]
 
-    // 確保模型與資料庫的同步
-    await db.sequelize.sync({ force: true })
-
     // 從測試資料庫建立臨時admin
     await db.User.create(users[0])
     await db.User.create(users[1])
