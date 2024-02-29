@@ -351,17 +351,21 @@ describe('User API Tests', () => {
 
   describe('POST api/favorites/:productId', () => {
     beforeAll(async () => {
-      // 在所有測試開始前，清空測試資料庫中的最愛表格
-      await db.Favorite.destroy({ where: {}, truncate: { cascade: true } })
+      try {
+        // 在所有測試開始前，清空測試資料庫中的最愛表格
+        await db.Favorite.destroy({ where: {}, truncate: { cascade: true } })
 
-      // 在所有測試開始前，清空測試資料庫中的商品表格
-      await db.Product.destroy({ where: {}, truncate: { cascade: true } })
+        // 在所有測試開始前，清空測試資料庫中的商品表格
+        await db.Product.destroy({ where: {}, truncate: { cascade: true } })
 
-      // 生成測試最愛資訊
-      await db.Product.bulkCreate(testProducts)
+        // 生成測試最愛資訊
+        await db.Product.bulkCreate(testProducts)
 
-      // 生成測試最愛資訊
-      await db.Favorite.bulkCreate(testFavorites)
+        // 生成測試最愛資訊
+        await db.Favorite.bulkCreate(testFavorites)
+      }catch(err) {
+        console.log(err)
+      }
     })
 
     // 成功將商品新增至最愛
