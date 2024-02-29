@@ -117,11 +117,16 @@ describe('cart API tests', () => {
       }
     ]
 
-    // 確保模型與資料庫的同步
-    await db.sequelize.sync({ force: true })
+    try {
+      // 確保模型與資料庫的同步
+      await db.sequelize.sync({ force: true })
 
-    // 從測試資料庫建立臨時users
-    await db.User.bulkCreate(users)
+      // 從測試資料庫建立臨時users
+      await db.User.bulkCreate(users)
+
+    }catch(err) {
+      console.log(err)
+    }
 
     // 模擬登入請求，使用你的 Passport 驗證策略名稱和用戶名密碼
     const [userLoginResponse1, userLoginResponse2] = await Promise.all([
