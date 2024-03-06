@@ -1,4 +1,4 @@
-FROM 18.19-alpine3.18
+FROM node:18.19-alpine3.18
 
 WORKDIR /backend
 
