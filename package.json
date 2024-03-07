@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
+    "start-production": "NODE_ENV=production node server.js",
     "test": "cross-env NODE_ENV=test jest --runInBand --verbose",
     "test_seed": "cross-env NODE_ENV=test npx sequelize db:seed:all",
     "dev": "cross-env NODE_ENV=development nodemon server.js",
