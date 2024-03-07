@@ -2,28 +2,15 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
-    environment:
-      MYSQL_DATABASE: ${{ secrets.MYSQL_DB }}
-      MYSQL_USER: ${{secrets.MYSQL_USER}}
-      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+    env_file:
+      - ./.env
     volumes:
       - /mysql_data:/var/lib/mysql
     container_name: mysql-container
 
   onbuyway-node:
     image: kevin71336099/onbuyway-node
-    environment:
-      - IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
-      - IMGUR_CLIENT_SECRET: ${{ secrets.IMGUR_CLIENT_SECRET }}
-      - IMGUR_REFRESH_TOKEN: ${{ secrets.IMGUR_REFRESH_TOKEN }}
-      - IMGUR_ALBUM_ID: ${{ secrets.IMGUR_ALBUM_ID }}
-      - GMAIL_USER: ${{ secrets.GMAIL_USER }}
-      - GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
-      - URL: ${{ secrets.URL }}
-      - HASH_KEY: ${{ secrets.HASH_KEY }}
-      - HASH_IV: ${{ secrets.HASH_IV }}
-      - MERCHANT_ID: ${{ secrets.MERCHANT_ID }}
-      - DATABASE_URL: ${{secrets.DATABASE_URL}}
+    env_file:
+      - ./.env
     ports: -80:80
     container_name: onbuyway-node
