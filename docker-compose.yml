@@ -12,5 +12,6 @@ services:
     image: kevin71336099/onbuyway-node
     env_file:
       - ./.env
-    ports: -80:80
+    ports:
+      - '80:80'
     container_name: onbuyway-node
