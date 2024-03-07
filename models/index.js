@@ -10,10 +10,9 @@ const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
 let sequelize;
-if (process.env.NODE_ENV === 'production') {
+if (config.use_env_variable) {
   try {
-    sequelize = new Sequelize('onbuyway', 'production_user', 'password', {host: 'mysql',
-  dialect: 'mysql'});
+    sequelize = new Sequelize(process.env[config.use_env_variable]);
   }catch(err) {console.log(err)}
 
 } else {

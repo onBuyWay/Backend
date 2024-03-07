@@ -19,3 +19,6 @@ services:
     ports:
       - '80:80'
     container_name: onbuyway-node
+
+volumes:
+  mysql_data:
