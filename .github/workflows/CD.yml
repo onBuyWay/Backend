@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # ssh connection
     steps:
       - uses: actions/checkout@v4
       - name: Deploy to AWS EC2
