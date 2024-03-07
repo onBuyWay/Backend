@@ -12,10 +12,10 @@ const db = {};
 let sequelize;
 if (process.env.NODE_ENV === 'production') {
   try {
-    sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_USER, process.env.MYSQL_PASSWORD, {host: 'mysql-container',
+    sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_USER, process.env.MYSQL_PASSWORD, {host: 'mysql',
   dialect: 'mysql'});
   }catch(err) {console.log(err)}
-  
+
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
