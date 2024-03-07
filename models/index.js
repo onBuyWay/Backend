@@ -10,9 +10,10 @@ const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
 let sequelize;
-if (config.use_env_variable) {
+if (process.env.NODE_ENV === 'production') {
   console.log("This is Production Mode")
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.USER, process.env.PASSWORD, {host: 'mysql-container',
+  dialect: 'mysql'});
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
