@@ -21,4 +21,4 @@ jobs:
           script: |
             sudo wget -O docker-compose.yml https://raw.githubusercontent.com/onBuyWay/Backend/main/docker-compose.yml
             docker-compose up -d --build
-            docker-compose run onbuyway-node npx sequelize db:migrate
+            docker-compose run onbuyway-node npx sequelize db:migrate --env production
