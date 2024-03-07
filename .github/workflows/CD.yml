@@ -8,16 +8,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-  steps:
-    - uses: actions/checkout@v4
-    - name: Deploy to AWS EC2
-      uses: easingthemes/ssh-deploy@v5.0.3
-      with:
-        SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-        REMOTE_HOST: ${{ secrets.HOST_DNS }}
-        REMOTE_USER: ${{ secrets.USERNAME }}
-        TARGET: ${{ secrets.TARGET_DIR }}
-        SCRIPT_AFTER: |
-          wget -O https://raw.githubusercontent.com/onBuyWay/Backend/main/docker-compose.yml
-          docker-compose up -d --build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to AWS EC2
+        uses: easingthemes/ssh-deploy@v5.0.3
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+          SCRIPT_AFTER: |
+            wget -O https://raw.githubusercontent.com/onBuyWay/Backend/main/docker-compose.yml
+            docker-compose up -d --build
