@@ -12,7 +12,7 @@ const db = {};
 let sequelize;
 if (process.env.NODE_ENV === 'production') {
   try {
-    sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_USER, process.env.MYSQL_PASSWORD, {host: 'mysql',
+    sequelize = new Sequelize('onbuyway', 'production_user', 'password', {host: 'mysql',
   dialect: 'mysql'});
   }catch(err) {console.log(err)}
 
