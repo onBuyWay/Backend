@@ -12,7 +12,7 @@ const db = {};
 let sequelize;
 if (process.env.NODE_ENV === 'production') {
   console.log("This is Production Mode")
-  sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.USER, process.env.PASSWORD, {host: 'mysql-container',
+  sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_USER, process.env.MYSQL_PASSWORD, {host: 'mysql-container',
   dialect: 'mysql'});
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
