@@ -8,9 +8,18 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # SSH Remote Commands
     steps:
       - uses: actions/checkout@v4
+      - name: Deploy to AWS EC2
+        uses: easingthemes/ssh-deploy@v5.0.3
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+          SCRIPT_BEFORE: ls
+
+      # SSH Remote Commands
       - name: Executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1.0.3
         with:
