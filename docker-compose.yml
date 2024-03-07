@@ -11,6 +11,8 @@ services:
     container_name: mysql-container
 
   onbuyway-node:
+    depends_on:
+      - mysql-container
     image: kevin71336099/onbuyway-node
     env_file:
       - ./.env
