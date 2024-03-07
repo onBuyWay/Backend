@@ -12,7 +12,8 @@ const db = {};
 let sequelize;
 if (process.env.NODE_ENV === 'production') {
   try {
-    sequelize = new Sequelize(process.env.MYSQL_DATABASE, 'root', process.env.MYSQL_ROOT_PASSWORD, {host: 'mysql',
+    console.log(process.env.MYSQL_DATABASE, process.env.USER, process.env.MYSQL_PASSWORD)
+    sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.USER, process.env.MYSQL_PASSWORD, {host: 'localhost',
   dialect: 'mysql'});
   }catch(err) {console.log(err)}
 
