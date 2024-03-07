@@ -18,6 +18,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
+          SCRIPT_BEFORE: ls
           SCRIPT_AFTER: |
             wget -O https://raw.githubusercontent.com/onBuyWay/Backend/main/docker-compose.yml
             docker-compose up -d --build
