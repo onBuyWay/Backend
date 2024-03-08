@@ -1,27 +1,32 @@
 version: '3.8'
 services:
-  mysql:
-    image: mysql:8.0
+  db:
+    image: postgres:16
     env_file:
       - ./.env
-    ports:
-      - '3306:3306'
     volumes:
-      - /mysql_data:/var/lib/mysql
-    container_name: mysql-container
+      - /postgresql_data:/var/lib/postgresql/data
+    container_name: postgres-container
+    networks:
+      - app-network
 
   onbuyway-node:
     depends_on:
-      - mysql
+      - db
     image: kevin71336099/onbuyway-node
     env_file:
       - ./.env
     environment:
-      MYSQL_HOST: mysql
       NODE_ENV: production
     ports:
       - '80:80'
     container_name: onbuyway-node
+    networks:
+      - app-network
 
 volumes:
-  mysql_data:
+  postgresql_data:
+
+networks:
+  app-network:
+    driver: bridge

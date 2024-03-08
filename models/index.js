@@ -11,8 +11,7 @@ const db = {};
 
 let sequelize;
 if (config.use_env_variable) {
-    console.log(process.env.MYSQL_DATABASE, process.env.MYSQL_USER, process.env.MYSQL_PASSWORD)
-    sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_USER, process.env.MYSQL_PASSWORD, {host: '172.18.0.2', dialect: 'mysql'});
+    sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
