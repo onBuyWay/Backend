@@ -20,7 +20,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             docker stop mysql-container onbuyway-node
-            docker rm mysql-container onbuyway-node
+            docker rm -f mysql-container onbuyway-node
+            docker rmi kevin71336099/onbuyway-node:latest
             sudo wget -O docker-compose.yml https://raw.githubusercontent.com/onBuyWay/Backend/main/docker-compose.yml
             docker-compose pull
             docker-compose up -d --build
