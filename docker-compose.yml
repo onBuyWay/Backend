@@ -17,7 +17,7 @@ services:
     env_file:
       - ./.env
     environment:
-    MYSQL_HOST: mysql
+      MYSQL_HOST: mysql
     ports:
       - '80:80'
     container_name: onbuyway-node
