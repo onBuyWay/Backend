@@ -41,7 +41,7 @@ onBuyWay 是一個電子商務後端專案，它使用 Express 和 PostgreSQL �
 ## DB Architecture - 資料庫架構
 
 <p align="center">
-  <img src="https://github.com/onBuyWay/Backend/onBuyWay _DataBase_Arc.png" alt="onBuyWay _DataBase_Arc"/>
+  <img src="https://github.com/onBuyWay/Backend/blob/main/onBuyWay%20_DataBase_Arc.png" alt="onBuyWay _DataBase_Arc"/>
 </p>
 
 ## APIs Document- API 文件
