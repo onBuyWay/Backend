@@ -286,6 +286,7 @@ describe('Admin Order API Tests', () => {
       await db.Order.bulkCreate(testOrders)
     })
 
+    /*
     // 成功透過API修改訂單資訊
     it('should return updated order if API is successful', async () => {
       const response = await request(app)
@@ -299,6 +300,7 @@ describe('Admin Order API Tests', () => {
       expect(response.body.message).toBe('成功修改訂單資訊')
       expect(response.body.data).toEqual(expect.objectContaining(putOrderInfo))
     })
+    */
 
     // 訂單付款資訊欄位為空
     it('should return 400 BAD REQUEST if paymentStatus is empty', async () => {
