@@ -15,11 +15,11 @@ module.exports = {
           #鑑賞期內退貨免運費，退貨時必須回復至您收到商品時的原始狀態，包含主商品、配件、包裝吊牌完整、活動贈品及出貨單等。
           復古休閒單品 精工香草綠洗舊 百搭基本款
           `,
-          stockQuantity: 50,
-          costPrice: 2000,
-          sellPrice: 3000,
-          productStatus: true,
-          categoryId: 1,
+          stock_quantity: 50,
+          cost_price: 2000,
+          sell_price: 3000,
+          product_status: true,
+          category_id: 1,
           created_at: new Date(),
           updated_at: new Date()
         },
