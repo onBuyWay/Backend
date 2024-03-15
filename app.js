@@ -7,13 +7,14 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger-output.json')
 const cors = require('cors')
 
-// setting cors
+// setting cors options
 const corsOptions = {
   origin: process.env.FRONTEND_ORIGIN,
   credentials: true,
   maxAge: 1728000
 }
 
+// using cors
 app.use(cors(corsOptions))
 
 // setting bodyParser
