@@ -43,11 +43,11 @@ module.exports = {
           ⭐布料首次洗滌時易釋出染劑，屬於正常現象
           ⭐商品勿長時間浸泡、勿使用漂白水、勿使用烘衣機
           `,
-          stockQuantity: 1000,
-          costPrice: 100,
-          sellPrice: 200,
-          productStatus: true,
-          categoryId: 2,
+          stock_quantity: 1000,
+          cost_price: 100,
+          sell_price: 200,
+          product_status: true,
+          category_id: 2,
           created_at: new Date(),
           updated_at: new Date()
         },
@@ -103,11 +103,11 @@ module.exports = {
           
           ＊此為官方唯一旗艦店，若有需協助事項可透過蝦皮聊聊與客服聯繫
           `,
-          stockQuantity: 50,
-          costPrice: 2500,
-          sellPrice: 4500,
-          productStatus: true,
-          categoryId: 3,
+          stock_quantity: 50,
+          cost_price: 2500,
+          sell_price: 4500,
+          product_status: true,
+          category_id: 3,
           created_at: new Date(),
           updated_at: new Date()
         },
@@ -131,11 +131,11 @@ module.exports = {
           💓包裝尺寸:270*210*100(mm)
           💓包裝重量:1150g
           `,
-          stockQuantity: 200,
-          costPrice: 300,
-          sellPrice: 699,
-          productStatus: true,
-          categoryId: 4,
+          stock_quantity: 200,
+          cost_price: 300,
+          sell_price: 699,
+          product_status: true,
+          category_id: 4,
           created_at: new Date(),
           updated_at: new Date()
         },
@@ -168,11 +168,11 @@ module.exports = {
 
           使用方便：易於存放、取用自如。
           `,
-          stockQuantity: 20,
-          costPrice: 10,
-          sellPrice: 49,
-          productStatus: true,
-          categoryId: 5,
+          stock_quantity: 20,
+          cost_price: 10,
+          sell_price: 49,
+          product_status: true,
+          category_id: 5,
           created_at: new Date(),
           updated_at: new Date()
         },
@@ -195,11 +195,11 @@ module.exports = {
           藥商地址:台北市松山區八德路四段760號11樓之1、之2及14樓
           藥商諮詢專線:(02)27421234
           `,
-          stockQuantity: 200,
-          costPrice: 50,
-          sellPrice: 200,
-          productStatus: true,
-          categoryId: 6,
+          stock_quantity: 200,
+          cost_price: 50,
+          sell_price: 200,
+          product_status: true,
+          category_id: 6,
           created_at: new Date(),
           updated_at: new Date()
         },
@@ -241,11 +241,11 @@ module.exports = {
 
           製造日期見包裝說明
           `,
-          stockQuantity: 8000,
-          costPrice: 50,
-          sellPrice: 140,
-          productStatus: true,
-          categoryId: 7,
+          stock_quantity: 8000,
+          cost_price: 50,
+          sell_price: 140,
+          product_status: true,
+          category_id: 7,
           created_at: new Date(),
           updated_at: new Date()
         },
@@ -313,11 +313,11 @@ module.exports = {
           
           投保產品責任險字號: 華南產物產品責任保險單1400第122050496號 
           `,
-          stockQuantity: 2000,
-          costPrice: 40,
-          sellPrice: 85,
-          productStatus: true,
-          categoryId: 8,
+          stock_quantity: 2000,
+          cost_price: 40,
+          sell_price: 85,
+          product_status: true,
+          category_id: 8,
           created_at: new Date(),
           updated_at: new Date()
         },
@@ -353,11 +353,11 @@ module.exports = {
           
             - Windows/Mac/IOS/Android 電腦筆電, 手機iPhone15 Android, iPad 隨插即用, 不需安裝軟體
           `,
-          stockQuantity: 800,
-          costPrice: 250,
-          sellPrice: 450,
-          productStatus: true,
-          categoryId: 9,
+          stock_quantity: 800,
+          cost_price: 250,
+          sell_price: 450,
+          product_status: true,
+          category_id: 9,
           created_at: new Date(),
           updated_at: new Date()
         },
@@ -377,11 +377,11 @@ module.exports = {
           
           狼人的嚎叫近在咫尺，只有4分鐘的時間尋找魔法咒語，保護先知，拯救你們的小鎮吧！ 搭配行動裝置《狼人真言》應用程式。在Gokids.com.tw 下載應用程式(APP)遊戲適合8歲以上，4-10位玩家，時間10分鐘。
           `,
-          stockQuantity: 200,
-          costPrice: 200,
-          sellPrice: 500,
-          productStatus: true,
-          categoryId: 10,
+          stock_quantity: 200,
+          cost_price: 200,
+          sell_price: 500,
+          product_status: true,
+          category_id: 10,
           created_at: new Date(),
           updated_at: new Date()
         }
