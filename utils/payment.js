@@ -8,9 +8,9 @@ const hashIV = process.env.HASH_IV
 const MerchantID = process.env.MERCHANT_ID
 
 // 交易成功返回商店URL
-const ReturnURL = URL + '/api/newebpay_notify'
+const ReturnURL = URL + '/api/newebpay_notify?from=ReturnURL'
 // 交易成功通知商店server URL
-const NotifyURL = URL + '/api/newebpay_notify'
+const NotifyURL = URL + '/api/newebpay_notify?from=NotifyURL'
 // 返回URL
 const ClientBackURL = URL
 
