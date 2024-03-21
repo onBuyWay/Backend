@@ -30,13 +30,11 @@ app.use(
   session({
     secret: 'secret',
     resave: 'false',
-    saveUninitialized: 'false'
-    /*
+    saveUninitialized: 'false',
     cookie: {
-      SameSite: 'none',
-      secure: process.env.NODE_ENV === 'production'
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none'
     }
-    */
   })
 )
 
