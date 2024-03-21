@@ -9,7 +9,7 @@ const cors = require('cors')
 
 // setting cors options
 const corsOptions = {
-  origin: "*",
+  origin: 'http://ec2-54-206-88-241.ap-southeast-2.compute.amazonaws.com',
   credentials: true,
   maxAge: 1728000
 }
