@@ -7,9 +7,12 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger-output.json')
 const cors = require('cors')
 
+// setting origin
+const origins = ['https://onbuyway-tw.web.app', 'http://ec2-54-206-88-241.ap-southeast-2.compute.amazonaws.com']
+
 // setting cors options
 const corsOptions = {
-  origin: 'http://ec2-54-206-88-241.ap-southeast-2.compute.amazonaws.com',
+  origin: origins,
   credentials: true,
   maxAge: 1728000
 }
