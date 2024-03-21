@@ -14,6 +14,7 @@ const corsOptions = {
   maxAge: 1728000
 }
 
+// using cors
 app.use(cors(corsOptions))
 
 // setting bodyParser
