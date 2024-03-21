@@ -9,7 +9,7 @@ const cors = require('cors')
 
 // setting cors options
 const corsOptions = {
-  origin: process.env.FRONTEND_ORIGIN,
+  origin: "*",
   credentials: true,
   maxAge: 1728000
 }
@@ -28,10 +28,6 @@ app.use(
     secret: 'secret',
     resave: 'false',
     saveUninitialized: 'false',
-    cookie: {
-      sameSite: 'none',
-      secure: true
-    }
   })
 )
 
