@@ -18,6 +18,11 @@ const corsOptions = {
   maxAge: 1728000
 }
 
+const cookieConfig = {
+  sameSite: none,
+  secure: process.env.NODE_ENV === 'production'
+}
+
 app.use(cors(corsOptions))
 
 // setting bodyParser
@@ -32,10 +37,7 @@ app.use(
     secret: 'secret',
     resave: 'false',
     saveUninitialized: 'false',
-    cookie: {
-      sameSite: none,
-      secure: process.env.NODE_ENV === 'production'
-    }
+    cookie: process.env.NODE_ENV === 'production' ? cookieConfig : {}
   })
 )
 
