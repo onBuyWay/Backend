@@ -6,6 +6,7 @@ const app = express()
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger-output.json')
 const cors = require('cors')
+const { none } = require('./middleware/multer')
 
 // setting origin
 const origins = ['https://onbuyway-tw.web.app', 'http://ec2-54-206-88-241.ap-southeast-2.compute.amazonaws.com']
@@ -31,6 +32,10 @@ app.use(
     secret: 'secret',
     resave: 'false',
     saveUninitialized: 'false',
+    cookie: {
+      sameSite: none,
+      secret: true
+    }
   })
 )
 
